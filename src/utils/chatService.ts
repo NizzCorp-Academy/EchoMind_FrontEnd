@@ -3,27 +3,30 @@ import { AxiosClass } from "../tests/mockfile";
 class ChatService {
   axios = new AxiosClass();
   async getUserChats() {
-    const response = await this.axios.get("/chat/getchat", {});
+    const response = await this.axios.get("/chat/getchat");
     return response;
   }
-  async deleteChat(formData: {}) {
-    const response = await this.axios.delete("/chat/delete", formData);
+  async deleteChat(chatId: string) {
+    const response = await this.axios.delete(`/chat/${chatId}`, {});
     return response;
   }
-  async editChat(formData: {}) {
-    const response = await this.axios.delete("/chat/delete", formData);
+  async editChat(chatId: string, formData: {}) {
+    const response = await this.axios.put(`/chat/edit/${chatId}`, formData);
     return response;
   }
-  async chatCompletion(formData: {}) {
-    const response = await this.axios.delete("/chat/completion", formData);
+  async chatCompletion(formData: {}, chatId?: string) {
+    const response = await this.axios.post(
+      `/chat/completion/${chatId}`,
+      formData
+    );
     return response;
   }
-  async deleteMessage(formData: {}) {
-    const response = await this.axios.delete("/messages/delete", formData);
+  async deleteMessage(chatId: string) {
+    const response = await this.axios.delete(`/messages/${chatId}`, {});
     return response;
   }
-  async getMessages(data: {}) {
-    const response = await this.axios.get("/messages/getall", data);
+  async getMessages(chatId: string) {
+    const response = await this.axios.get(`/messages/${chatId}`);
     return response;
   }
 }

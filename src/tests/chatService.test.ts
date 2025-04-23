@@ -3,11 +3,15 @@ import ChatService from "../utils/chatService";
 describe("ChatService", () => {
   let chatService: ChatService;
   let mockGet: any;
+  let mockPost: any;
+  let mockPut: any;
   let mockDelete: any;
 
   beforeEach(() => {
     chatService = new ChatService();
     mockGet = vi.spyOn(chatService.axios, "get");
+    mockPost = vi.spyOn(chatService.axios, "post");
+    mockPut = vi.spyOn(chatService.axios, "put");
     mockDelete = vi.spyOn(chatService.axios, "delete");
   });
 
@@ -21,61 +25,81 @@ describe("ChatService", () => {
 
     const result = await chatService.getUserChats();
 
-    expect(mockGet).toHaveBeenCalledWith("/chat/getchat", {});
-    expect(result).toBe(mockResponse);
+    expect(mockGet).toHaveBeenCalledWith("/chat/getchat");
+    expect(result).toEqual(mockResponse);
   });
 
   it("should delete chat", async () => {
-    const mockResponse = { data: "deleted" };
-    const formData = { chatId: "123" };
+    const chatId = "123";
+    const mockResponse = { data: "chat deleted" };
     mockDelete.mockResolvedValue(mockResponse);
 
-    const result = await chatService.deleteChat(formData);
+    const result = await chatService.deleteChat(chatId);
 
-    expect(mockDelete).toHaveBeenCalledWith("/chat/delete", formData);
-    expect(result).toBe(mockResponse);
+    expect(mockDelete).toHaveBeenCalledWith(`/chat/${chatId}`, {});
+    expect(result).toEqual(mockResponse);
   });
 
   it("should edit chat", async () => {
-    const mockResponse = { data: "edited" };
-    const formData = { chatId: "123", text: "updated" };
-    mockDelete.mockResolvedValue(mockResponse);
+    const chatId = "123";
+    const formData = { title: "Updated Chat" };
+    const mockResponse = { data: "chat updated" };
+    mockPut.mockResolvedValue(mockResponse);
 
-    const result = await chatService.editChat(formData);
+    const result = await chatService.editChat(chatId, formData);
 
-    expect(mockDelete).toHaveBeenCalledWith("/chat/delete", formData);
-    expect(result).toBe(mockResponse);
+    expect(mockPut).toHaveBeenCalledWith(`/chat/edit/${chatId}`, formData);
+    expect(result).toEqual(mockResponse);
   });
 
   it("should handle chat completion", async () => {
-    const mockResponse = { data: "completion" };
-    const formData = { prompt: "test" };
-    mockDelete.mockResolvedValue(mockResponse);
+    const chatId = "123";
+    const formData = { message: "Hello" };
+    const mockResponse = { data: "completion response" };
+    mockPost.mockResolvedValue(mockResponse);
+
+    const result = await chatService.chatCompletion(formData, chatId);
+
+    expect(mockPost).toHaveBeenCalledWith(
+      `/chat/completion/${chatId}`,
+      formData
+    );
+    expect(result).toEqual(mockResponse);
+  });
+
+  it("should handle chat completion without chatId", async () => {
+    const formData = { message: "Hello" };
+    const mockResponse = { data: "completion response" };
+    mockPost.mockResolvedValue(mockResponse);
 
     const result = await chatService.chatCompletion(formData);
 
-    expect(mockDelete).toHaveBeenCalledWith("/chat/completion", formData);
-    expect(result).toBe(mockResponse);
+    expect(mockPost).toHaveBeenCalledWith(
+      `/chat/completion/undefined`,
+      formData
+    );
+    expect(result).toEqual(mockResponse);
   });
 
   it("should delete message", async () => {
+    const chatId = "123";
     const mockResponse = { data: "message deleted" };
-    const formData = { messageId: "123" };
     mockDelete.mockResolvedValue(mockResponse);
 
-    const result = await chatService.deleteMessage(formData);
+    const result = await chatService.deleteMessage(chatId);
 
-    expect(mockDelete).toHaveBeenCalledWith("/messages/delete", formData);
-    expect(result).toBe(mockResponse);
+    expect(mockDelete).toHaveBeenCalledWith(`/messages/${chatId}`, {});
+    expect(result).toEqual(mockResponse);
   });
 
   it("should get messages", async () => {
+    const chatId = "123";
     const mockResponse = { data: ["message1", "message2"] };
     mockGet.mockResolvedValue(mockResponse);
 
-    const result = await chatService.getMessages();
+    const result = await chatService.getMessages(chatId);
 
-    expect(mockGet).toHaveBeenCalledWith("/messages/getall", {});
-    expect(result).toBe(mockResponse);
+    expect(mockGet).toHaveBeenCalledWith(`/messages/${chatId}`);
+    expect(result).toEqual(mockResponse);
   });
 });

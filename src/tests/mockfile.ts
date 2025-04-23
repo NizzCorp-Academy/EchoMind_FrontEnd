@@ -1,5 +1,5 @@
 export class AxiosClass {
-  get(url: string, formData: {}) {
+  get(url: string) {
     //some
   }
   post(url: string, formData: {}) {
