@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import UserService from "../utils/userService";
+import UserService from "../services/userService";
 
 // Mock the AxiosClass
 vi.mock("./mockfile", () => ({

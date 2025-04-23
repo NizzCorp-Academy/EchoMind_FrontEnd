@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import ChatService from "../utils/chatService";
+import ChatService from "../services/chatService";
 describe("ChatService", () => {
   let chatService: ChatService;
   let mockGet: any;
