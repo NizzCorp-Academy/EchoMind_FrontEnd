@@ -1,11 +1,3 @@
-import AxiosClass from "../utils/axios";
-
-
-interface User {
-  id?: string;
-  name?: string;
-  email?: string;
-}
 /**
  * @file userService.ts
  * @author Jaseem
@@ -18,6 +10,8 @@ interface User {
  * @details This file contains the UserService class which handles all user-related
  * API communications including registration, login, and user profile management.
  */
+
+import AxiosClass from "../utils/axios";
 
 
 /**
@@ -38,12 +32,7 @@ interface User {
  * @endcode
  */
 class UserService {
-  /**
-   * @var axios
-   * @brief Axios instance for making HTTP requests
-   * @private
-   */
-  axios = new AxiosClass();
+
 
   /**
    * @fn async register(data: {})
@@ -53,7 +42,7 @@ class UserService {
    * @throws {Error} When registration fails
    */
   async register(data: {}) {
-    const response = await this.axios.post("/auth/register", data);
+    const response = await AxiosClass.post("/auth/register", data);
     return response;
   }
 
@@ -65,7 +54,7 @@ class UserService {
    * @throws {Error} When authentication fails
    */
   async login(data: {}) {
-    const response = await this.axios.post("/auth/login", data);
+    const response = await AxiosClass.post("/auth/login", data);
     return response;
   }
 
@@ -76,10 +65,9 @@ class UserService {
    * @throws {Error} When profile retrieval fails
    */
   async getUser() {
-    const response = await this.axios.get("/auth/me");
+    const response = await AxiosClass.get("/auth/me");
     return response;
   }
-  
 }
 
 export default UserService;
