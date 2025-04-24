@@ -2,11 +2,15 @@
  * @file chatHook
  * @brief file for all the Chat related Hook which are in the ChatHook class
  * @author Jaseem
+ * @author Muhammad Haseen
  */
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import {
+  deleteChatAsyncThunk,
+  deleteMessageAsyncThunk,
   editChatAsyncThunk,
+  getChatMessageAsyncThunk,
   getResponseAsyncThunk,
   getUserChatsAsyncThunk,
 } from "../features/chat/chatSlice";
@@ -56,6 +60,10 @@ class ChatHook {
     const getChats = () => dispatch(getUserChatsAsyncThunk());
     return { chats, getChats, isGettingChat };
   }
+    /**
+   * @brief Custom hook to delete a message from the chat.
+   * @returns An object containing messages, a function to delete a message, and deletion state.
+   */
   useDeleteMessage(){
     const {messages,isDelettingMessage} =useSelector(
       (state: RootState) => state.chat
@@ -64,6 +72,10 @@ class ChatHook {
     const deleteMessage = (messageId:string)=>dispatch(deleteMessageAsyncThunk(messageId));
     return {messages,deleteMessage,isDelettingMessage}
   }
+    /**
+   * @brief Custom hook to delete a chat.
+   * @returns An object containing chats, a function to delete a chat, and message deletion state.
+   */
   useDeleteChat() {
     const { chats, isDelettingMessage } = useSelector(
       (state: RootState) => state.chat
@@ -73,7 +85,10 @@ class ChatHook {
   
     return {  chats, deleteChat, isDelettingMessage };
   }
-  
+    /**
+   * @brief Custom hook to get messages for a chat.
+   * @returns An object containing messages, a function to fetch messages, and fetch state.
+   */
   useGetMessage() {
     const { messages, isGettingMessage } = useSelector(
       (state: RootState) => state.chat
