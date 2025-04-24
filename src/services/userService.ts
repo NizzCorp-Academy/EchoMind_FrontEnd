@@ -1,20 +1,29 @@
-import { AxiosClass } from "../tests/mockfile";
+import AxiosClass from "../utils/axios";
+
+
+interface User {
+  id?: string;
+  name?: string;
+  email?: string;
+}
 
 class UserService {
-  axios = new AxiosClass();
+  axios = AxiosClass; 
+  async register(data: {}): Promise<User> {
+    const user = await this.axios.post("/auth/register", data);
+    return user; 
+  }
 
-  async register(data: {}) {
-    const response = await this.axios.post("/auth/register", data);
-    return response;
+  async login(data: {}): Promise<User> {
+    const user = await this.axios.post("/auth/login", data);
+    return user;
   }
-  async login(data: {}) {
-    const response = await this.axios.post("/auth/login", data);
-    return response;
+
+  async getUser(): Promise<User> {
+    const user = await this.axios.get("/auth/me");
+    return user;
   }
-  async getUser() {
-    const response = await this.axios.get("/auth/me");
-    return response;
-  }
+  
 }
 
 export default UserService;
