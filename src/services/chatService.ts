@@ -12,7 +12,7 @@
  * @copyright Copyright (c) 2025 EchoMind
  */
 
-import { AxiosClass } from "../tests/mockfile";
+import AxiosClass from "../utils/axios";
 
 /**
  * @interface AxiosResponse
@@ -92,8 +92,6 @@ interface ChatFormData {
  * @brief Provides methods for interacting with chat-related APIs.
  */
 class ChatService {
-  private axios = new AxiosClass();
-
   /**
    * @brief Fetches the list of user chats.
    * @return A promise resolving to a ServiceResponse containing the list of chats.
@@ -101,12 +99,13 @@ class ChatService {
   async getUserChats(): Promise<ServiceResponse<AxiosChatResponse["chats"]>> {
     try {
       const response: AxiosErrorRespnse | AxiosChatResponse =
-        await this.axios.get("/chat/getchat");
+        await AxiosClass.get("/chat/getchat");
 
       if (response.status === "error") {
-        return { error: response.message };
+        return { error: (response as AxiosErrorRespnse).message };
       }
-      return { data: response.chats };
+      // TypeScript now knows response is AxiosChatResponse
+      return { data: (response as AxiosChatResponse).chats };
     } catch (error) {
       return { error: "Failed to fetch chats" };
     }
@@ -119,7 +118,7 @@ class ChatService {
    */
   async deleteChat(chatId: string): Promise<ServiceResponse<void>> {
     try {
-      const response = await this.axios.delete(`/chat/${chatId}`, {});
+      const response = await AxiosClass.delete(`/chat/${chatId}`);
 
       if (response.status === "error") {
         return { error: response.message };
@@ -141,7 +140,7 @@ class ChatService {
     formData: ChatFormData
   ): Promise<ServiceResponse<void>> {
     try {
-      const response = await this.axios.put(`/chat/edit/${chatId}`, formData);
+      const response = await AxiosClass.put(`/chat/edit/${chatId}`, formData);
 
       if (response.status === "error") {
         return { error: response.message };
@@ -164,12 +163,12 @@ class ChatService {
   ): Promise<ServiceResponse<AxiosChatResponse["response"]>> {
     try {
       const response: AxiosErrorRespnse | AxiosChatResponse =
-        await this.axios.post(`/chat/completion/${chatId}`, formData);
+        await AxiosClass.post(`/chat/completion/${chatId}`, formData);
 
       if (response.status === "error") {
-        return { error: response.message };
+        return { error: (response as AxiosErrorRespnse).message };
       }
-      return { data: response.response };
+      return { data: (response as AxiosChatResponse).response };
     } catch (error) {
       return { error: "Failed to complete chat" };
     }
@@ -182,9 +181,8 @@ class ChatService {
    */
   async deleteMessage(chatId: string): Promise<ServiceResponse<void>> {
     try {
-      const response: AxiosErrorRespnse = await this.axios.delete(
-        `/messages/${chatId}`,
-        {}
+      const response: AxiosErrorRespnse = await AxiosClass.delete(
+        `/messages/${chatId}`
       );
       if (response.status === "error") {
         return { error: response.message };
@@ -205,12 +203,12 @@ class ChatService {
   ): Promise<ServiceResponse<AxiosChatResponse["messages"]>> {
     try {
       const response: AxiosChatResponse | AxiosErrorRespnse =
-        await this.axios.get(`/messages/${chatId}`);
+        await AxiosClass.get(`/messages/${chatId}`);
       if (response.status === "error") {
-        return { error: response.message };
+        return { error: (response as AxiosErrorRespnse).message };
       }
 
-      return { data: response.messages };
+      return { data: (response as AxiosChatResponse).messages };
     } catch (error) {
       return { error: "Failed to fetch messages" };
     }
