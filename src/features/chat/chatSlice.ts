@@ -203,3 +203,5 @@ export const deleteMessageAsyncThunk = createAsyncThunk(
     return messageId;
   }
 );
+
+export default chatSlice.reducer;

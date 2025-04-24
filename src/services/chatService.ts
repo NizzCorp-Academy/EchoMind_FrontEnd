@@ -98,8 +98,9 @@ class ChatService {
    */
   async getUserChats(): Promise<ServiceResponse<AxiosChatResponse["chats"]>> {
     try {
-      const response: AxiosErrorRespnse | AxiosChatResponse =
-        await AxiosClass.get("/chat/getchat");
+      const response = (await AxiosClass.get("/chat/getchat")) as
+        | AxiosErrorRespnse
+        | AxiosChatResponse;
 
       if (response.status === "error") {
         return { error: (response as AxiosErrorRespnse).message };
@@ -118,10 +119,12 @@ class ChatService {
    */
   async deleteChat(chatId: string): Promise<ServiceResponse<void>> {
     try {
-      const response = await AxiosClass.delete(`/chat/${chatId}`);
+      const response = (await AxiosClass.delete(
+        `/chat/${chatId}`
+      )) as AxiosErrorRespnse;
 
       if (response.status === "error") {
-        return { error: response.message };
+        return { error: (response as AxiosErrorRespnse).message };
       }
       return { data: undefined };
     } catch (error) {
@@ -140,10 +143,13 @@ class ChatService {
     formData: ChatFormData
   ): Promise<ServiceResponse<void>> {
     try {
-      const response = await AxiosClass.put(`/chat/edit/${chatId}`, formData);
+      const response = (await AxiosClass.put(
+        `/chat/edit/${chatId}`,
+        formData
+      )) as AxiosChatResponse | AxiosErrorRespnse;
 
       if (response.status === "error") {
-        return { error: response.message };
+        return { error: (response as AxiosErrorRespnse).message };
       }
       return { data: undefined };
     } catch (error) {
@@ -162,8 +168,10 @@ class ChatService {
     chatId?: string
   ): Promise<ServiceResponse<AxiosChatResponse["response"]>> {
     try {
-      const response: AxiosErrorRespnse | AxiosChatResponse =
-        await AxiosClass.post(`/chat/completion/${chatId}`, formData);
+      const response = (await AxiosClass.post(
+        `/chat/completion/${chatId}`,
+        formData
+      )) as AxiosErrorRespnse | AxiosChatResponse;
 
       if (response.status === "error") {
         return { error: (response as AxiosErrorRespnse).message };
@@ -181,9 +189,9 @@ class ChatService {
    */
   async deleteMessage(chatId: string): Promise<ServiceResponse<void>> {
     try {
-      const response: AxiosErrorRespnse = await AxiosClass.delete(
+      const response = (await AxiosClass.delete(
         `/messages/${chatId}`
-      );
+      )) as AxiosErrorRespnse;
       if (response.status === "error") {
         return { error: response.message };
       }
@@ -202,8 +210,9 @@ class ChatService {
     chatId: string
   ): Promise<ServiceResponse<AxiosChatResponse["messages"]>> {
     try {
-      const response: AxiosChatResponse | AxiosErrorRespnse =
-        await AxiosClass.get(`/messages/${chatId}`);
+      const response = (await AxiosClass.get(`/messages/${chatId}`)) as
+        | AxiosChatResponse
+        | AxiosErrorRespnse;
       if (response.status === "error") {
         return { error: (response as AxiosErrorRespnse).message };
       }
