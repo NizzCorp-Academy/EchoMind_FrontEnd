@@ -10,7 +10,7 @@ vi.mock("react-redux", () => ({
 
 // Mock thunks
 const mockDispatch = vi.fn();
-const mockThunk = vi.fn();
+const mockThunk = vi.fn(() => () => {});
 
 vi.mock("../../features/chat/chatSlice", () => ({
   deleteChatAsyncThunk: mockThunk,
@@ -62,4 +62,39 @@ describe("ChatHook", () => {
     getChats();
     expect(mockDispatch).toHaveBeenCalled();
   });
+  it("useGetMessage returns correct values and dispatches thunk", () => {
+    (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
+      cb({ chat: { messages: ["chat"], isGettingMessage: true } })
+    );
+    const hook = new ChatHook();
+    const {messages, getMessages, isGettingMessage } = hook.useGetMessage();
+    expect(messages).toEqual(["chat"]);
+    expect(isGettingMessage).toBe(true);
+    getMessages("123");
+    expect(mockDispatch).toHaveBeenCalled();
+  });
+  it("useDeleteMessage returns correct values and dispatches thunk", () => {
+    (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
+      cb({ chat: { messages: ["msg"], isDelettingMessage: true } })
+    );
+    const hook = new ChatHook();
+    const { messages, deleteMessage, isDelettingMessage } = hook.useDeleteMessage();
+    expect(messages).toEqual(["msg"]);
+    expect(isDelettingMessage).toBe(true);
+    deleteMessage("msgId");
+    expect(mockDispatch).toHaveBeenCalled();
+  });
+  it("useDeleteChat returns correct values and dispatches thunk", () => {
+    (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
+      cb({ chat: { chats: ["chat"], isDelettingMessage: true } })
+    );
+    const hook = new ChatHook();
+    const { chats, deleteChat, isDelettingMessage } = hook.useDeleteChat();
+    expect(chats).toEqual(["chat"]);
+    expect(isDelettingMessage).toBe(true);
+    deleteChat("msgId");
+    expect(mockDispatch).toHaveBeenCalled();
+  });
+ 
+  
 });

@@ -36,6 +36,32 @@ class ChatHook {
     const getChats = () => dispatch(getUserChatsAsyncThunk());
     return { chats, getChats, isGettingChat };
   }
+  useDeleteMessage(){
+    const {messages,isDelettingMessage} =useSelector(
+      (state: RootState) => state.chat
+    )
+    const dispatch = useDispatch<AppDispatch>();
+    const deleteMessage = (messageId:string)=>dispatch(deleteMessageAsyncThunk(messageId));
+    return {messages,deleteMessage,isDelettingMessage}
+  }
+  useDeleteChat() {
+    const { chats, isDelettingMessage } = useSelector(
+      (state: RootState) => state.chat
+    );
+    const dispatch = useDispatch<AppDispatch>();
+    const deleteChat = (chatId: string) => dispatch(deleteChatAsyncThunk(chatId));
+  
+    return {  chats, deleteChat, isDelettingMessage };
+  }
+  
+  useGetMessage() {
+    const { messages, isGettingMessage } = useSelector(
+      (state: RootState) => state.chat
+    );
+    const dispatch = useDispatch<AppDispatch>();
+    const getMessages = (chatId:string) => dispatch(getChatMessageAsyncThunk(chatId));
+    return { messages, getMessages, isGettingMessage };
+  }
 }
 
 export default ChatHook;
