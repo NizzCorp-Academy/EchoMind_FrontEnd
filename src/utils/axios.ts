@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios from "axios";
 
 /**
  * @class AxiosClass
@@ -12,7 +12,7 @@ import axios, { AxiosInstance } from "axios";
  */
 class AxiosClass {
   /** @private @static Axios instance configured with base URL and credentials */
-  private static api: AxiosInstance = axios.create({
+  private static api: Axios.AxiosInstance = axios.create({
     baseURL: "http://localhost:5000/api",
     withCredentials: true,
   });
