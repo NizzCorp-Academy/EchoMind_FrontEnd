@@ -1,1 +1,17 @@
 @import "tailwindcss";
+@import "autoprefixer";
+
+@layer utilities {
+    .bg-radial-top-left {
+    background-image:
+      radial-gradient(ellipse at top left, rgba(70, 15, 158, 0.25) 0%, rgba(70, 15, 158, 0) 100%),
+      linear-gradient(#0B0C0F, #0B0C0F); /* acts like solid background */
+    background-blend-mode: normal;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.footer-about-us {
+    @apply w-full h-full flex flex-col items-start px-12 py-8 bg-radial-top-left  bg-[#0B0C0F] gap-2 ;
+}
+}
+
