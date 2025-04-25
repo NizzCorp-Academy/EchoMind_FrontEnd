@@ -1,12 +1,11 @@
+import { LandingPage } from "./pages/LandingPage";
 
-import { Outlet } from 'react-router'
-
-const App = () => {
+function App() {
   return (
-    <div>
-      <Outlet/>
+    <div className="html">
+      <LandingPage />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
