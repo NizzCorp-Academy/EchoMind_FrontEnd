@@ -1,5 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
-@import "autoprefixer";
+
 
 @layer utilities {
     .bg-radial-top-left {
@@ -10,8 +11,7 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
-.footer-about-us {
-    @apply w-full h-full flex flex-col items-start px-12 py-8 bg-radial-top-left  bg-[#0B0C0F] gap-2 ;
 }
+.html {
+  scroll-behavior: smooth;
 }
-
