@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { useDispatch, useSelector } from "react-redux";
 import UserHook from "../hooks/userHook";
+import { registeringUserAsync } from "../features/user/userSlice";
 
 // Mock react-redux hooks
 vi.mock("react-redux", () => ({
@@ -11,12 +12,14 @@ vi.mock("react-redux", () => ({
 // Mock thunks/actions
 const mockDispatch = vi.fn();
 const mockLoginUserAsync = vi.fn(() => "loginThunk");
+const mockregisteringUserAsync = vi.fn(() => "registerThunk");
 const mockGettingUserAsync = vi.fn(() => "getUserThunk");
 
 // Mock userSlice
 vi.mock("../features/user/userSlice", () => ({
   loginUserAsync: (...args: any[]) => mockLoginUserAsync(...args),
   gettingUserAsync: (...args: any[]) => mockGettingUserAsync(...args),
+  registeringUserAsync: (...args: any[]) => mockregisteringUserAsync(...args),
 }));
 
 describe("UserHook", () => {
@@ -25,6 +28,23 @@ describe("UserHook", () => {
     (useDispatch as unknown as vi.Mock).mockReturnValue(mockDispatch);
   });
 
+  it("useRegister returns user, registerUser, and isregisterUser; registerUser dispatches thunk", () => {
+    // Fix: mock state shape to match what the hook expects
+    (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
+      cb({ user: { user: {}, isRegisteringUser: true } })
+    );
+    const hook = new UserHook();
+    const { user, registerUser, isRegisteringUser } = hook.useRegister();
+    expect(user).toEqual({});
+    expect(isRegisteringUser).toBe(true);
+    registerUser("bob", "a@b.com", "pw");
+    expect(mockregisteringUserAsync).toHaveBeenCalledWith({
+      username: "bob",
+      email: "a@b.com",
+      password: "pw",
+    });
+    expect(mockDispatch).toHaveBeenCalledWith("registerThunk");
+  });
   it("useLogin returns user, loginUser, and isLoggingUser; loginUser dispatches thunk", () => {
     // Fix: mock state shape to match what the hook expects
     (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
