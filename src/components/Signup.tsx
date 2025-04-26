@@ -10,9 +10,9 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import "../assets/styles/login.css";
 import UserHook from "../hooks/userHook";
 import { useNavigate } from "react-router";
+import { LandingPageNavBar } from "./LandingPageNavBar";
 
 /**
  * Validation schema for the signup form using Yup.
@@ -75,40 +75,41 @@ const Signup = () => {
   };
 
   return (
-    <div className="section bg-radial-top-left">
-      <h2 className="">Login to your account</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="">
-        <div className="info">
-          <label className="" htmlFor="username">
+    <div className="h-screen w-screen flex flex-col  items-center gap-10 bg-radial-top-left text-white py-8">
+      <LandingPageNavBar/>
+      <h2 className="text-3xl  font-bold">Create an account</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-3xl p-6 border border-white w-full md:w-1/2 flex flex-col gap-6 rounded-md">
+        <div className="flex flex-col gap-2">
+          <label className=" text-xl" htmlFor="username">
             User Name
           </label>
-          <input id="username" className="" {...register("username")} />
+          <input id="username" className="bg-[#1F1C1C]  p-2 rounded-md" {...register("username")} />
           <p className="text-red-600">{errors.username?.message}</p>
         </div>
-        <div className="info">
-          <label className="" htmlFor="email">
+        <div className="flex flex-col gap-2">
+          <label className=" text-xl" htmlFor="email">
             Email
           </label>
-          <input id="email" className="" {...register("email")} />
+          <input id="email" className="bg-[#1F1C1C]  p-2 rounded-md" {...register("email")} />
           <p className="text-red-600">{errors.email?.message}</p>
         </div>
-        <div className="info">
-          <label className="" htmlFor="password">
+        <div className="flex flex-col gap-2">
+          <label className=" text-xl" htmlFor="password">
             Password
           </label>
-          <input id="password" className="" {...register("password")} />
+          <input id="password" className="bg-[#1F1C1C]  p-2 rounded-md" {...register("password")} />
           <p className="text-red-600">{errors.password?.message}</p>
         </div>
         {isRegisteringUser === false ? (
-          <button className="submit-button" type="submit">
+          <button className="mx-auto w-full rounded-md  text-2xl font-medium py-2 bg-linear-to-r from-[#6E27E0] to-[#460F9E]" type="submit">
             Signup
           </button>
         ) : (
-          <span>registering...</span>
+          <span className="text-lg font-normal  mx-auto">registering...</span>
         )}
-        <span>
+        <span className="text-lg font-normal  mx-auto">
           Already have an account ?{" "}
-          <span className="span-signup" onClick={() => navigate("/login")}>
+          <span className="text-blue-800 cursor-pointer" onClick={() => navigate("/login")}>
             Login
           </span>{" "}
         </span>

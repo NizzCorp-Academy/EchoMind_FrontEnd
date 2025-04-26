@@ -1,9 +1,44 @@
 import { LandingPageNavBar } from "../components/LandingPageNavBar";
 import "../index.css";
 import { useNavigate } from "react-router";
+import data from "../assets/svg/data.svg";
+import timeFast from "../assets/svg/time-fast 1.svg";
+import user_speak from "../assets/svg/user-speaking 1.svg";
+import world from "../assets/svg/world.svg";
+import robo from "../assets/robo2.jpg";
 
 export const LandingPage = () => {
   const navigate = useNavigate();
+  interface Lists {
+    title: string;
+    description: string;
+    icon: string;
+  }
+  const lists: Lists[] = [
+    {
+      title: "Multilingual Communication",
+      description:
+        "Breaks language barriers and connects with users worldwide.",
+      icon: world,
+    },
+    {
+      title: "Data Insights & Analytics",
+      description:
+        "Tracks user interactions to improve service and decision-making.",
+      icon: data,
+    },
+    {
+      title: "Smart Conversations",
+      description:
+        "Understands queries and responds naturally using AI-powered language processing.",
+      icon: user_speak,
+    },
+    {
+      title: "Instant Responses",
+      description: "No more waiting — users get immediate answers, 24/7.",
+      icon: timeFast,
+    },
+  ];
   return (
     <div className="font-[Montserrat] text-white bg-[#0B0C0F]">
       {/* Header Section */}
@@ -47,7 +82,32 @@ export const LandingPage = () => {
           </div>
         </div>
       </div>
-
+      {/* HEADER END */}
+      {/* FEATURE START */}
+      <section className="w-full h-full flex flex-col items-start px-12 py-9 bg-radial-top-left  bg-[#0B0C0F] gap-2 ">
+        <h3 className="font-semibold">Features</h3>
+        <h2 className="text-white font-bold  text-4xl">
+          Say Hello to Smarter Support
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-6">
+          <div className="flex flex-col gap-4 my-5 md:my-0">
+            {lists.map((list, index) => (
+              <div
+                key={index}
+                className="flex flex-row items-start gap-4 p-4 rounded-xl shadow-md"
+              >
+                <img src={list.icon} alt={list.title} className="w-10 h-10" />
+                <div>
+                  <h3 className="text-lg text-white font-semibold">{list.title}</h3>
+                  <p className="text-sm font-medium">{list.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <img src={robo} alt="#" className="max-h-[800px]  object-contain" />
+        </div>
+      </section>
+      {/* FEATURE eND */}
       {/* Footer Section */}
       <div className="w-full h-full flex flex-col items-start px-12 py-8 bg-radial-top-left  bg-[#0B0C0F] gap-2 ">
         <div className="font-semibold" id="about">

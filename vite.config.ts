@@ -1,15 +1,20 @@
-import { defineConfig } from "vitest/config";
+/// <reference types="vitest/config" />
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import { configDefaults } from "vitest/config";
+
+// https://vite.dev/config/
+// export default defineConfig({
+//   plugins: [react(), tailwindcss()],
+// });
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  test: {
-    environment: "jsdom",
+  test: {coverage: {
+    provider: 'istanbul' // or 'v8'
+  },
     globals: true,
-    setupFiles: "./src/tests/setup.ts",
-    include: ["**/*.{test,spec}.{ts,tsx}"],
-    exclude: ["node_modules", "dist", ".idea", ".git", ".cache"],
+    environment: "jsdom",
+    setupFiles: "./src/setup.ts", // Adjust the path if needed
   },
 });
