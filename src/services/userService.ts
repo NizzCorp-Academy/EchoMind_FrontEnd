@@ -11,6 +11,7 @@
  * API communications including registration, login, and user profile management.
  */
 
+import { get_User, login_User, register_User } from "../constance/apiConstance";
 import AxiosClass from "../utils/axios";
 
 
@@ -42,7 +43,7 @@ class UserService {
    * @throws {Error} When registration fails
    */
   async register(data: {}) {
-    const response = await AxiosClass.post("/auth/register", data);
+    const response = await AxiosClass.post(register_User, data);
     return response;
   }
 
@@ -54,7 +55,7 @@ class UserService {
    * @throws {Error} When authentication fails
    */
   async login(data: {}) {
-    const response = await AxiosClass.post("/auth/login", data);
+    const response = await AxiosClass.post(login_User, data);
     return response;
   }
 
@@ -65,7 +66,7 @@ class UserService {
    * @throws {Error} When profile retrieval fails
    */
   async getUser() {
-    const response = await AxiosClass.get("/auth/me");
+    const response = await AxiosClass.get(get_User);
     return response;
   }
 }
