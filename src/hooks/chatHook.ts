@@ -57,22 +57,24 @@ class ChatHook {
       (state: RootState) => state.chat
     );
     const dispatch = useDispatch<AppDispatch>();
+    console.log("Call is getting to the hook");
     const getChats = () => dispatch(getUserChatsAsyncThunk());
     return { chats, getChats, isGettingChat };
   }
-    /**
+  /**
    * @brief Custom hook to delete a message from the chat.
    * @returns An object containing messages, a function to delete a message, and deletion state.
    */
-  useDeleteMessage(){
-    const {messages,isDelettingMessage} =useSelector(
+  useDeleteMessage() {
+    const { messages, isDelettingMessage } = useSelector(
       (state: RootState) => state.chat
-    )
+    );
     const dispatch = useDispatch<AppDispatch>();
-    const deleteMessage = (messageId:string)=>dispatch(deleteMessageAsyncThunk(messageId));
-    return {messages,deleteMessage,isDelettingMessage}
+    const deleteMessage = (messageId: string) =>
+      dispatch(deleteMessageAsyncThunk(messageId));
+    return { messages, deleteMessage, isDelettingMessage };
   }
-    /**
+  /**
    * @brief Custom hook to delete a chat.
    * @returns An object containing chats, a function to delete a chat, and message deletion state.
    */
@@ -81,11 +83,12 @@ class ChatHook {
       (state: RootState) => state.chat
     );
     const dispatch = useDispatch<AppDispatch>();
-    const deleteChat = (chatId: string) => dispatch(deleteChatAsyncThunk(chatId));
-  
-    return {  chats, deleteChat, isDelettingMessage };
+    const deleteChat = (chatId: string) =>
+      dispatch(deleteChatAsyncThunk(chatId));
+
+    return { chats, deleteChat, isDelettingMessage };
   }
-    /**
+  /**
    * @brief Custom hook to get messages for a chat.
    * @returns An object containing messages, a function to fetch messages, and fetch state.
    */
@@ -94,7 +97,8 @@ class ChatHook {
       (state: RootState) => state.chat
     );
     const dispatch = useDispatch<AppDispatch>();
-    const getMessages = (chatId:string) => dispatch(getChatMessageAsyncThunk(chatId));
+    const getMessages = (chatId?: string) =>
+      dispatch(getChatMessageAsyncThunk(chatId));
     return { messages, getMessages, isGettingMessage };
   }
 }

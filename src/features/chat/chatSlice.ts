@@ -178,7 +178,8 @@ export const getResponseAsyncThunk = createAsyncThunk(
  */
 export const getUserChatsAsyncThunk = createAsyncThunk(
   "chat/getUserChats",
-  async ({}, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
+    console.log("call is getting to the slice");
     const chatService = new ChatService();
     const { data, error } = await chatService.getUserChats();
     if (error) {
@@ -195,7 +196,7 @@ export const getUserChatsAsyncThunk = createAsyncThunk(
  */
 export const getChatMessageAsyncThunk = createAsyncThunk(
   "chat/getChatMessages",
-  async (chatId: string, { rejectWithValue }) => {
+  async (chatId: string | undefined, { rejectWithValue }) => {
     const chatService = new ChatService();
     const { data, error } = await chatService.getMessages(chatId);
     if (error) {

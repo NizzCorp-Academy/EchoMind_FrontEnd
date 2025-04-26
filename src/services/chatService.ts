@@ -61,11 +61,13 @@ interface AxiosChatResponse extends AxiosResponse {
     updatedAt: string;
   }[];
   messages?: {
-    _id: string;
-    isFromUser: boolean;
-    message: string;
-    chatId: string;
-  }[];
+    messages?: {
+      _id: string;
+      isFromUser: boolean;
+      message: string;
+      chatId: string;
+    }[];
+  };
 }
 
 /**
@@ -98,7 +100,7 @@ class ChatService {
    */
   async getUserChats(): Promise<ServiceResponse<AxiosChatResponse["chats"]>> {
     try {
-      const response = (await AxiosClass.get("/chat/getchat")) as
+      const response = (await AxiosClass.get("/chat/getChat")) as
         | AxiosErrorRespnse
         | AxiosChatResponse;
 
@@ -206,18 +208,20 @@ class ChatService {
    * @param chatId The ID of the chat whose messages are to be fetched.
    * @return A promise resolving to a ServiceResponse containing the list of messages.
    */
-  async getMessages(
-    chatId: string
-  ): Promise<ServiceResponse<AxiosChatResponse["messages"]>> {
+  async getMessages(chatId?: string) {
     try {
-      const response = (await AxiosClass.get(`/messages/${chatId}`)) as
+      const response = (await AxiosClass.get(`/message/${chatId}`)) as
         | AxiosChatResponse
         | AxiosErrorRespnse;
       if (response.status === "error") {
         return { error: (response as AxiosErrorRespnse).message };
       }
-
-      return { data: (response as AxiosChatResponse).messages };
+      const messagesArray = (response as AxiosChatResponse).messages;
+      if (!messagesArray?.messages) {
+        return { error: "Failed to fetch messages" };
+      }
+      const messge = messagesArray.messages;
+      return { data: messge };
     } catch (error) {
       return { error: "Failed to fetch messages" };
     }

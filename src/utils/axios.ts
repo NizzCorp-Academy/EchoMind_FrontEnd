@@ -34,7 +34,9 @@ class AxiosClass {
    * @returns The response data from the server.
    */
   static async post(endPoint: string, data: {}) {
+    console.log("befor sending Axios:", endPoint, data);
     const response = await this.api.post(endPoint, data);
+    console.log("after sending Axios:", response.data);
     return response.data;
   }
 

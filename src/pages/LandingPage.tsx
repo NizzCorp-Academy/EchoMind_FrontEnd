@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { LandingPageNavBar } from "../components/LandingPageNavBar";
 import "../index.css";
 import { useNavigate } from "react-router";

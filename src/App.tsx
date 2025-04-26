@@ -1,9 +1,9 @@
-import { LandingPage } from "./pages/LandingPage";
+import { ChatScreenPage } from "./pages/ChatScreen";
 
 function App() {
   return (
     <div className="html">
-      <LandingPage />
+      <ChatScreenPage />
     </div>
   );
 }
