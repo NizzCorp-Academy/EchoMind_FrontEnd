@@ -1,4 +1,5 @@
 import Login from "./components/Login";
+import Sidedbar from "./components/Sidebar";
 import Signup from "./components/Signup";
 import { LandingPage } from "./pages/LandingPage";
 
@@ -7,7 +8,8 @@ function App() {
     <div className="html ">
       {/* <LandingPage /> */}
       {/* <Login/> */}
-      <Signup/>
+      {/* <Signup/> */}
+      <Sidedbar/>
     </div>
   );
 }
