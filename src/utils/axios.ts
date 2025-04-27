@@ -14,7 +14,7 @@ import { base_Url } from "../constance/apiConstance";
 class AxiosClass {
   /** @private @static Axios instance configured with base URL and credentials */
   private static api: Axios.AxiosInstance = axios.create({
-    baseURL:base_Url,
+    baseURL: base_Url,
     withCredentials: true,
   });
 
@@ -23,8 +23,8 @@ class AxiosClass {
    * @param endPoint The API endpoint to send the GET request to.
    * @returns The response data from the server.
    */
-  static async get(endPoint: string) {
-    const response = await this.api.get(endPoint);
+  static async get<T>(endPoint: string): Promise<T> {
+    const response = await this.api.get<T>(endPoint);
     return response.data;
   }
 
@@ -34,8 +34,8 @@ class AxiosClass {
    * @param data The payload to send with the request.
    * @returns The response data from the server.
    */
-  static async post(endPoint: string, data: {}) {
-    const response = await this.api.post(endPoint, data);
+  static async post<T>(endPoint: string, data: {}): Promise<T> {
+    const response = await this.api.post<T>(endPoint, data);
     return response.data;
   }
 
@@ -45,8 +45,8 @@ class AxiosClass {
    * @param data The payload to update with the request.
    * @returns The response data from the server.
    */
-  static async put(endPoint: string, data: {}) {
-    const response = await this.api.put(endPoint, data);
+  static async put<T>(endPoint: string, data: {}): Promise<T> {
+    const response = await this.api.put<T>(endPoint, data);
     return response.data;
   }
 
@@ -55,8 +55,8 @@ class AxiosClass {
    * @param endPoint The API endpoint to send the DELETE request to.
    * @returns The response data from the server.
    */
-  static async delete(endPoint: string) {
-    const response = await this.api.delete(`${endPoint}`);
+  static async delete<T>(endPoint: string): Promise<T> {
+    const response = await this.api.delete<T>(`${endPoint}`);
     return response.data;
   }
 }
