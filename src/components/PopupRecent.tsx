@@ -1,75 +1,70 @@
-import React from "react";
 import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    IconButton,
-    DialogActions,
-  } from "@mui/material";
-  import CloseIcon from "@mui/icons-material/Close";
-  
-
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { FaArrowRight, FaCaretDown } from "react-icons/fa";
+import messageIcon from "../assets/svg/message.svg";
+import { useNavigate } from "react-router";
 import ChatHook from "../hooks/chatHook";
+import ChatLoading from "./ChatLoading";
+import { useEffect } from "react";
 
-interface PopupRecentProps {
-  showRecentTab: boolean;
-  setShowRecentTab: (value: boolean) => void;
-}
-
-const PopupRecent: React.FC<PopupRecentProps> = ({ showRecentTab, setShowRecentTab }) => {
+export function PopupRecent() {
+  const navigate = useNavigate();
   const chatHook = new ChatHook();
-  const { chats } = chatHook.useGetChats();
+  const { chats, isGettingChat, getChats } = chatHook.useGetChats();
+
+  useEffect(() => {
+    getChats();
+  }, []);
 
   return (
-    <Dialog
-      open={showRecentTab}
-      onClose={() => setShowRecentTab(false)}
-      fullWidth
-      maxWidth="sm"
-      PaperProps={{
-        style: {
-          backgroundColor: "#0F0F0F",
-          color: "white",
-          borderRadius: "10px",
-        },
-      }}
-      BackdropProps={{
-        style: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
-      }}
-    >
-      <div className="flex items-center justify-between px-4 pt-4">
-        <DialogTitle style={{ padding: 0 }}>All Chats</DialogTitle>
-        <IconButton
-          edge="end"
-          color="inherit"
-          onClick={() => setShowRecentTab(false)}
-          aria-label="close"
-        >
-          <CloseIcon />
-        </IconButton>
-      </div>
+    <Dialog>
+      <DialogTrigger asChild>
+      <span
+            className="flex items-center gap-2 font-light text-[#B9BABB] cursor-pointer"
+          
+          >
+            View all <FaArrowRight />
+          </span>
+      </DialogTrigger>
 
-      <DialogContent dividers>
-        {chats?.length === 0 ? (
-          <p>No chats found.</p>
-        ) : (
-          chats?.map((chat, index) => (
-            <div
-              key={index}
-              className="flex items-center gap-3 p-2 hover:bg-white/10 rounded cursor-pointer"
-            >
-              <span className="truncate">{chat.title}</span>
-            </div>
-          ))
-        )}
+      <DialogContent className="sm:max-w-md md:max-w-2xl bg-[#140C26] text-white max-h-[75vh] overflow-auto">
+        <DialogHeader>
+          <div className="flex items-center gap-2">
+            <FaCaretDown />
+            <span>Recents</span>
+          </div>
+        </DialogHeader>
+
+        <div className="flex flex-col gap-2 mt-4 w-full">
+          {isGettingChat ? (
+            <ChatLoading />
+          ) : chats?.length === 0 ? (
+            <span>No chats found.</span>
+          ) : (
+            chats &&
+            chats.map((chat) => (
+              <DialogClose asChild key={chat._id}>
+                <div
+                  onClick={() => navigate(`/${chat._id}`)}
+                  className="relative cursor-pointer flex items-center gap-3 h-10 pl-2 py-6 w-full rounded-md hover:bg-[#444C57] hover:border-l-4 border-[#7ABCFF] duration-300 "
+                >
+                  <img
+                    src={messageIcon}
+                    alt="chat"
+                    className="w-5 h-5 shrink-0"
+                  />
+                  <span className="truncate text-sm flex-1">{chat.title}</span>
+                </div>
+              </DialogClose>
+            ))
+          )}
+        </div>
       </DialogContent>
-
-      {/* Optional: Add DialogActions if you want buttons at bottom */}
-      {/* <DialogActions>
-        <Button onClick={() => setShowRecentTab(false)}>Close</Button>
-      </DialogActions> */}
     </Dialog>
   );
-};
-
-export default PopupRecent;
+}
