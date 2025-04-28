@@ -2,19 +2,21 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-
-// https://vite.dev/config/
-// export default defineConfig({
-//   plugins: [react(), tailwindcss()],
-// });
+import path from "path"; // 🛑 YOU MISSED THIS!
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  test: {coverage: {
-    provider: 'istanbul' // or 'v8'
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "src"), // 🛠️ ADD THIS
+    },
   },
+  test: {
+    coverage: {
+      provider: "istanbul", // or 'v8'
+    },
     globals: true,
     environment: "jsdom",
-    setupFiles: "./src/setup.ts", // Adjust the path if needed
+    setupFiles: "./src/setup.ts",
   },
 });

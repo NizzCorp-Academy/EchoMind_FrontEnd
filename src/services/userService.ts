@@ -1,72 +1,118 @@
-/**
- * @file userService.ts
- * @author Jaseem
- * @date 2025-04-24
- * @brief Service for handling user authentication and management
- * @version 1.0.0
- *
- * @copyright Copyright (c) 2025 EchoMind
- *
- * @details This file contains the UserService class which handles all user-related
- * API communications including registration, login, and user profile management.
- */
-
 import AxiosClass from "../utils/axios";
+import { login_User, register_User, get_User } from "../constance/apiConstance";
+import Cookies from "js-cookie";
 
+interface AxiosErrorResponse {
+  status: string;
+  errorCode: string;
+  message: string;
+  error: string;
+}
+
+interface AxiosUserResponse {
+  status: string;
+  user: {
+    username: string;
+    email: string;
+  };
+  token: string;
+}
 
 /**
- * @class UserService
- * @brief Service class for managing user operations
- * @since 1.0.0
- *
- * @details
- * This class provides methods for interacting with the user authentication API endpoints.
- * It handles operations such as user registration, login, and profile retrieval.
- *
- * @note All methods return promises that resolve to API responses
- *
- * @par Usage Example:
- * @code
- * const userService = new UserService();
- * await userService.login({ username: "user", password: "pass" });
- * @endcode
+ * @interface User
+ * @brief Represents a user object.
  */
+interface User {
+  username: string;
+  email: string;
+}
+
+/**
+ * @interface ServiceResponse
+ * @brief Generic service response structure.
+ */
+interface ServiceResponse<T> {
+  data?: T;
+  error?: string;
+}
+
 class UserService {
+  async register(data: {
+    username: string;
+    email: string;
+    password: string;
+  }): Promise<ServiceResponse<User>> {
+    try {
+      const response = await AxiosClass.post<AxiosUserResponse>(
+        register_User,
+        data
+      );
 
-
-  /**
-   * @fn async register(data: {})
-   * @brief Registers a new user
-   * @param data Object containing user registration details
-   * @return {Promise<any>} Promise containing registration response
-   * @throws {Error} When registration fails
-   */
-  async register(data: {}) {
-    const response = await AxiosClass.post("/auth/register", data);
-    return response;
+      if (response.status === "error") {
+        return { error: (response as unknown as AxiosErrorResponse).message };
+      }
+      Cookies.set("token", response.token);
+      return {
+        data: {
+          username: response.user.username,
+          email: response.user.email,
+        },
+      };
+    } catch (error: any) {
+      const err = error as { response?: { data?: { message?: string } } };
+      return { error: err.response?.data?.message || "Registration failed" };
+    }
   }
 
-  /**
-   * @fn async login(data: {})
-   * @brief Authenticates a user
-   * @param data Object containing login credentials
-   * @return {Promise<any>} Promise containing login response
-   * @throws {Error} When authentication fails
-   */
-  async login(data: {}) {
-    const response = await AxiosClass.post("/auth/login", data);
-    return response;
+  async login(data: {
+    email: string;
+    password: string;
+  }): Promise<ServiceResponse<User>> {
+    try {
+      const response = await AxiosClass.post<AxiosUserResponse>(
+        login_User,
+        data
+      );
+      Cookies.set("token", response.token);
+      if (response.status === "error") {
+        return { error: (response as unknown as AxiosErrorResponse).message };
+      }
+
+      Cookies.set("token", response.token);
+      return {
+        data: {
+          username: response.user.username,
+          email: response.user.email,
+        },
+      };
+    } catch (error: any) {
+      const err = error as { response?: { data?: { message?: string } } };
+      return { error: err.response?.data?.message || "Login failed" };
+    }
   }
 
-  /**
-   * @fn async getUser()
-   * @brief Retrieves current user's profile
-   * @return {Promise<any>} Promise containing user profile data
-   * @throws {Error} When profile retrieval fails
-   */
-  async getUser() {
-    const response = await AxiosClass.get("/auth/me");
-    return response;
+  async getUser(): Promise<ServiceResponse<User>> {
+    try {
+      const response = await AxiosClass.get<AxiosUserResponse>(get_User);
+
+      if (response.status === "error") {
+        return { error: (response as unknown as AxiosErrorResponse).message };
+      }
+
+      return {
+        data: {
+          username: response.user.username,
+          email: response.user.email,
+        },
+      };
+    } catch (error: any) {
+      const err = error as { response?: { data?: { message?: string } } };
+      return {
+        error:
+          err.response?.data?.message ||
+          "User details can't be retrieved at the moment.",
+      };
+    }
   }
 }
 

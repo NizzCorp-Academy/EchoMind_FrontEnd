@@ -1,9 +1,13 @@
-import { ChatScreenPage } from "./pages/ChatScreen";
+import { ChatScreenPage } from "./pages/ChatScreenPage";
 
 function App() {
   return (
-    <div className="html">
-      <ChatScreenPage />
+    <div className="html ">
+      {/* <LandingPage /> */}
+      <Login/>
+      {/* <Signup/> */}
+      <Sidedbar/>
+   
     </div>
   );
 }

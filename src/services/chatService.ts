@@ -12,6 +12,14 @@
  * @copyright Copyright (c) 2025 EchoMind
  */
 
+import {
+  chat_Completion,
+  delete_Chat,
+  delete_Message,
+  edit_Title,
+  get_Messages,
+  get_User_Chats,
+} from "../constance/apiConstance";
 import AxiosClass from "../utils/axios";
 
 /**
@@ -100,7 +108,7 @@ class ChatService {
    */
   async getUserChats(): Promise<ServiceResponse<AxiosChatResponse["chats"]>> {
     try {
-      const response = (await AxiosClass.get("/chat/getChat")) as
+      const response = (await AxiosClass.get(get_User_Chats)) as
         | AxiosErrorRespnse
         | AxiosChatResponse;
 
@@ -122,7 +130,7 @@ class ChatService {
   async deleteChat(chatId: string): Promise<ServiceResponse<void>> {
     try {
       const response = (await AxiosClass.delete(
-        `/chat/${chatId}`
+        `${delete_Chat}/${chatId}`
       )) as AxiosErrorRespnse;
 
       if (response.status === "error") {
@@ -146,7 +154,7 @@ class ChatService {
   ): Promise<ServiceResponse<void>> {
     try {
       const response = (await AxiosClass.put(
-        `/chat/edit/${chatId}`,
+        `${edit_Title}/${chatId}`,
         formData
       )) as AxiosChatResponse | AxiosErrorRespnse;
 
@@ -171,7 +179,7 @@ class ChatService {
   ): Promise<ServiceResponse<AxiosChatResponse["response"]>> {
     try {
       const response = (await AxiosClass.post(
-        `/chat/completion/${chatId}`,
+        `${chat_Completion}/${chatId}`,
         formData
       )) as AxiosErrorRespnse | AxiosChatResponse;
 
@@ -192,7 +200,7 @@ class ChatService {
   async deleteMessage(chatId: string): Promise<ServiceResponse<void>> {
     try {
       const response = (await AxiosClass.delete(
-        `/messages/${chatId}`
+        `${delete_Message}/${chatId}`
       )) as AxiosErrorRespnse;
       if (response.status === "error") {
         return { error: response.message };
@@ -210,7 +218,7 @@ class ChatService {
    */
   async getMessages(chatId?: string) {
     try {
-      const response = (await AxiosClass.get(`/message/${chatId}`)) as
+      const response = (await AxiosClass.get(`${get_Messages}/${chatId}`)) as
         | AxiosChatResponse
         | AxiosErrorRespnse;
       if (response.status === "error") {
