@@ -1,3 +1,12 @@
+/**
+ * @file PopupRecent.tsx
+ * @brief PopupRecent component for displaying recent chats in a dialog popup.
+ * @author Muhammad Haseen
+ *
+ * This component fetches and displays a list of recent chats inside a popup dialog.
+ * It allows the user to navigate to a specific chat by clicking on a chat item.
+ */
+
 import {
   Dialog,
   DialogClose,
@@ -12,6 +21,14 @@ import ChatHook from "../hooks/chatHook";
 import ChatLoading from "./ChatLoading";
 import { useEffect } from "react";
 
+/**
+ * @brief PopupRecent component for listing recent chats inside a popup dialog.
+ *
+ * Fetches recent chats and displays them inside a popup.
+ * Users can navigate to a selected chat by clicking on it.
+ *
+ * @returns {JSX.Element} The rendered PopupRecent component.
+ */
 export function PopupRecent() {
   const navigate = useNavigate();
   const chatHook = new ChatHook();
@@ -24,12 +41,9 @@ export function PopupRecent() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-      <span
-            className="flex items-center gap-2 font-light text-[#B9BABB] cursor-pointer"
-          
-          >
-            View all <FaArrowRight />
-          </span>
+        <span className="flex items-center gap-2 font-light text-[#B9BABB] cursor-pointer">
+          View all <FaArrowRight />
+        </span>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md md:max-w-2xl bg-[#140C26] text-white max-h-[75vh] overflow-auto">
@@ -50,8 +64,8 @@ export function PopupRecent() {
             chats.map((chat) => (
               <DialogClose asChild key={chat._id}>
                 <div
-                  onClick={() => navigate(`/${chat._id}`)}
-                  className="relative cursor-pointer flex items-center gap-3 h-10 pl-2 py-6 w-full rounded-md hover:bg-[#444C57] hover:border-l-4 border-[#7ABCFF] duration-300 "
+                  onClick={() => navigate(`/chats/${chat._id}`)}
+                  className="relative cursor-pointer flex items-center gap-3 h-10 pl-2 py-6 w-full rounded-md hover:bg-[#444C57] hover:border-l-4 border-[#7ABCFF] duration-300"
                 >
                   <img
                     src={messageIcon}

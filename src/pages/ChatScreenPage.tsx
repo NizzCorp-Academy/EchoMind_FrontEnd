@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { ChatScreen } from "../components/ChatScreen";
 import SideBar from "../components/Sidebar";
-
-export const ChatScreenPage = () => {
+interface Location{
+  location:string
+}
+export const ChatScreenPage = ({location}:Location) => {
   const [isDark, setIsDark] = useState(true);
   const [isOpen, setIsOpen] = useState(true);
   // const [sideBar, setSideBar] = useState(true);
@@ -25,7 +27,7 @@ export const ChatScreenPage = () => {
           !isOpen ? "w-[20%]" : "w-[0%]"
         } bg-yellow-500 transform transition-transform duration-300 `}
       /> */}
-      <SideBar isOpen={isOpen} toggleSideBar={toggleSideBar} />
+      <SideBar isOpen={isOpen} toggleSideBar={toggleSideBar} location={location} />
       <div
         className={`${
           isOpen ? "w-[80%]" : "w-[100%]"

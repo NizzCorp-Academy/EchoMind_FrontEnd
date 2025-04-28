@@ -6,14 +6,14 @@ import Signup from './components/Signup'
 import { ChatScreenPage } from './pages/ChatScreenPage'
 
 const App = () => {
-  const location = useLocation()
-  console.log(location)
+  const url = useLocation()
+  const location =url.pathname
   return (
     <Routes>
     <Route path="/" element={<LandingPage />} />
     <Route path="/login" element={<Login />} />
     <Route path="/register" element={<Signup />} />
-    <Route path="/chats/:chatId" element={<ChatScreenPage />} />
+    <Route path="/chats/:chatId" element={<ChatScreenPage location={location}/>} />
   </Routes>
   )
 }
