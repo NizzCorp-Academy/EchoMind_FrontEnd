@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { useDispatch, useSelector } from "react-redux";
 import UserHook from "../hooks/userHook";
-import { registeringUserAsync } from "../features/user/userSlice";
 
 // Mock react-redux hooks
 vi.mock("react-redux", () => ({
@@ -14,12 +13,14 @@ const mockDispatch = vi.fn();
 const mockLoginUserAsync = vi.fn(() => "loginThunk");
 const mockregisteringUserAsync = vi.fn(() => "registerThunk");
 const mockGettingUserAsync = vi.fn(() => "getUserThunk");
+const mockLogout= vi.fn(() => "logout");
 
 // Mock userSlice
 vi.mock("../features/user/userSlice", () => ({
   loginUserAsync: (...args: any[]) => mockLoginUserAsync(...args),
   gettingUserAsync: (...args: any[]) => mockGettingUserAsync(...args),
   registeringUserAsync: (...args: any[]) => mockregisteringUserAsync(...args),
+  logout: (...args: any[]) => mockLogout(...args),
 }));
 
 describe("UserHook", () => {
@@ -63,7 +64,7 @@ describe("UserHook", () => {
   });
 
   it("useGetUser returns user, getUser, and isGettingUser; getUser dispatches thunk", () => {
-    // Fix: mock state shape to match what the hook expects
+   
     (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
       cb({ user: { user: { name: "alice" }, isGettingUser: false } })
     );
@@ -75,4 +76,15 @@ describe("UserHook", () => {
     expect(mockGettingUserAsync).toHaveBeenCalled();
     expect(mockDispatch).toHaveBeenCalledWith("getUserThunk");
   });
+  it("useLogout should dispatch logout action", () => {
+    (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
+      cb({ user: { user: { name: "alice" }, isGettingUser: false } })
+    );
+    const hook = new UserHook();
+    const removeToken = hook.useLogout();
+    removeToken();
+    expect(mockLogout).toHaveBeenCalled();
+    expect(mockDispatch).toHaveBeenCalledWith(mockLogout());
+  });
+  
 });

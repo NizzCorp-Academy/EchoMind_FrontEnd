@@ -1,3 +1,19 @@
+/**
+ * @file userSlice.ts
+ * @author Muhammad Haseen
+ * @date 2025-04-28
+ * 
+ * @brief
+ * This file manages the user authentication state using Redux Toolkit's `createSlice` and `createAsyncThunk`.
+ * It handles user registration, login, fetching the current user's data, and logout functionalities.
+ * 
+ * @details
+ * - Defines the structure of the user object and initial authentication state.
+ * - Implements async thunks for API requests (register, login, get user).
+ * - Uses a slice to manage authentication state transitions during pending, fulfilled, and rejected phases of thunks.
+ * - Includes a logout reducer to clear user data from the store.
+ * 
+ */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import UserService from "../../services/userService";
 
@@ -97,11 +113,34 @@ export const gettingUserAsync = createAsyncThunk<
 
 /**
  * @brief Slice for managing user authentication state.
+ * 
+ * @details
+ * This slice handles user-related actions such as login, registration, fetching the current user, and logout.
+ * It uses Redux Toolkit's `createSlice` and `createAsyncThunk` for managing asynchronous actions and state updates.
  */
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+
+  /**
+   * @brief Reducers for synchronous actions.
+   */
+  reducers: {
+    /**
+     * @brief Logs out the user by clearing the user state.
+     * 
+     * @details
+     * This reducer sets the `user` state to `null`, effectively logging out the user.
+     * It does not handle token removal, which should be managed separately.
+     */
+    logout: (state) => {
+      state.user = null;
+    },
+  },
+
+  /**
+   * @brief Handles asynchronous actions for user-related operations.
+   */
   extraReducers: (builder) => {
     builder
       // Register User
@@ -142,8 +181,9 @@ export const userSlice = createSlice({
       .addCase(gettingUserAsync.rejected, (state, action) => {
         state.isGettingUser = false;
         state.error = action.payload || "Fetching user failed";
-      });
+      })
   },
 });
 
+export const { logout } = userSlice.actions;
 export default userSlice.reducer;

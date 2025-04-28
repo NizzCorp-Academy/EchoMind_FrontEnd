@@ -4,7 +4,12 @@ import reducer, {
   loginUserAsync,
   registeringUserAsync,
   gettingUserAsync,
+  logout,
+  logoutUserAsync,
 } from "../features/user/userSlice";
+import UserService from "../services/userService";
+import { RootState, store } from "@/redux/store";
+import Cookies from "js-cookie";
 
 vi.mock("../services/userService", () => {
   return {
@@ -12,6 +17,7 @@ vi.mock("../services/userService", () => {
       register: vi.fn(),
       login: vi.fn(),
       getUser: vi.fn(),
+      logOut: vi.fn(),  
     })),
   };
 });
@@ -118,3 +124,4 @@ describe("userSlice async thunks", () => {
     expect(state.error).toBe("fetching user failed");
   });
 });
+

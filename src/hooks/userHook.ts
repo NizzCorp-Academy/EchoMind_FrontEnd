@@ -1,13 +1,16 @@
 /**
  * @file userHook.ts
  * @brief Contains the UserHook class with custom hooks for user authentication and retrieval.
- * @author Jaseem
- * @author Muhammad Haseen
+ * @details This file provides reusable hooks for login, registration, user retrieval, and logout functionality.
+ * @authors
+ * - Jaseem
+ * - Muhammad Haseen
  */
 
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { gettingUserAsync, loginUserAsync, registeringUserAsync } from "../features/user/userSlice";
+import { gettingUserAsync, loginUserAsync, logout, registeringUserAsync } from "../features/user/userSlice";
+import UserService from "@/services/userService";
 
 /**
  * @class UserHook
@@ -72,6 +75,30 @@ class UserHook {
       dispatch(gettingUserAsync());
     };
     return { user, getUser, isGettingUser };
+  }
+
+  /**
+   * @brief Custom hook for logging out a user.
+   * @returns {function} A function to remove the user's token and dispatch the logout action.
+   *
+   * @details
+   * - Removes the user's token using the UserService.
+   * - Dispatches the logout action to update the Redux store.
+   */
+  useLogout() {
+    const dispatch = useDispatch<AppDispatch>();
+
+    /**
+     * @brief Removes the user's token and logs them out.
+     */
+    const removeToken = () => {
+      console.log("logout reducer");
+      const userService = new UserService();
+      userService.logOut();
+      dispatch(logout());
+    };
+
+    return removeToken;
   }
 }
 

@@ -20,6 +20,7 @@ import ChatLoading from "./ChatLoading";
 import { useNavigate, useParams } from "react-router";
 import { motion } from "framer-motion";
 import { PopupRecent } from "./PopupRecent";
+import UserHook from "../hooks/userHook";
 
 /**
  * @brief Sidebar component for managing chat history and navigation.
@@ -43,6 +44,8 @@ const Sidebar = ({
   const { chats, isGettingChat, getChats } = chatHook.useGetChats();
   const { deleteChat, isDelettingMessage } = chatHook.useDeleteChat();
   const { editChat, isUpdattingChat } = chatHook.useEditChat();
+  const userHook =new UserHook
+  const removeToken =userHook.useLogout()
   const {urlId} =useParams()
 
   const handleDeleteChat = async (chatId: string) => {
@@ -114,10 +117,11 @@ const Sidebar = ({
           visualDuration: 0.5,
           bounce: 0.25,
         }}
-        className="sm:max-w-3/4 md:max-w-md bg-black min-h-screen px-10 text-white relative flex flex-col"
+        className="sm:max-w-3/4 md:max-w-md bg-black min-h-screen px-10 text-white relative flex flex-col justify-between"
       >
         {/* Top */}
-        <div className="flex justify-between pt-10">
+      <div className="">
+      <div className="flex justify-between pt-10">
           <img
             src={slideLogo}
             alt="sidebar toggle button"
@@ -233,9 +237,10 @@ const Sidebar = ({
             ))
           )}
         </div>
+      </div>
 
         {/* Bottom Section */}
-        <div className="py-10 flex justify-between items-center text-2xl text-white">
+        <div className="py-3 mb-3 flex justify-between items-center text-2xl text-white" onClick={()=>removeToken()}>
           <span>Logout</span>
           <MdLogout />
         </div>
