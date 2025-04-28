@@ -10,15 +10,14 @@ export const LandingPageNavBar = () => {
         </div>
 
         <div className="flex gap-8 items-center">
-          <div className="cursor-pointer" onClick={() => navigate("/#home")}>
+        
+         <a href="/#home">
             Home
-          </div>
-          <div className="cursor-pointer" onClick={() => navigate("/#home")}>
+         </a>
+         <a href="/#features">
             Features
-          </div>
-          <div className="cursor-pointer" onClick={() => navigate("/#about")}>
-            About
-          </div>
+         </a>
+          <a href="/#about">About</a>
         </div>
 
         <div className="flex gap-5 items-center">

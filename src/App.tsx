@@ -1,18 +1,19 @@
-import Login from "./components/Login";
-import Sidedbar from "./components/Sidebar";
-import Signup from "./components/Signup";
-import { LandingPage } from "./pages/LandingPage";
 
-function App() {
+import { Route, Routes, useLocation } from 'react-router'
+import { LandingPage } from './pages/LandingPage'
+import Login from './components/Login'
+import Signup from './components/Signup'
+
+const App = () => {
+  const location = useLocation()
+  console.log(location)
   return (
-    <div className="html ">
-      {/* <LandingPage /> */}
-      <Login/>
-      {/* <Signup/> */}
-      <Sidedbar/>
-   
-    </div>
-  );
+    <Routes>
+    <Route path="/" element={<LandingPage />} />
+    <Route path="/login" element={<Login />} />
+    <Route path="/register" element={<Signup />} />
+  </Routes>
+  )
 }
 
-export default App;
+export default App
