@@ -1,15 +1,21 @@
-import { ChatScreenPage } from "./pages/ChatScreenPage";
 
-function App() {
+import { Route, Routes, useLocation } from 'react-router'
+import { LandingPage } from './pages/LandingPage'
+import Login from './components/Login'
+import Signup from './components/Signup'
+import { ChatScreenPage } from './pages/ChatScreenPage'
+
+const App = () => {
+  const location = useLocation()
+  console.log(location)
   return (
-    <div className="html ">
-      {/* <LandingPage /> */}
-      {/* <Login/> */}
-      {/* <Signup/> */}
-      {/* <Sidedbar/> */}
-      <ChatScreenPage />
-    </div>
-  );
+    <Routes>
+    <Route path="/" element={<LandingPage />} />
+    <Route path="/login" element={<Login />} />
+    <Route path="/register" element={<Signup />} />
+    <Route path="/chats/:chatId" element={<ChatScreenPage />} />
+  </Routes>
+  )
 }
 
-export default App;
+export default App

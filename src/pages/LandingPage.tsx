@@ -84,7 +84,7 @@ export const LandingPage = () => {
       </div>
       {/* HEADER END */}
       {/* FEATURE START */}
-      <section className="w-full h-full flex flex-col items-start px-12 py-9 bg-radial-top-left  bg-[#0B0C0F] gap-2 ">
+      <section id="features" className="w-full h-full flex flex-col items-start px-12 py-9 bg-radial-top-left  bg-[#0B0C0F] gap-2 ">
         <h3 className="font-semibold">Features</h3>
         <h2 className="text-white font-bold  text-4xl">
           Say Hello to Smarter Support
