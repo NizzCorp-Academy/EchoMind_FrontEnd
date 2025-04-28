@@ -37,7 +37,11 @@ describe("UserService", () => {
       expect(response.data?.email).toBe("test@gmail.com");
     });
     it("should make a error message on register", async () => {
-      const mockData = {username:"dvfrv", email: "test@gmail.com", password: "" };
+      const mockData = {
+        username: "dvfrv",
+        email: "test@gmail.com",
+        password: "",
+      };
       const mockResponse = {
         status: "error",
         message: "Register Failed",
@@ -85,16 +89,10 @@ describe("UserService", () => {
       expect(AxiosClass.post).toHaveBeenCalledWith("/auth/login", mockData);
       expect(response.error).toBe("enter password");
     });
-   
   });
 
   describe("getUser", () => {
     it("should make a GET request to /auth/me", async () => {
-<<<<<<< HEAD
-      // const mockResponse = { data: { id: 1, username: "test" } };
-
-      // vi.mocked(mockAxios.get).mockResolvedValue(mockResponse);
-=======
       const mockResponse = {
         status: "success",
         user: {
@@ -105,18 +103,11 @@ describe("UserService", () => {
       };
 
       vi.mocked(AxiosClass.get).mockResolvedValue(mockResponse);
->>>>>>> e27ea64317974d03537899ccab4200f0a56783bf
 
       // const response = await userService.getUser();
 
-<<<<<<< HEAD
-      // expect(mockAxios.get).toHaveBeenCalledWith("/auth/me");
-      // expect(response).toEqual(mockResponse);
-      expect("a").toEqual("a");
-=======
       expect(AxiosClass.get).toHaveBeenCalledWith("/auth/me");
       expect(response.data?.username).toBe("test");
->>>>>>> e27ea64317974d03537899ccab4200f0a56783bf
     });
   });
   it("should make a error message on getUser", async () => {

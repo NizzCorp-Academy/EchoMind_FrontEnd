@@ -4,10 +4,10 @@ function App() {
   return (
     <div className="html ">
       {/* <LandingPage /> */}
-      <Login/>
+      {/* <Login/> */}
       {/* <Signup/> */}
-      <Sidedbar/>
-   
+      {/* <Sidedbar/> */}
+      <ChatScreenPage />
     </div>
   );
 }

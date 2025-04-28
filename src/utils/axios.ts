@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 import { base_Url } from "../constance/apiConstance";
 
 /**
@@ -13,7 +13,7 @@ import { base_Url } from "../constance/apiConstance";
  */
 class AxiosClass {
   /** @private @static Axios instance configured with base URL and credentials */
-  private static api: Axios.AxiosInstance = axios.create({
+  private static api: AxiosInstance = axios.create({
     baseURL: base_Url,
     withCredentials: true,
   });

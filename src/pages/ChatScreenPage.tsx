@@ -6,9 +6,6 @@ export const ChatScreenPage = () => {
   const [isDark, setIsDark] = useState(true);
   const [isOpen, setIsOpen] = useState(true);
   // const [sideBar, setSideBar] = useState(true);
-  const bg = isDark
-    ? "bg-gradient-to-r from-[#460F9E4D] to-[#460F9E00]"
-    : "bg-[#F5F5F5]";
   const toggleDarkMode = () => {
     setIsDark((prev) => !prev);
   };
@@ -23,12 +20,12 @@ export const ChatScreenPage = () => {
           : " bg-gradient-to-r from-[#460F9E4D] to-[#1905380]"
       } w-screen flex`}
     >
-      <div
+      {/* <div
         className={`${
           !isOpen ? "w-[20%]" : "w-[0%]"
         } bg-yellow-500 transform transition-transform duration-300 `}
-      />
-      {/* <SideBar isOpen={isOpen} toggleSideBar={toggleSideBar} /> */}
+      /> */}
+      <SideBar isOpen={isOpen} toggleSideBar={toggleSideBar} />
       <div
         className={`${
           isOpen ? "w-[80%]" : "w-[100%]"

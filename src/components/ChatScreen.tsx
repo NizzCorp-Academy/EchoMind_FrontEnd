@@ -1,7 +1,6 @@
 import ChatScreeNavBar from "../components/ChatScreeNavBar";
 import { ArrowUp, CirclePlus } from "lucide-react";
 import ChatHook from "../hooks/chatHook";
-import ChatService from "../services/chatService";
 import { useEffect, useState } from "react";
 import UserHook from "../hooks/userHook";
 import { useParams } from "react-router";
