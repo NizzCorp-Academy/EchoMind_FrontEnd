@@ -9,7 +9,8 @@ function App() {
       {/* <LandingPage /> */}
       <Login/>
       {/* <Signup/> */}
-      {/* <Sidedbar/> */}
+      <Sidedbar/>
+   
     </div>
   );
 }
