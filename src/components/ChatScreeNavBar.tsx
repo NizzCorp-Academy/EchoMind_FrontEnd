@@ -38,7 +38,7 @@ const ChatScreeNavBar = ({
     >
       <div className="flex space-x-[22px]">
         <div
-          // hidden={!isOpen}
+          hidden={isOpen}
           className={`${
             isDark
               ? "bg-gradient-to-r from-[#3A3A3A] to-[#3A3A3A]"
@@ -94,6 +94,7 @@ const ChatScreeNavBar = ({
         <div className=" flex items-center space-x-[8px]">
           {isDark ? <Moon /> : <Sun />}
           <div
+            data-testid="chat-nav-bar-toggle-dark-mode"
             className={`w-[60px] h-[30px] rounded-[92px] cursor-pointer border-2 border-[#E8ECEF] flex items-center px-[2px]
                 ${isDark ? "" : "justify-end bg-[#D9D9D9]"}
                 `}

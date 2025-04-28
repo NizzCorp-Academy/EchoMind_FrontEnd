@@ -36,7 +36,7 @@ describe("ChatService", () => {
 
     const result = await chatService.getUserChats();
 
-    expect(AxiosClass.get).toHaveBeenCalledWith("/chat/getchat");
+    expect(AxiosClass.get).toHaveBeenCalledWith("/chat/getChat");
     expect(result.data).toEqual(mockChats);
     expect(result.error).toBeUndefined();
   });
@@ -50,7 +50,7 @@ describe("ChatService", () => {
 
     const result = await chatService.getUserChats();
 
-    expect(AxiosClass.get).toHaveBeenCalledWith("/chat/getchat");
+    expect(AxiosClass.get).toHaveBeenCalledWith("/chat/getChat");
     expect(result.data).toBeUndefined();
     expect(result.error).toBe("Some error");
   });
@@ -206,7 +206,7 @@ describe("ChatService", () => {
 
     const result = await chatService.getMessages("c1");
 
-    expect(AxiosClass.get).toHaveBeenCalledWith("/messages/c1");
+    expect(AxiosClass.get).toHaveBeenCalledWith("/message/c1");
     expect(result.data).toEqual(mockMessages);
     expect(result.error).toBeUndefined();
   });
@@ -220,7 +220,7 @@ describe("ChatService", () => {
 
     const result = await chatService.getMessages("c1");
 
-    expect(AxiosClass.get).toHaveBeenCalledWith("/messages/c1");
+    expect(AxiosClass.get).toHaveBeenCalledWith("/message/c1");
     expect(result.data).toBeUndefined();
     expect(result.error).toBe("Failed");
   });

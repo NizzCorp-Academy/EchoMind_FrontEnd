@@ -66,10 +66,9 @@ describe("AxiosClass", () => {
     const mockDelete: Mock = vi.fn().mockResolvedValue({
       data: { id: "123", name: "new name", email: "test@mail.com" },
     });
-    (axios.create as unknown as Mock)
-      .mockReturnValue({
-        delete: mockDelete,
-      });
+    (axios.create as unknown as Mock).mockReturnValue({
+      delete: mockDelete,
+    });
     vi.resetModules();
     const { default: AxiosClass } = await import("../utils/axios");
     const result = await AxiosClass.delete("/delete/123");

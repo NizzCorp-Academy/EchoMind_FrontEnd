@@ -24,7 +24,7 @@ export const ChatScreen: React.FC<{
   const { user } = useGetUser();
   //   console.log(prompt);
   const bg = isDark
-    ? "bg-[bg-gradient-to-r from-[#460F9E4D] to-[#460F9E00]"
+    ? "bg-gradient-to-r from-[#460F9E4D] to-[#460F9E00]"
     : "bg-[#F5F5F5]";
   useEffect(() => {
     const call = async () => {
@@ -35,7 +35,7 @@ export const ChatScreen: React.FC<{
   }, []);
   return (
     <div
-      className={` w-screen h-screen pt-[12px] flex flex-col items-center justify-between relative ${
+      className={` w-full h-screen pt-[12px] flex flex-col items-center justify-between relative ${
         isDark
           ? "bg-[#29193C] text-white "
           : " bg-gradient-to-r from-[#460F9E4D] to-[#190538]"
@@ -51,6 +51,7 @@ export const ChatScreen: React.FC<{
       </div>
       {/* Messages */}
       <div
+        data-testid="chat-screen-message-screen-1"
         className={` w-[1000px] h-[90%] overflow-y-auto mt-12 mb-17 mx-auto ${bg}  py-6 `}
       >
         {messages ? (
@@ -120,14 +121,15 @@ export const ChatScreen: React.FC<{
             placeholder="Say Something "
           />
         </div>
-        <div
+        <button
+          data-testid="prompt-screen-send-button"
           className={`w-[30px] h-[30px] rounded-[8px] flex items-center text-white cursor-pointer justify-center ${
             isDark ? "bg-[#261935]" : "bg-green-500"
           }`}
           onClick={() => getResponse(prompt, chatId)}
         >
           <ArrowUp />
-        </div>
+        </button>
       </div>
     </div>
   );

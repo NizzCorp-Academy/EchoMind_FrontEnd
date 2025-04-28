@@ -34,7 +34,7 @@ describe("Sidebar Component", () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <Sidebar />
+          <Sidebar isOpen={true} toggleSideBar={() => {}} />
         </MemoryRouter>
       </Provider>
     );

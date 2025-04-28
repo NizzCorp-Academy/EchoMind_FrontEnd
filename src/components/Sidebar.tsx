@@ -2,7 +2,7 @@
  * @file Sidebar.tsx
  * @author Muhammad Haseen
  * @brief Sidebar component for displaying chat history and navigation options.
- * 
+ *
  * This component handles the sidebar functionality, including displaying chat history,
  * renaming chats, deleting chats, and navigating between chats. It also includes
  * animations for opening and closing the sidebar.
@@ -23,10 +23,16 @@ import { motion } from "framer-motion";
 
 /**
  * @brief Sidebar component for managing chat history and navigation.
- * 
+ *
  * @returns {JSX.Element} The rendered Sidebar component.
  */
-const Sidebar = () => {
+const Sidebar = ({
+  toggleSideBar,
+  isOpen,
+}: {
+  toggleSideBar: () => void;
+  isOpen: boolean;
+}) => {
   const navigate = useNavigate();
 
   /**
@@ -52,7 +58,6 @@ const Sidebar = () => {
   /**
    * @brief State to track whether the sidebar is open or closed.
    */
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   /**
    * @brief State to track the currently selected chat index.
@@ -66,7 +71,7 @@ const Sidebar = () => {
 
   /**
    * @brief Handles deleting a chat by its ID.
-   * 
+   *
    * @param {string} chatId - The ID of the chat to delete.
    */
   const handleDeleteChat = async (chatId: string) => {
@@ -79,7 +84,7 @@ const Sidebar = () => {
 
     /**
      * @brief Handles clicks outside of chat items to close dropdowns.
-     * 
+     *
      * @param {MouseEvent} event - The mouse event triggered by the click.
      */
     const handleClickOutside = (event: MouseEvent) => {
@@ -100,7 +105,7 @@ const Sidebar = () => {
 
   /**
    * @brief Handles initiating the renaming of a chat.
-   * 
+   *
    * @param {string} chatId - The ID of the chat to rename.
    * @param {string} currentTitle - The current title of the chat.
    */
@@ -112,7 +117,7 @@ const Sidebar = () => {
 
   /**
    * @brief Handles saving the new title for a chat.
-   * 
+   *
    * @param {string} chatId - The ID of the chat being renamed.
    */
   const handleRenameSave = async (chatId: string) => {
@@ -143,7 +148,7 @@ const Sidebar = () => {
   return (
     <motion.div
       initial={{ x: "-100%", opacity: 0 }}
-      animate={{ x: isSidebarOpen ? 0 : "-100%", opacity: 1 }}
+      animate={{ x: isOpen ? 0 : "-100%", opacity: 1 }}
       exit={{ x: "-100%", opacity: 0 }}
       transition={{
         type: "tween",
@@ -157,7 +162,7 @@ const Sidebar = () => {
           src={slideLogo}
           alt="sidebar toggle button"
           className="cursor-pointer"
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          onClick={() => toggleSideBar()}
         />
         <img src={logo} alt="Echomind logo" />
       </div>
@@ -224,7 +229,8 @@ const Sidebar = () => {
               <>
                 <img src={messageIcon} alt="#" className="w-5 h-5 shrink-0" />
                 <span className="truncate text-sm flex-1">{chat.title}</span>
-                <BsThreeDotsVertical data-testid="threeDot"
+                <BsThreeDotsVertical
+                  data-testid="threeDot"
                   onClick={(e) => {
                     e.stopPropagation();
                     setOpenIndex(index === openIndex ? null : index);

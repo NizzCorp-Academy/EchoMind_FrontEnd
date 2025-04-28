@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { ChatScreen } from "../components/ChatScreen";
+import SideBar from "../components/Sidebar";
 
 export const ChatScreenPage = () => {
   const [isDark, setIsDark] = useState(true);
   const [isOpen, setIsOpen] = useState(true);
   // const [sideBar, setSideBar] = useState(true);
   const bg = isDark
-    ? "bg-[bg-gradient-to-r from-[#460F9E4D] to-[#460F9E00]"
+    ? "bg-gradient-to-r from-[#460F9E4D] to-[#460F9E00]"
     : "bg-[#F5F5F5]";
   const toggleDarkMode = () => {
     setIsDark((prev) => !prev);
@@ -26,19 +27,19 @@ export const ChatScreenPage = () => {
         className={`${
           !isOpen ? "w-[20%]" : "w-[0%]"
         } bg-yellow-500 transform transition-transform duration-300 `}
+      />
+      {/* <SideBar isOpen={isOpen} toggleSideBar={toggleSideBar} /> */}
+      <div
+        className={`${
+          isOpen ? "w-[80%]" : "w-[100%]"
+        } mx-auto transition duration-300  `}
       >
-        <div
-          className={`${
-            isOpen ? "w-[80%]" : "w-[100%]"
-          } mx-auto transition duration-300  `}
-        >
-          <ChatScreen
-            isDark={isDark}
-            isOpen={isOpen}
-            toggleMode={toggleDarkMode}
-            toggleSideBar={toggleSideBar}
-          />
-        </div>
+        <ChatScreen
+          isDark={isDark}
+          isOpen={isOpen}
+          toggleMode={toggleDarkMode}
+          toggleSideBar={toggleSideBar}
+        />
       </div>
     </div>
   );
