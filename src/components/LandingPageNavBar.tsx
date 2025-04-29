@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router";
+import logo from "../assets/logo.png"
 
 export const LandingPageNavBar = () => {
   const navigate = useNavigate();
@@ -6,18 +7,18 @@ export const LandingPageNavBar = () => {
     <div className="w-[70%] h-[80px] rounded-[20px] p-[2px] bg-gradient-to-t from-[#000000] to-[#666666]">
       <div className="w-full h-full rounded-[20px] bg-[#0B0C0F] flex justify-between px-6 ">
         <div className="flex items-center">
-          <img src="./logo.png" width={200} />
+          <img src={logo} width={200} />
         </div>
 
         <div className="flex gap-8 items-center">
         
-         <a href="/#home">
+         <a href="/home/#home">
             Home
          </a>
-         <a href="/#features">
+         <a href="/home/#features">
             Features
          </a>
-          <a href="/#about">About</a>
+          <a href="/home/#about">About</a>
         </div>
 
         <div className="flex gap-5 items-center">
