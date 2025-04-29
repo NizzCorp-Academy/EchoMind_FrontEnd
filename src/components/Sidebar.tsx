@@ -29,6 +29,7 @@ interface SidebarProps {
   toggleSideBar: () => void;
   isOpen: boolean;
   location: string;
+  isDark:boolean
 }
 
 /**
@@ -40,7 +41,7 @@ interface SidebarProps {
  * 
  * @returns {JSX.Element} The rendered Sidebar component.
  */
-const Sidebar = ({ toggleSideBar, isOpen, location }: SidebarProps)=> {
+const Sidebar = ({ toggleSideBar, isOpen, location ,isDark}: SidebarProps)=> {
   const navigate = useNavigate();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -143,7 +144,7 @@ const Sidebar = ({ toggleSideBar, isOpen, location }: SidebarProps)=> {
           visualDuration: 0.5,
           bounce: 0.25,
         }}
-        className="sm:max-w-3/4 md:max-w-md bg-black min-h-screen px-10 text-white relative flex flex-col justify-between"
+        className={`sm:max-w-3/4 md:max-w-md  min-h-screen px-10 text-white relative flex flex-col justify-between ${isDark ?"bg-black":"bg-radial-top-left"}`}
       >
         {/* Sidebar Top Section */}
         <div>
@@ -176,14 +177,15 @@ const Sidebar = ({ toggleSideBar, isOpen, location }: SidebarProps)=> {
           </div>
 
           {/* Chat List Section */}
-          <div>
+          <div className={`max-h-96 overflow-y-auto ${isDark? "scroll-recent-Dark": "scroll-recent-light"}`}>
+
             {isGettingChat ? (
               <ChatLoading />
             ) : chats?.length === 0 ? (
               <span>No chat Found</span>
             ) : (
               chats &&
-              chats.slice(0, 20).map((chat, index: number) => (
+              chats.slice(0, 15).map((chat, index: number) => (
                 <div
                   key={index}
                   ref={(el) => {

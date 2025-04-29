@@ -1,9 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { MemoryRouter } from "react-router";
+import { MemoryRouter, Route, Routes } from "react-router";
 import Sidebar from "../components/Sidebar";
 import { store } from "../redux/store";
 import { Provider } from "react-redux";
+import { ChatScreenPage } from "@/pages/ChatScreenPage";
 
 vi.mock("../hooks/chatHook", () => {
   return {
@@ -34,7 +35,12 @@ describe("Sidebar Component", () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <Sidebar isOpen={true} toggleSideBar={() => {}} />
+          <Sidebar
+            isOpen={true}
+            toggleSideBar={() => {}}
+            location="locatio"
+            isDark={true}
+          />
         </MemoryRouter>
       </Provider>
     );
@@ -144,10 +150,31 @@ describe("Sidebar Component", () => {
 
     expect(deleteChatMock).toHaveBeenCalledWith("chatId");
   });
-  //   it("calls navigate when clicking New Chat button", async () => {
-  //     setup();
-  //     const button = screen.getByText("New Chat");
-  //     fireEvent.click(button);
-  //     // check after getting chatscreen
-  //   });
+  
+  // it("calls navigate when clicking New Chat button", async () => {
+  //   setup();
+  //   const button = screen.getByText("New Chat");
+  //   fireEvent.click(button);
+  //   render(
+  //     <Provider store={store}>
+  //       <MemoryRouter>
+  //         <Routes>
+  //           <Route
+  //             path="/chats/01"
+  //             element={
+  //               <Sidebar
+  //                 isOpen={true}
+  //                 toggleSideBar={() => {}}
+  //                 location="locatio"
+  //                 isDark={true}
+  //               />
+  //             }
+  //           />
+  //           <Route path="/" element={<ChatScreenPage location="location" />} />{" "}
+  //         </Routes>
+  //       </MemoryRouter>
+  //     </Provider>
+  //   );
+  //   await expect(screen.getByText("Hai")).toBeInTheDocument();
+  // });
 });

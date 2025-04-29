@@ -27,7 +27,7 @@ export const ChatScreenPage = ({location}:Location) => {
           !isOpen ? "w-[20%]" : "w-[0%]"
         } bg-yellow-500 transform transition-transform duration-300 `}
       /> */}
-      <SideBar isOpen={isOpen} toggleSideBar={toggleSideBar} location={location} />
+      <SideBar isOpen={isOpen} toggleSideBar={toggleSideBar} location={location} isDark={isDark}/>
       <div
         className={`${
           isOpen ? "w-[80%]" : "w-[100%]"
