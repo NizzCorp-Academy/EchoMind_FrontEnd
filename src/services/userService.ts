@@ -85,7 +85,7 @@ class UserService {
       if (response.status === "error") {
         return { error: (response as unknown as AxiosErrorResponse).message };
       }
-      Cookies.set("token", response.token);
+      Cookies.set("jwt", response.token);
       return {
         data: {
           username: response.user.username,
@@ -112,7 +112,7 @@ class UserService {
         login_User,
         data
       );
-      Cookies.set("token", response.token);
+      Cookies.set("jwt", response.token);
       if (response.status === "error") {
         return { error: (response as unknown as AxiosErrorResponse).message };
       }
@@ -163,7 +163,7 @@ class UserService {
    */
    logOut() {
     try {
-      Cookies.remove("token");
+      Cookies.remove("jwt");
     } catch (error) {
       const err = error as { response?: { data?: { message?: string } } };
       return {
