@@ -10,6 +10,7 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit";
 import chatReducer from "../features/chat/chatSlice";
 import userReducer from "../features/user/userSlice";
+import { errorMiddleware } from "@/utils/errorMiddleware";
 
 /**
  * @brief The main Redux store instance for the application.
@@ -21,6 +22,8 @@ export const store = configureStore({
     chat: chatReducer,
     user: userReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(errorMiddleware),
 });
 
 /**

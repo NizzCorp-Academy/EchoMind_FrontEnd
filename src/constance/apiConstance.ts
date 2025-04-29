@@ -8,5 +8,5 @@ export const get_User_Chats = `/chat/getchat`;
 export const delete_Chat = `/chat`;
 export const edit_Title = `/chat/edit`;
 export const chat_Completion = `/chat/completion`;
-export const delete_Message = `/messages`;
-export const get_Messages = `/messages`;
+export const delete_Message = `/message`;
+export const get_Messages = `/message`;
