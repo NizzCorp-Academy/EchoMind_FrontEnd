@@ -13,10 +13,8 @@ export const ChatScreenPage = () => {
     return (
         <div
             className={` ${
-                isDark
-                    ? "bg-[#29193C] text-white "
-                    : " bg-gradient-to-r from-[#460F9E4D] to-[#1905380]"
-            } w-screen flex`}
+                isDark ? "bg-[#1F1C1C] text-white " : " bg-[#1F1C1C]"
+            } w-screen h-screen flex`}
         >
             {/* <div
         className={`${!isOpen ? "w-[20%]" : "w-[0%]"}
@@ -28,8 +26,8 @@ export const ChatScreenPage = () => {
             </div>
             <div
                 className={`${isOpen ? "w-[80%] flex mx-auto" : "w-[100%]"} 
-                ${!isOpen ? "" : "pr-6"}
-                 transition duration-300  `}
+                ${!isOpen ? "" : "mr-6"}
+                 transition duration-300  h-full flex justify-center items-center`}
             >
                 <ChatScreen isOpen={isOpen} toggleSideBar={toggleSideBar} />
             </div>

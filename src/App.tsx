@@ -9,10 +9,11 @@ const App = () => {
     return (
         <Routes>
             <Route path="*" element={<ErrorFile />} />
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/home" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
             <Route path="/chats/:chatId" element={<ChatScreenPage />} />
+            <Route path="/" element={<ChatScreenPage />} />
         </Routes>
     );
 };

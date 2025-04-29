@@ -79,10 +79,8 @@ export const ChatScreen: React.FC<{
 
     return (
         <div
-            className={` w-full h-screen pt-[12px] flex flex-col items-center justify-between relative ${
-                isDark
-                    ? "bg-[#29193C] text-white "
-                    : " bg-gradient-to-r from-[#460F9E4D] to-[#190538] text-black"
+            className={` w-full h-[97%] pt-[12px] flex flex-col items-center justify-between relative ${
+                isDark ? " text-white " : "  text-black"
             }`}
         >
             <div
@@ -98,7 +96,7 @@ export const ChatScreen: React.FC<{
             {/* Messages */}
             <div
                 data-testid="chat-screen-message-screen-1"
-                className={` ${
+                className={` ${isDark ? "bg-[#29193C] " : "bg-[#F5F5F5]"} ${
                     !isOpen ? "w-[80%] flex flex-col mx-auto" : "w-full"
                 }  h-[90%] overflow-y-auto mt-12 mb-17 mx-auto ${bg}  py-6 `}
             >
@@ -166,19 +164,18 @@ export const ChatScreen: React.FC<{
             </div>
             {/* Prompt  */}
             <div
-                className={`
-${!isOpen ? "w-[80%] flex mx-auto" : "w-full"}
+                className={` ${!isOpen ? "w-[80%] flex mx-auto" : "w-full"}
                       ${
                           isDark ? "bg-[#472c66] " : "bg-[#FEFEFE]"
-                      }  min-h-[80px] flex rounded-[25px] items-center justify-between px-[16px] overflow-scroll absolute bottom-3 `}
+                      }  min-h-[80px] flex rounded-[25px] items-center justify-between px-[16px] absolute bottom-3 `}
             >
-                <div className="flex items-center w-full overflow-scroll">
+                <div className="flex items-center w-full ">
                     <CirclePlus />
                     <input
                         ref={promptInputRef}
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
-                        className="px-3 bg-transparent outline-none h-[50px] max-h-[250px] overflow-y-auto rounded-[10px] w-full"
+                        className="px-3 bg-transparent outline-none h-[50px] max-h-[250px]  rounded-[10px] w-full"
                         placeholder="Say Something "
                     />
                 </div>

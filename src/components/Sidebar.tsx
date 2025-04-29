@@ -146,7 +146,9 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
                     bounce: 0.25,
                 }}
                 className={`sm:max-w-3/4 md:max-w-md  min-h-screen px-10 text-white relative flex flex-col justify-between ${
-                    isDark ? "bg-black" : "bg-radial-top-left"
+                    isDark
+                        ? "bg-[#1F1C1C]"
+                        : "bg-gradient-to-r from-[#460F9E4D] to-[#19053800]"
                 }`}
             >
                 {/* Sidebar Top Section */}

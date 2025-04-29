@@ -5,7 +5,6 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import ChatService from "../../services/chatService";
-import { s } from "node_modules/framer-motion/dist/types.d-DDSxwf0n";
 
 /**
  * @interface ChatState
