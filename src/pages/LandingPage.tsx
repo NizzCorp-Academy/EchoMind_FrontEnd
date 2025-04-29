@@ -6,6 +6,7 @@ import timeFast from "../assets/svg/time-fast 1.svg";
 import user_speak from "../assets/svg/user-speaking 1.svg";
 import world from "../assets/svg/world.svg";
 import robo from "../assets/robo2.jpg";
+import { motion } from "framer-motion";
 
 export const LandingPage = () => {
   const navigate = useNavigate();
@@ -52,7 +53,12 @@ export const LandingPage = () => {
           id="home"
           className=" flex items-center justify-between px-[100px]"
         >
-          <div className="h-[320px] flex flex-col justify-between">
+          <motion.div
+            initial={{ x: -200, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0 }}
+            className="h-[320px] flex flex-col justify-between "
+          >
             <div className="overflow-y-clip max-w-[500px] space-y-[15px]">
               <div className="text-5xl font-bold">
                 Get ready for the new era of AI
@@ -76,15 +82,22 @@ export const LandingPage = () => {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </div>
             </div>
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            initial={{ x: 200, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
             <img src="../src/assets/robo.png" width={600} />
-          </div>
+          </motion.div>
         </div>
       </div>
       {/* HEADER END */}
       {/* FEATURE START */}
-      <section id="features" className="w-full h-full flex flex-col items-start px-12 py-9 bg-radial-top-left  bg-[#0B0C0F] gap-2 ">
+      <section
+        id="features"
+        className="w-full h-full flex flex-col items-start px-12 py-9 bg-radial-top-left  bg-[#0B0C0F] gap-2 "
+      >
         <h3 className="font-semibold">Features</h3>
         <h2 className="text-white font-bold  text-4xl">
           Say Hello to Smarter Support
@@ -92,16 +105,21 @@ export const LandingPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-6">
           <div className="flex flex-col gap-4 my-5 md:my-0">
             {lists.map((list, index) => (
-              <div
+              <motion.div
+                initial={{ x: -200, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
                 key={index}
                 className="flex flex-row items-start gap-4 p-4 rounded-xl shadow-md"
               >
                 <img src={list.icon} alt={list.title} className="w-10 h-10" />
                 <div>
-                  <h3 className="text-lg text-white font-semibold">{list.title}</h3>
+                  <h3 className="text-lg text-white font-semibold">
+                    {list.title}
+                  </h3>
                   <p className="text-sm font-medium">{list.description}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
           <img src={robo} alt="#" className="max-h-[800px]  object-contain" />
