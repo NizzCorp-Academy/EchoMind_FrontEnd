@@ -67,13 +67,11 @@ export const registeringUserAsync = createAsyncThunk<
   User,
   { username: string; email: string; password: string },
   { rejectValue: string }
->("user/register", async (data, { rejectWithValue }) => {
+>("user/register", async (data,) => {
   const userService = new UserService();
   const response: ServiceResponse<User> = await userService.register(data);
 
-  if (response.error) {
-    return rejectWithValue(response.error);
-  }
+ 
   return response.data as User;
 });
 
@@ -84,13 +82,10 @@ export const loginUserAsync = createAsyncThunk<
   User,
   { email: string; password: string },
   { rejectValue: string }
->("user/login", async (data, { rejectWithValue }) => {
+>("user/login", async (data,) => {
   const userService = new UserService();
   const response: ServiceResponse<User> = await userService.login(data);
 
-  if (response.error) {
-    return rejectWithValue(response.error);
-  }
   return response.data as User;
 });
 
@@ -101,13 +96,11 @@ export const gettingUserAsync = createAsyncThunk<
   User,
   void,
   { rejectValue: string }
->("user/getUser", async (_, { rejectWithValue }) => {
+>("user/getUser", async (_,) => {
   const userService = new UserService();
   const response: ServiceResponse<User> = await userService.getUser();
 
-  if (response.error) {
-    return rejectWithValue(response.error);
-  }
+ 
   return response.data as User;
 });
 

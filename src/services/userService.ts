@@ -2,16 +2,16 @@
  * @file userService.ts
  * @author Muhammad Haseen
  * @date 2025-04-28
- * 
+ *
  * @brief
  * This file defines the `UserService` class that handles all user authentication-related API operations.
- * 
+ *
  * @details
  * - Provides methods for registering a user, logging in, fetching user data, and logging out.
  * - Utilizes a custom Axios instance for making HTTP requests.
  * - Manages authentication tokens using browser cookies via the `js-cookie` library.
  * - Standardizes API responses with a `ServiceResponse` generic type.
- * 
+ *
  * @module UserService
  */
 
@@ -76,26 +76,21 @@ class UserService {
     email: string;
     password: string;
   }): Promise<ServiceResponse<User>> {
-    try {
-      const response = await AxiosClass.post<AxiosUserResponse>(
-        register_User,
-        data
-      );
+    const response = await AxiosClass.post<AxiosUserResponse>(
+      register_User,
+      data
+    );
 
-      if (response.status === "error") {
-        return { error: (response as unknown as AxiosErrorResponse).message };
-      }
-      Cookies.set("jwt", response.token);
-      return {
-        data: {
-          username: response.user.username,
-          email: response.user.email,
-        },
-      };
-    } catch (error: any) {
-      const err = error as { response?: { data?: { message?: string } } };
-      return { error: err.response?.data?.message || "Registration failed" };
+    if (response.status === "error") {
+      throw new Error((response as unknown as AxiosErrorResponse).message);
     }
+    Cookies.set("jwt", response.token);
+    return {
+      data: {
+        username: response.user.username,
+        email: response.user.email,
+      },
+    };
   }
 
   /**
@@ -107,26 +102,18 @@ class UserService {
     email: string;
     password: string;
   }): Promise<ServiceResponse<User>> {
-    try {
-      const response = await AxiosClass.post<AxiosUserResponse>(
-        login_User,
-        data
-      );
-      Cookies.set("jwt", response.token);
-      if (response.status === "error") {
-        return { error: (response as unknown as AxiosErrorResponse).message };
-      }
-
-      return {
-        data: {
-          username: response.user.username,
-          email: response.user.email,
-        },
-      };
-    } catch (error: any) {
-      const err = error as { response?: { data?: { message?: string } } };
-      return { error: err.response?.data?.message || "Login failed" };
+    const response = await AxiosClass.post<AxiosUserResponse>(login_User, data);
+    Cookies.set("jwt", response.token);
+    if (response.status === "error") {
+      throw new Error((response as unknown as AxiosErrorResponse).message);
     }
+
+    return {
+      data: {
+        username: response.user.username,
+        email: response.user.email,
+      },
+    };
   }
 
   /**
@@ -134,42 +121,26 @@ class UserService {
    * @returns A Promise resolving to a ServiceResponse containing a User object or an error message.
    */
   async getUser(): Promise<ServiceResponse<User>> {
-    try {
-      const response = await AxiosClass.get<AxiosUserResponse>(get_User);
+    const response = await AxiosClass.get<AxiosUserResponse>(get_User);
 
-      if (response.status === "error") {
-        return { error: (response as unknown as AxiosErrorResponse).message };
-      }
-
-      return {
-        data: {
-          username: response.user.username,
-          email: response.user.email,
-        },
-      };
-    } catch (error: any) {
-      const err = error as { response?: { data?: { message?: string } } };
-      return {
-        error:
-          err.response?.data?.message ||
-          "User details can't be retrieved at the moment.",
-      };
+    if (response.status === "error") {
+      throw new Error((response as unknown as AxiosErrorResponse).message);
     }
+
+    return {
+      data: {
+        username: response.user.username,
+        email: response.user.email,
+      },
+    };
   }
 
   /**
    * @brief Logs out the current user by removing the authentication token.
    * @returns An optional error message if logout fails.
    */
-   logOut() {
-    try {
-      Cookies.remove("jwt");
-    } catch (error) {
-      const err = error as { response?: { data?: { message?: string } } };
-      return {
-        error: err.response?.data?.message || "LogOut failed",
-      };
-    }
+  logOut() {
+    Cookies.remove("jwt");
   }
 }
 
