@@ -17,11 +17,11 @@ import { LandingPageNavBar } from "./LandingPageNavBar";
  */
 
 const schema = yup
-  .object({
-    email: yup.string().email().required(),
-    password: yup.string().required(),
-  })
-  .required();
+    .object({
+        email: yup.string().email().required(),
+        password: yup.string().required(),
+    })
+    .required();
 
 /**
  * @typedef {Object} FormData
@@ -40,85 +40,87 @@ type FormData = yup.InferType<typeof schema>;
  * @returns {JSX.Element} The rendered login form component.
  */
 const Login = () => {
-  const navigate = useNavigate();
-  const { useLogin } = new UserHook();
-  const { loginUser, isLoggingUser } = useLogin();
+    const navigate = useNavigate();
+    const { useLogin } = new UserHook();
+    const { loginUser, isLoggingUser } = useLogin();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: yupResolver(schema),
-  });
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FormData>({
+        resolver: yupResolver(schema),
+    });
 
-  /**
-   * @function onSubmit
-   * @brief Handles form submission.
-   *
-   * This function is triggered when the user submits the login form.
-   * It calls the `loginUser` function from the custom hook to authenticate the user.
-   *
-   * @param {FormData} data - The form data containing email and password.
-   */
-  const onSubmit = async (data: FormData) => {
-    const { email, password } = data;
-    await loginUser(email, password);
-  };
+    /**
+     * @function onSubmit
+     * @brief Handles form submission.
+     *
+     * This function is triggered when the user submits the login form.
+     * It calls the `loginUser` function from the custom hook to authenticate the user.
+     *
+     * @param {FormData} data - The form data containing email and password.
+     */
+    const onSubmit = async (data: FormData) => {
+        const { email, password } = data;
+        await loginUser(email, password);
+    };
 
-  return (
-    <div className="h-screen w-screen flex flex-col  items-center gap-10 bg-radial-top-left text-white py-8">
-      <LandingPageNavBar />
+    return (
+        <div className="h-screen w-screen flex flex-col  items-center gap-10 bg-radial-top-left text-white py-8">
+            <LandingPageNavBar />
 
-      <h2 className="text-3xl font-bold">Login to your account</h2>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="max-w-3xl p-6 border border-white w-full md:w-1/2 flex flex-col gap-6 rounded-md"
-      >
-        <div className="flex flex-col gap-2">
-          <label className="text-xl" htmlFor="email">
-            Email
-          </label>
-          <input
-            id="email"
-            className="bg-[#1F1C1C] p-2 rounded-md"
-            {...register("email")}
-          />
-          <p className="text-red-600">{errors.email?.message}</p>
+            <h2 className="text-3xl font-bold">Login to your account</h2>
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="max-w-3xl p-6 border border-white w-full md:w-1/2 flex flex-col gap-6 rounded-md"
+            >
+                <div className="flex flex-col gap-2">
+                    <label className="text-xl" htmlFor="email">
+                        Email
+                    </label>
+                    <input
+                        id="email"
+                        className="bg-[#1F1C1C] p-2 rounded-md"
+                        {...register("email")}
+                    />
+                    <p className="text-red-600">{errors.email?.message}</p>
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label className="text-xl" htmlFor="password">
+                        Password
+                    </label>
+                    <input
+                        id="password"
+                        className="bg-[#1F1C1C] p-2 rounded-md"
+                        {...register("password")}
+                    />
+                    <p className="text-red-600">{errors.password?.message}</p>
+                </div>
+                {isLoggingUser === false ? (
+                    <button
+                        className="mx-auto w-full rounded-md text-2xl font-medium py-2 bg-linear-to-r from-[#6E27E0] to-[#460F9E]"
+                        type="submit"
+                    >
+                        Login
+                    </button>
+                ) : (
+                    <span className="text-lg font-normal mx-auto">
+                        Logging...
+                    </span>
+                )}
+                <span className="text-lg font-normal mx-auto">
+                    Don't have an account?{" "}
+                    <span
+                        className="text-blue-800 cursor-pointer"
+                        onClick={() => navigate("/register")}
+                    >
+                        Sign Up
+                    </span>{" "}
+                </span>
+            </form>
         </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-xl" htmlFor="password">
-            Password
-          </label>
-          <input
-            id="password"
-            className="bg-[#1F1C1C] p-2 rounded-md"
-            {...register("password")}
-          />
-          <p className="text-red-600">{errors.password?.message}</p>
-        </div>
-        {isLoggingUser === false ? (
-          <button
-            className="mx-auto w-full rounded-md text-2xl font-medium py-2 bg-linear-to-r from-[#6E27E0] to-[#460F9E]"
-            type="submit"
-          >
-            Login
-          </button>
-        ) : (
-          <span className="text-lg font-normal mx-auto">Logging...</span>
-        )}
-        <span className="text-lg font-normal mx-auto">
-          Don't have an account?{" "}
-          <span
-            className="text-blue-8  00 cursor-pointer"
-            onClick={() => navigate("/register")}
-          >
-            Sign Up
-          </span>{" "}
-        </span>
-      </form>
-    </div>
-  );
+    );
 };
 
 export default Login;
