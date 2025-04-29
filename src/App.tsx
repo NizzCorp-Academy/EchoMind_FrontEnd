@@ -4,12 +4,14 @@ import { LandingPage } from './pages/LandingPage'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import { ChatScreenPage } from './pages/ChatScreenPage'
+import ErrorFile from './components/ErrorFile'
 
 const App = () => {
   const url = useLocation()
   const location =url.pathname
   return (
     <Routes>
+      <Route path="*" element={<ErrorFile />} />
     <Route path="/" element={<LandingPage />} />
     <Route path="/login" element={<Login />} />
     <Route path="/register" element={<Signup />} />
