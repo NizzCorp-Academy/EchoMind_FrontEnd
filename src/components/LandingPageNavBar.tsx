@@ -29,7 +29,7 @@ export const LandingPageNavBar = () => {
         "
             onClick={() => navigate("/register")}
           >
-            SingUp
+            SignUp
           </div>
           <div
             className="

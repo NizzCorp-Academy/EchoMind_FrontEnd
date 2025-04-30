@@ -47,6 +47,7 @@ class UserHook {
    * - isRegisteringUser: Boolean indicating if register is in progress.
    */
   useRegister(){
+   
     const{user,isRegisteringUser} = useSelector(
       (state: RootState) => state.user
     );
@@ -74,6 +75,8 @@ class UserHook {
     const getUser = () => {
       dispatch(gettingUserAsync());
     };
+    
+  
     return { user, getUser, isGettingUser };
   }
 
@@ -92,7 +95,7 @@ class UserHook {
      * @brief Removes the user's token and logs them out.
      */
     const removeToken = () => {
-      console.log("logout reducer");
+ 
       const userService = new UserService();
       userService.logOut();
       dispatch(logout());

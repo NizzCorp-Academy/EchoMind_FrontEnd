@@ -76,15 +76,15 @@ class UserService {
     email: string;
     password: string;
   }): Promise<ServiceResponse<User>> {
+
     const response = await AxiosClass.post<AxiosUserResponse>(
       register_User,
       data
     );
-
     if (response.status === "error") {
       throw new Error((response as unknown as AxiosErrorResponse).message);
     }
-    Cookies.set("jwt", response.token);
+    Cookies.set('jwt', response.token, { expires: 15 });
     return {
       data: {
         username: response.user.username,
@@ -103,7 +103,7 @@ class UserService {
     password: string;
   }): Promise<ServiceResponse<User>> {
     const response = await AxiosClass.post<AxiosUserResponse>(login_User, data);
-    Cookies.set("jwt", response.token);
+   Cookies.set('jwt', response.token, { expires: 15 });
     if (response.status === "error") {
       throw new Error((response as unknown as AxiosErrorResponse).message);
     }
@@ -121,8 +121,9 @@ class UserService {
    * @returns A Promise resolving to a ServiceResponse containing a User object or an error message.
    */
   async getUser(): Promise<ServiceResponse<User>> {
+ 
     const response = await AxiosClass.get<AxiosUserResponse>(get_User);
-
+ 
     if (response.status === "error") {
       throw new Error((response as unknown as AxiosErrorResponse).message);
     }
@@ -137,7 +138,7 @@ class UserService {
 
   /**
    * @brief Logs out the current user by removing the authentication token.
-   * @returns An optional error message if logout fails.
+   *
    */
   logOut() {
     Cookies.remove("jwt");

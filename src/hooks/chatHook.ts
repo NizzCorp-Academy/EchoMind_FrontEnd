@@ -53,13 +53,9 @@ class ChatHook {
      * @returns {Object} An object containing chats, getChats function, and isGettingChat flag.
      */
     useGetChats() {
-        const { isGettingChat } = useSelector((state: RootState) => state.chat);
+        const { chats,isGettingChat } = useSelector((state: RootState) => state.chat);
         const dispatch = useDispatch<AppDispatch>();
-        console.log("Call is getting to the hook");
-        const chats = [
-            { _id: "123", title: "hello" },
-            { _id: "124", title: "hello 2" },
-        ];
+    
         const getChats = () => dispatch(getUserChatsAsyncThunk());
         return { chats, getChats, isGettingChat };
     }
