@@ -154,7 +154,6 @@ export const ChatScreen: React.FC<{
                                 Hai
                                 <div className="bg-gradient-to-r from-[#6E27E0] to-[#460F9E] inline-block text-transparent bg-clip-text">
                                     {user?.name}
-                                    Jaseem
                                 </div>
                             </div>
                             <div className=" text-5xl">How Can I Help You?</div>

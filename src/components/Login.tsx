@@ -52,6 +52,10 @@ const Login = () => {
         resolver: yupResolver(schema),
     });
 
+    const { useGetUser } = new UserHook();
+
+    const { getUser } = useGetUser();
+
     /**
      * @function onSubmit
      * @brief Handles form submission.
@@ -67,7 +71,7 @@ const Login = () => {
     };
 
     return (
-        <div className="h-screen w-screen flex flex-col  items-center gap-10 bg-radial-top-left text-white py-8">
+        <div className="min-h-screen h-full w-full flex flex-col  items-center gap-10 bg-radial-top-left text-white py-8">
             <LandingPageNavBar />
 
             <h2 className="text-3xl font-bold">Login to your account</h2>
@@ -113,7 +117,10 @@ const Login = () => {
                     Don't have an account?{" "}
                     <span
                         className="text-blue-800 cursor-pointer"
-                        onClick={() => navigate("/register")}
+                        onClick={() => {
+                            // navigate("/register")
+                            getUser();
+                        }}
                     >
                         Sign Up
                     </span>{" "}
