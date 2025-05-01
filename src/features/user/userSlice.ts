@@ -2,17 +2,17 @@
  * @file userSlice.ts
  * @author Muhammad Haseen
  * @date 2025-04-28
- *
+ * 
  * @brief
  * This file manages the user authentication state using Redux Toolkit's `createSlice` and `createAsyncThunk`.
  * It handles user registration, login, fetching the current user's data, and logout functionalities.
- *
+ * 
  * @details
  * - Defines the structure of the user object and initial authentication state.
  * - Implements async thunks for API requests (register, login, get user).
  * - Uses a slice to manage authentication state transitions during pending, fulfilled, and rejected phases of thunks.
  * - Includes a logout reducer to clear user data from the store.
- *
+ * 
  */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import UserService from "../../services/userService";
@@ -23,7 +23,7 @@ import UserService from "../../services/userService";
  */
 interface User {
   id?: string;
-  username?: string;
+  name?: string;
   email?: string;
 }
 
@@ -67,11 +67,13 @@ export const registeringUserAsync = createAsyncThunk<
   User,
   { username: string; email: string; password: string },
   { rejectValue: string }
->("user/register", async (data) => {
- 
+>("user/register", async (data, { rejectWithValue }) => {
   const userService = new UserService();
   const response: ServiceResponse<User> = await userService.register(data);
 
+  if (response.error) {
+    return rejectWithValue(response.error);
+  }
   return response.data as User;
 });
 
@@ -82,30 +84,36 @@ export const loginUserAsync = createAsyncThunk<
   User,
   { email: string; password: string },
   { rejectValue: string }
->("user/login", async (data) => {
+>("user/login", async (data, { rejectWithValue }) => {
   const userService = new UserService();
   const response: ServiceResponse<User> = await userService.login(data);
 
+  if (response.error) {
+    return rejectWithValue(response.error);
+  }
   return response.data as User;
 });
 
 /**
  * @brief Async thunk for fetching the current user.
  */
-export const gettingUserAsync = createAsyncThunk<User>(
-  "user/getUser",
-  async (_) => {
- 
-    const userService = new UserService();
-    const response: ServiceResponse<User> = await userService.getUser();
-  
-    return response.data as User;
+export const gettingUserAsync = createAsyncThunk<
+  User,
+  void,
+  { rejectValue: string }
+>("user/getUser", async (_, { rejectWithValue }) => {
+  const userService = new UserService();
+  const response: ServiceResponse<User> = await userService.getUser();
+
+  if (response.error) {
+    return rejectWithValue(response.error);
   }
-);
+  return response.data as User;
+});
 
 /**
  * @brief Slice for managing user authentication state.
- *
+ * 
  * @details
  * This slice handles user-related actions such as login, registration, fetching the current user, and logout.
  * It uses Redux Toolkit's `createSlice` and `createAsyncThunk` for managing asynchronous actions and state updates.
@@ -120,7 +128,7 @@ export const userSlice = createSlice({
   reducers: {
     /**
      * @brief Logs out the user by clearing the user state.
-     *
+     * 
      * @details
      * This reducer sets the `user` state to `null`, effectively logging out the user.
      * It does not handle token removal, which should be managed separately.
@@ -170,10 +178,10 @@ export const userSlice = createSlice({
         state.isGettingUser = false;
         state.user = action.payload;
       })
-      .addCase(gettingUserAsync.rejected, (state) => {
+      .addCase(gettingUserAsync.rejected, (state, action) => {
         state.isGettingUser = false;
-        state.error = "Fetching user failed";
-      });
+        state.error = action.payload || "Fetching user failed";
+      })
   },
 });
 
