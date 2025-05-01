@@ -27,13 +27,11 @@ import { useEffect } from "react";
  */
 const App = () => {
     const { useGetUser } = new UserHook();
-    const { user ,getUser} = useGetUser();
-    
-    useEffect(()=>{
-        getUser()
-    },[])
-    console.log("User",user)
+    const { user, getUser } = useGetUser();
 
+    useEffect(() => {
+        getUser();
+    }, []);
     return (
         <Routes>
             <Route path="*" element={<ErrorFile />} />

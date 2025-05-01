@@ -4,8 +4,8 @@ import ChatHook from "../hooks/chatHook";
 
 
 vi.mock("react-redux", () => ({
-  useDispatch: vi.fn(),
-  useSelector: vi.fn(),
+    useDispatch: vi.fn(),
+    useSelector: vi.fn(),
 }));
 
 
@@ -13,12 +13,12 @@ const mockDispatch = vi.fn();
 const mockThunk = vi.fn(() => () => {});
 
 vi.mock("../../features/chat/chatSlice", () => ({
-  deleteChatAsyncThunk: mockThunk,
-  deleteMessageAsyncThunk: mockThunk,
-  editChatAsyncThunk: mockThunk,
-  getChatMessageAsyncThunk: mockThunk,
-  getResponseAsyncThunk: mockThunk,
-  getUserChatsAsyncThunk: mockThunk,
+    deleteChatAsyncThunk: mockThunk,
+    deleteMessageAsyncThunk: mockThunk,
+    editChatAsyncThunk: mockThunk,
+    getChatMessageAsyncThunk: mockThunk,
+    getResponseAsyncThunk: mockThunk,
+    getUserChatsAsyncThunk: mockThunk,
 }));
 
 describe("ChatHook", () => {
