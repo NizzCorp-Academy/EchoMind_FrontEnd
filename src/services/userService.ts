@@ -19,6 +19,8 @@ import AxiosClass from "../utils/axios";
 import { login_User, register_User, get_User } from "../constance/apiConstance";
 import Cookies from "js-cookie";
 
+AxiosClass.initializeInterceptors();
+
 /**
  * @interface AxiosErrorResponse
  * @brief Represents the structure of an error response from Axios.
@@ -129,6 +131,7 @@ class UserService {
      */
     async getUser(): Promise<ServiceResponse<User>> {
         const response = await AxiosClass.get<AxiosUserResponse>(get_User);
+        console.log("From Service", response);
 
         if (response.status === "error") {
             throw new Error(

@@ -19,6 +19,7 @@ vi.mock("../hooks/chatHook", () => {
                     { _id: "2", message: "Hi there", isFromUser: false },
                 ],
                 getMessages: vi.fn(),
+                unSetMessages: vi.fn(), // Add this line                getMessages: vi.fn(),
             }),
             useDeleteMessage: vi.fn().mockReturnValue({
                 deleteMessage: vi.fn(),
@@ -43,13 +44,6 @@ vi.mock("../hooks/chatHook", () => {
         })),
     };
 });
-const chatHoo = new ChatHook();
-let { unSetMessages } = chatHoo.useGetMessage();
-unSetMessages = vi.fn().mockImplementation({
-  return (
-  chats:[]
-  )
-})
 // Mock the UserHook
 vi.mock("../hooks/userHook", () => {
     return {
@@ -104,6 +98,7 @@ describe("ChatScreen Component", () => {
                 isGettingMessage: false,
                 messages: null,
                 getMessages: vi.fn(),
+                unSetMessages: vi.fn(), // Add this line                getMessages: vi.fn(),
             }),
             useDeleteMessage: vi.fn().mockReturnValue({
                 deleteMessage: vi.fn(),
@@ -165,6 +160,7 @@ describe("ChatScreen Component", () => {
                 isGettingMessage: false,
                 messages: [],
                 getMessages: vi.fn(),
+                unSetMessages: vi.fn(), // Add this line                getMessages: vi.fn(),
             }),
             useDeleteMessage: vi.fn().mockReturnValue({
                 deleteMessage: vi.fn(),
