@@ -49,8 +49,7 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
     const { chats, isGettingChat, getChats } = useGetChats();
     const { deleteChat, isDelettingMessage } = useDeleteChat();
     const { editChat, isUpdattingChat } = useEditChat();
-    const userHook = new UserHook();
-    const removeToken = userHook.useLogout();
+    const { removeToken } = useLogout();
 
     const { chatId: urlId } = useParams();
     const { theme } = useTheme();
