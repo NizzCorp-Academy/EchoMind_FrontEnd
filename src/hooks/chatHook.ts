@@ -37,7 +37,7 @@ class ChatHook {
     /**
      * @brief Custom hook to edit a chat's title.
      * @returns {Object} An object containing chats, editChat function, and isUpdattingChat flag.
-     */
+    //  */
     useEditChat() {
         const { chats, isUpdattingChat } = useSelector(
             (state: RootState) => state.chat

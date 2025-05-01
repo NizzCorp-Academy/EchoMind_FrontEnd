@@ -13,7 +13,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import { ChatScreenPage } from "./pages/ChatScreenPage";
 import ErrorFile from "./components/ErrorFile";
-import UserHook from "./hooks/userHook";
+import { useGetUser } from "./hooks/userHook";
 import { useEffect } from "react";
 
 /**
@@ -26,7 +26,6 @@ import { useEffect } from "react";
  * @returns {JSX.Element} The rendered routing structure of the app.
  */
 const App = () => {
-    const { useGetUser } = new UserHook();
     const { user, getUser } = useGetUser();
 
     useEffect(() => {

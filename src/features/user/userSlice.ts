@@ -21,7 +21,7 @@ import UserService from "../../services/userService";
  * @interface User
  * @brief Represents a user object.
  */
-interface User {
+export interface User {
     id?: string;
     username?: string;
     email?: string;

@@ -7,7 +7,6 @@
  * renaming chats, deleting chats, logging out, and navigating between chats.
  * Animations are handled via Framer Motion.
  */
-
 import slideLogo from "../assets/svg/material-symbols-light_door-open-outline.svg";
 import logo from "../assets/logo.png";
 import { FaCaretDown } from "react-icons/fa";
@@ -20,7 +19,7 @@ import ChatLoading from "./ChatLoading";
 import { useNavigate, useParams } from "react-router";
 import { motion } from "framer-motion";
 import { PopupRecent } from "./PopupRecent";
-import UserHook from "../hooks/userHook";
+import { useLogout } from "../hooks/userHook";
 import { useTheme } from "next-themes";
 
 /**
@@ -51,8 +50,7 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
     const { chats, isGettingChat, getChats } = chatHook.useGetChats();
     const { deleteChat, isDelettingMessage } = chatHook.useDeleteChat();
     const { editChat, isUpdattingChat } = chatHook.useEditChat();
-    const userHook = new UserHook();
-    const removeToken = userHook.useLogout();
+    const { removeToken } = useLogout();
 
     const { chatId: urlId } = useParams();
     const { theme } = useTheme();
