@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useLogin, useGetUser } from "../hooks/userHook";
+import { useLogin } from "../hooks/userHook";
 import { useNavigate } from "react-router";
 import { LandingPageNavBar } from "./LandingPageNavBar";
 
