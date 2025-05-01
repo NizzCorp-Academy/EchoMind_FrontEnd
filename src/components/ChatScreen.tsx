@@ -2,7 +2,7 @@ import ChatScreeNavBar from "../components/ChatScreeNavBar";
 import { ArrowUp, CirclePlus } from "lucide-react";
 import ChatHook from "../hooks/chatHook";
 import { useEffect, useRef, useState } from "react";
-import UserHook from "../hooks/userHook";
+import { useGetUser } from "../hooks/userHook";
 import { useNavigate, useParams } from "react-router";
 import { MdDeleteOutline } from "react-icons/md";
 import { useTheme } from "next-themes";
@@ -18,7 +18,6 @@ export const ChatScreen: React.FC<{
     const promptEnterButtonRef = useRef<HTMLButtonElement>(null);
     const bottomMessageRef = useRef<HTMLDivElement>(null);
     const { useGetMessage, useDeleteMessage, useGetResponse } = new ChatHook();
-    const { useGetUser } = new UserHook();
     const { isGettingMessage, messages, getMessages, unSetMessages } =
         useGetMessage();
     const { getResponse, isGettingResponse } = useGetResponse();
@@ -156,7 +155,12 @@ export const ChatScreen: React.FC<{
                                     {user?.username}
                                 </div>
                             </div>
-                            <div className=" text-5xl">How Can I Help You?</div>
+                            <div
+                                data-testid="prompt-screen-with-nothing"
+                                className=" text-5xl"
+                            >
+                                How Can I Help You?
+                            </div>
                         </div>
                     </div>
                 )}

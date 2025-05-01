@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import UserHook from "../hooks/userHook";
+import { useLogin, useGetUser } from "../hooks/userHook";
 import { useNavigate } from "react-router";
 import { LandingPageNavBar } from "./LandingPageNavBar";
 
@@ -41,7 +41,6 @@ type FormData = yup.InferType<typeof schema>;
  */
 const Login = () => {
     const navigate = useNavigate();
-    const { useLogin } = new UserHook();
     const { loginUser, isLoggingUser } = useLogin();
 
     const {
