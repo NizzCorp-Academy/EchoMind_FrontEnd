@@ -12,7 +12,7 @@ const ErrorFile = () => {
         Oops! You are on Wrong way. The page you are looking for does not exist.
       </p>
       <button
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/home")}
         className="cursor-pointer bg-linear-to-r from-[#6E27E0] to-[#460F9E]  text-white font-bold py-2 px-4 rounded"
       >
         Go to Home

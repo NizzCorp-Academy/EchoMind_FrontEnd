@@ -1,14 +1,14 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
 import { useDispatch, useSelector } from "react-redux";
 import ChatHook from "../hooks/chatHook";
 
-// Mock react-redux
+
 vi.mock("react-redux", () => ({
   useDispatch: vi.fn(),
   useSelector: vi.fn(),
 }));
 
-// Mock thunks
+
 const mockDispatch = vi.fn();
 const mockThunk = vi.fn(() => () => {});
 
@@ -24,11 +24,11 @@ vi.mock("../../features/chat/chatSlice", () => ({
 describe("ChatHook", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    (useDispatch as unknown as vi.Mock).mockReturnValue(mockDispatch);
+    (useDispatch as unknown as Mock).mockReturnValue(mockDispatch);
   });
 
   it("useGetResponse returns correct values and dispatches thunk", () => {
-    (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
+    (useSelector as unknown as Mock).mockImplementation((cb:any) =>
       cb({ chat: { messages: ["msg"], isGettingResponse: false } })
     );
     const hook = new ChatHook();
@@ -40,7 +40,7 @@ describe("ChatHook", () => {
   });
 
   it("useEditChat returns correct values and dispatches thunk", () => {
-    (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
+    (useSelector as unknown as Mock).mockImplementation((cb:any) =>
       cb({ chat: { chats: ["chat"], isUpdattingChat: true } })
     );
     const hook = new ChatHook();
@@ -52,7 +52,7 @@ describe("ChatHook", () => {
   });
 
   it("useGetChats returns correct values and dispatches thunk", () => {
-    (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
+    (useSelector as unknown as Mock).mockImplementation((cb:any) =>
       cb({ chat: { chats: ["chat"], isGettingChat: true } })
     );
     const hook = new ChatHook();
@@ -63,7 +63,7 @@ describe("ChatHook", () => {
     expect(mockDispatch).toHaveBeenCalled();
   });
   it("useGetMessage returns correct values and dispatches thunk", () => {
-    (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
+    (useSelector as unknown as Mock).mockImplementation((cb:any) =>
       cb({ chat: { messages: ["chat"], isGettingMessage: true } })
     );
     const hook = new ChatHook();
@@ -74,7 +74,7 @@ describe("ChatHook", () => {
     expect(mockDispatch).toHaveBeenCalled();
   });
   it("useDeleteMessage returns correct values and dispatches thunk", () => {
-    (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
+    (useSelector as unknown as Mock).mockImplementation((cb:any) =>
       cb({ chat: { messages: ["msg"], isDelettingMessage: true } })
     );
     const hook = new ChatHook();
@@ -85,7 +85,7 @@ describe("ChatHook", () => {
     expect(mockDispatch).toHaveBeenCalled();
   });
   it("useDeleteChat returns correct values and dispatches thunk", () => {
-    (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
+    (useSelector as unknown as Mock).mockImplementation((cb:any) =>
       cb({ chat: { chats: ["chat"], isDelettingMessage: true } })
     );
     const hook = new ChatHook();

@@ -4,13 +4,7 @@ import reducer, {
   loginUserAsync,
   registeringUserAsync,
   gettingUserAsync,
-  logout,
-  logoutUserAsync,
 } from "../features/user/userSlice";
-import UserService from "../services/userService";
-import { RootState, store } from "@/redux/store";
-import Cookies from "js-cookie";
-
 vi.mock("../services/userService", () => {
   return {
     default: vi.fn().mockImplementation(() => ({
@@ -121,7 +115,7 @@ describe("userSlice async thunks", () => {
       payload: "fetching user failed",
     });
     expect(state.isGettingUser).toBe(false);
-    expect(state.error).toBe("fetching user failed");
+    expect(state.error).toBe("Fetching user failed");
   });
 });
 

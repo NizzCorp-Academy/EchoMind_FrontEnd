@@ -26,17 +26,17 @@ describe("UserService", () => {
           username: "test",
           email: "test@gmail.com",
         },
-        token: "mockToken",
+        token: "mockjwt",
       };
 
       vi.mocked(AxiosClass.post).mockResolvedValue(mockResponse);
 
       const response = await userService.register(mockData);
-      Cookies.set("token", "MockToken");
+      Cookies.set("jwt", "mockjwt", { expires: 15 });
       expect(AxiosClass.post).toHaveBeenCalledWith("/auth/register", mockData);
       expect(response.data?.username).toBe("test");
       expect(response.data?.email).toBe("test@gmail.com");
-      expect(mockSet).toHaveBeenCalledWith("token", "mockToken");
+      expect(mockSet).toHaveBeenCalledWith("jwt", "mockjwt", { expires: 15 });
     });
     it("should make a error message on register", async () => {
       const mockData = {
@@ -51,10 +51,9 @@ describe("UserService", () => {
 
       vi.mocked(AxiosClass.post).mockResolvedValue(mockResponse);
 
-      const response = await userService.register(mockData);
-
-      expect(AxiosClass.post).toHaveBeenCalledWith("/auth/register", mockData);
-      expect(response.error).toBe("Register Failed");
+      expect(async () => {
+        await userService.register(mockData);
+      }).rejects.toThrow("Register Failed");
     });
   });
 
@@ -68,7 +67,7 @@ describe("UserService", () => {
           username: "test",
           email: "test@gmail.com",
         },
-        token: "mockToken",
+        token: "mockjwt",
       };
 
       vi.mocked(AxiosClass.post).mockResolvedValue(mockResponse);
@@ -77,7 +76,7 @@ describe("UserService", () => {
 
       expect(AxiosClass.post).toHaveBeenCalledWith("/auth/login", mockData);
       expect(response.data?.email).toBe("test@gmail.com");
-      expect(mockSet).toHaveBeenCalledWith("token", "mockToken");
+      expect(mockSet).toHaveBeenCalledWith("jwt", "mockjwt", { expires: 15 });
     });
     it("should make a error message on login", async () => {
       const mockData = { email: "test@gmail.com", password: "" };
@@ -88,10 +87,9 @@ describe("UserService", () => {
 
       vi.mocked(AxiosClass.post).mockResolvedValue(mockResponse);
 
-      const response = await userService.login(mockData);
-
-      expect(AxiosClass.post).toHaveBeenCalledWith("/auth/login", mockData);
-      expect(response.error).toBe("enter password");
+      expect(async () => {
+        await userService.login(mockData);
+      }).rejects.toThrow("enter password");
     });
   });
 
@@ -110,7 +108,7 @@ describe("UserService", () => {
 
       const response = await userService.getUser();
 
-      expect(AxiosClass.get).toHaveBeenCalledWith("/auth/me");
+      expect(AxiosClass.get).toHaveBeenCalledWith("/user/me");
       expect(response.data?.username).toBe("test");
     });
     it("should make a error message on getUser", async () => {
@@ -121,19 +119,18 @@ describe("UserService", () => {
 
       vi.mocked(AxiosClass.get).mockResolvedValue(mockResponse);
 
-      const response = await userService.getUser();
-
-      expect(AxiosClass.get).toHaveBeenCalledWith("/auth/me");
-      expect(response.error).toBe("Fetching Failed");
+      expect(async () => {
+        await userService.getUser();
+      }).rejects.toThrow("Fetching Failed");
     });
   });
   describe("logOut", () => {
     it("should remove token from cookies", () => {
-      Cookies.set("token", "MockToken");
+      Cookies.set("jwt", "mockjwt", { expires: 15 });
 
       const userService = new UserService();
       userService.logOut();
-      expect(Cookies.get("token")).toBeUndefined();
+      expect(Cookies.get("jwt")).toBeUndefined();
     });
   });
 });

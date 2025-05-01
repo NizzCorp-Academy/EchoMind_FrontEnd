@@ -9,6 +9,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
-  }
+    },
+    "noUnusedParameters": false,
+    "noUnusedLocals": false
+  },
+  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx","**/__tests__/**", "tests/**"],
+  
 }

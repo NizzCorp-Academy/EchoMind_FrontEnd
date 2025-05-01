@@ -4,7 +4,8 @@ import { describe, expect, it } from "vitest";
 import ErrorFile from "@/components/ErrorFile";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
-import { LandingPage } from "@/pages/LandingPage";
+
+const LandingPageMock = () => <h1>Get Started</h1>;
 
 describe("ErrorFile Component", () => {
   it("renders 404 message and button", () => {
@@ -21,18 +22,20 @@ describe("ErrorFile Component", () => {
     ).toBeInTheDocument();
   });
 
-  it("navigates to home page on button click", () => {
+  it("navigates to home page on button click", async () => {
     render(
-      <MemoryRouter initialEntries={["/unknown"]}>
-        <Routes>
-          <Route path="*" element={<ErrorFile />} />
-          <Route path="/" element={<LandingPage />} />
-        </Routes>
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={["/unknown"]}>
+          <Routes>
+            <Route path="*" element={<ErrorFile />} />
+            <Route path="/home" element={<LandingPageMock />} />
+          </Routes>
+        </MemoryRouter>
+      </Provider>
     );
 
-    fireEvent.click(screen.getByRole("button", { name: /go to home/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Go to Home/i }));
 
-    expect(screen.getByText(/ Get Started/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Get Started/i)).toBeInTheDocument();
   });
 });

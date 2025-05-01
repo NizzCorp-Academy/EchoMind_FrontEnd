@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, Mock } from "vitest";
 import { MemoryRouter } from "react-router";
 import "@testing-library/jest-dom";
 import Login from "../components/Login";
@@ -13,7 +13,7 @@ describe("Login Component", () => {
   it("calls loginUser on form submission", async () => {
     const mockLoginUser = vi.fn().mockResolvedValueOnce({});
 
-    (UserHook as vi.Mock).mockImplementation(() => ({
+    (UserHook as Mock).mockImplementation(() => ({
       useLogin: () => ({
         user: { email: "test@test.com" },
         loginUser: mockLoginUser,
@@ -48,7 +48,7 @@ describe("Login Component", () => {
   it("shows error messages for invalid fields", async () => {
     const mockLoginUser = vi.fn().mockResolvedValueOnce({});
 
-    (UserHook as vi.Mock).mockImplementation(() => ({
+    (UserHook as Mock).mockImplementation(() => ({
       useLogin: () => ({
         user: { email: "test@test.com" },
         loginUser: mockLoginUser,
@@ -78,7 +78,7 @@ describe("Login Component", () => {
   it("shows loading text when logging in", async () => {
     const mockLoginUser = vi.fn().mockResolvedValueOnce({});
 
-    (UserHook as vi.Mock).mockImplementation(() => ({
+    (UserHook as Mock).mockImplementation(() => ({
       useLogin: () => ({
         user: { email: "test@test.com" },
         loginUser: mockLoginUser,

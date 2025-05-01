@@ -8,7 +8,6 @@ import {
   ChatState,
   deleteMessageAsyncThunk,
 } from "../features/chat/chatSlice";
-import { render } from "@testing-library/react";
 
 getResponseAsyncThunk;
 
@@ -58,12 +57,7 @@ describe("chatSlice reducer", () => {
     expect(nextState.error).toBe("Failed to fetch chats");
   });
 
-  // You can similarly write tests for:
-  // - getResponseAsyncThunk
-  // - getChatMessageAsyncThunk
-  // - editChatAsyncThunk
-  // - deleteChatAsyncThunk
-  // - deleteMessageAsyncThunk
+ 
 
   it("should handle getResponseAsyncThunk.pending", () => {
     const nextState = chatSlice.reducer(initialState, {
@@ -102,7 +96,7 @@ describe("chatSlice reducer", () => {
       ...initialState,
       chats: [{ _id: "1", title: "Old Title", createdAt: "", updatedAt: "" }],
     };
-    // The payload should match what the reducer expects: { chatId, title }
+   
     const payload = { chatId: "1", title: "New Title" };
     const nextState = chatSlice.reducer(prevState, {
       type: editChatAsyncThunk.fulfilled.type,

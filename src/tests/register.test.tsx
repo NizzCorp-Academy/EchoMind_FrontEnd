@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, Mock } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import { Provider } from "react-redux";
@@ -9,33 +9,12 @@ import UserHook from "../hooks/userHook";
 vi.mock("../hooks/userHook");
 
 describe("Signup Component", () => {
-//   it("renders the signup form with labels", () => {
-//     (UserHook as unknown as vi.Mock).mockImplementation(() => ({
-//       useRegister: () => ({
-//         user: null,
-//         registerUser: vi.fn(),
-//         isRegisteringUser: false,
-//       }),
-//     }));
 
-//     render(
-//       <Provider store={store}>
-//         <MemoryRouter>
-//           <Signup />
-//         </MemoryRouter>
-//       </Provider>
-//     );
-
-//     expect(screen.getByLabelText(/user name/i)).toBeInTheDocument();
-//     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-//     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-//     expect(screen.getByRole("button", { name: /signup/i })).toBeInTheDocument();
-//   });
 
   it("calls registerUser on form submission", async () => {
     const mockRegisterUser = vi.fn().mockResolvedValueOnce({});
 
-    (UserHook as unknown as vi.Mock).mockImplementation(() => ({
+    (UserHook as unknown as Mock).mockImplementation(() => ({
       useRegister: () => ({
         user: null,
         registerUser: mockRegisterUser,
@@ -73,7 +52,7 @@ describe("Signup Component", () => {
   });
 
   it("shows validation errors if fields are empty", async () => {
-    (UserHook as unknown as vi.Mock).mockImplementation(() => ({
+    (UserHook as unknown as Mock).mockImplementation(() => ({
       useRegister: () => ({
         user: null,
         registerUser: vi.fn(),
@@ -100,7 +79,7 @@ describe("Signup Component", () => {
   it("shows registering text when logging in", async () => {
     const mockRegisterUser = vi.fn().mockResolvedValueOnce({});
 
-    (UserHook as vi.Mock).mockImplementation(() => ({
+    (UserHook as Mock).mockImplementation(() => ({
         useRegister: () => ({
             user: null,
             registerUser: mockRegisterUser,

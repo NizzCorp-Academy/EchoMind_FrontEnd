@@ -7,7 +7,7 @@ import { store } from "../redux/store";
 import ChatHook from "../hooks/chatHook";
 import userEvent from "@testing-library/user-event";
 
-// Single ChatHook mock
+
 vi.mock("../hooks/chatHook", () => {
   return {
     default: vi.fn().mockImplementation(() => ({
@@ -43,7 +43,6 @@ vi.mock("../hooks/chatHook", () => {
   };
 });
 
-// Mock the UserHook
 vi.mock("../hooks/userHook", () => {
   return {
     default: vi.fn().mockImplementation(() => ({

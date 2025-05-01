@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar";
 import { store } from "../redux/store";
 import { Provider } from "react-redux";
 
+const ChatScreenMock = () => <h1>Hello User</h1>;
 vi.mock("../hooks/chatHook", () => {
     return {
         default: vi.fn().mockImplementation(() => ({
@@ -145,30 +146,20 @@ describe("Sidebar Component", () => {
         expect(deleteChatMock).toHaveBeenCalledWith("chatId");
     });
 
-    // it("calls navigate when clicking New Chat button", async () => {
-    //   setup();
-    //   const button = screen.getByText("New Chat");
-    //   fireEvent.click(button);
-    //   render(
-    //     <Provider store={store}>
-    //       <MemoryRouter>
-    //         <Routes>
-    //           <Route
-    //             path="/chats/01"
-    //             element={
-    //               <Sidebar
-    //                 isOpen={true}
-    //                 toggleSideBar={() => {}}
-    //                 location="locatio"
-    //                 isDark={true}
-    //               />
-    //             }
-    //           />
-    //           <Route path="/" element={<ChatScreenPage location="location" />} />{" "}
-    //         </Routes>
-    //       </MemoryRouter>
-    //     </Provider>
-    //   );
-    //   await expect(screen.getByText("Hai")).toBeInTheDocument();
-    // });
+    it("calls navigate when clicking New Chat button", async () => {
+        render(
+            <Provider store={store}>
+              <MemoryRouter initialEntries={["/chats/123"]}>
+                <Routes>
+                  <Route path="/chats/123" element={<Sidebar  isOpen={true} toggleSideBar={() => {}} />} />
+                  <Route path="/" element={<ChatScreenMock />} />
+                </Routes>
+              </MemoryRouter>
+            </Provider>
+          );
+      const button = screen.getByText("New Chat");
+      fireEvent.click(button);
+    
+      expect(await screen.findByText(/Hello User/i)).toBeInTheDocument();
+    });
 });
