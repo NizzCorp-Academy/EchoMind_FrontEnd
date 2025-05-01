@@ -67,7 +67,6 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
         console.log("delete", chatId);
         deleteChat(chatId);
     };
-
     /**
      * @brief Fetches chat history and adds event listener for clicks outside menu items.
      */
@@ -166,7 +165,7 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
 
                     {/* New Chat Button */}
                     <button
-                        onClick={() => navigate(`"/"`)}
+                        onClick={() => navigate(`/`)}
                         className="bg-linear-to-r from-[#6E27E0] to-[#460F9E] w-full font-bold text-2xl mt-10 py-5 rounded-2xl cursor-pointer"
                     >
                         New Chat
@@ -183,7 +182,7 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
 
                     {/* Chat List Section */}
                     <div
-                        className={`max-h-96 overflow-y-auto ${
+                        className={`w-full max-h-96 overflow-y-auto ${
                             isDark
                                 ? "scroll-recent-Dark"
                                 : "scroll-recent-light"

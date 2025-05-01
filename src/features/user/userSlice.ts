@@ -23,7 +23,7 @@ import UserService from "../../services/userService";
  */
 interface User {
     id?: string;
-    name?: string;
+    username?: string;
     email?: string;
 }
 
@@ -67,13 +67,10 @@ export const registeringUserAsync = createAsyncThunk<
     User,
     { username: string; email: string; password: string },
     { rejectValue: string }
->("user/register", async (data, { rejectWithValue }) => {
+>("user/register", async (data) => {
     const userService = new UserService();
     const response: ServiceResponse<User> = await userService.register(data);
 
-    if (response.error) {
-        return rejectWithValue(response.error);
-    }
     return response.data as User;
 });
 
@@ -84,32 +81,25 @@ export const loginUserAsync = createAsyncThunk<
     User,
     { email: string; password: string },
     { rejectValue: string }
->("user/login", async (data, { rejectWithValue }) => {
+>("user/login", async (data) => {
     const userService = new UserService();
     const response: ServiceResponse<User> = await userService.login(data);
 
-    if (response.error) {
-        return rejectWithValue(response.error);
-    }
     return response.data as User;
 });
 
 /**
  * @brief Async thunk for fetching the current user.
  */
-export const gettingUserAsync = createAsyncThunk<
-    User,
-    void,
-    { rejectValue: string }
->("user/getUser", async (_, { rejectWithValue }) => {
-    const userService = new UserService();
-    const response: ServiceResponse<User> = await userService.getUser();
+export const gettingUserAsync = createAsyncThunk<User>(
+    "user/getUser",
+    async (_) => {
+        const userService = new UserService();
+        const response: ServiceResponse<User> = await userService.getUser();
 
-    if (response.error) {
-        return rejectWithValue(response.error);
+        return response.data as User;
     }
-    return response.data as User;
-});
+);
 
 /**
  * @brief Slice for managing user authentication state.
@@ -121,9 +111,10 @@ export const gettingUserAsync = createAsyncThunk<
 export const userSlice = createSlice({
     name: "user",
     initialState,
-
-    /**
-     * @brief Reducers for synchronous actions.
+    /*
+     * @brief Logs out the user by clearing the user state.
+     *
+     * @details
      */
     reducers: {
         /**
@@ -137,7 +128,6 @@ export const userSlice = createSlice({
             state.user = null;
         },
     },
-
     /**
      * @brief Handles asynchronous actions for user-related operations.
      */
@@ -178,9 +168,8 @@ export const userSlice = createSlice({
                 state.isGettingUser = false;
                 state.user = action.payload;
             })
-            .addCase(gettingUserAsync.rejected, (state, action) => {
+            .addCase(gettingUserAsync.rejected, (state) => {
                 state.isGettingUser = false;
-                state.error = action.payload || "Fetching user failed";
             });
     },
 });

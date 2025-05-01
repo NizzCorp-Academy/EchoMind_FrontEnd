@@ -30,10 +30,7 @@ const App = () => {
     const { user, getUser } = useGetUser();
 
     useEffect(() => {
-        const call = async () => {
-            await getUser();
-        };
-        call();
+        getUser();
     }, []);
     return (
         <Routes>

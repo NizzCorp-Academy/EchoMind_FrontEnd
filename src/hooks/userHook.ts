@@ -83,6 +83,7 @@ class UserHook {
         const getUser = () => {
             dispatch(gettingUserAsync());
         };
+
         return { user, getUser, isGettingUser };
     }
 
@@ -98,16 +99,19 @@ class UserHook {
         const dispatch = useDispatch<AppDispatch>();
 
         /**
-         * @brief Removes the user's token and logs them out.
+         * @brief Custom hook for register a user.
+         * @returns {object} An object containing the user, registerUser function, and isRegister status.
+         *
+         * @details
+         * - user: The current user object from the Redux store.
+         * - registerUser: Function to dispatch register action with username and email and password.
+         * - isRegisteringUser: Boolean indicating if register is in progress.
          */
         const removeToken = () => {
-            console.log("logout reducer");
             const userService = new UserService();
             userService.logOut();
             dispatch(logout());
         };
-
-        return removeToken;
     }
 }
 

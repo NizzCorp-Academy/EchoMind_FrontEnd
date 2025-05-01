@@ -153,7 +153,7 @@ export const ChatScreen: React.FC<{
                             <div className="text-2xl flex gap-3">
                                 Hai
                                 <div className="bg-gradient-to-r from-[#6E27E0] to-[#460F9E] inline-block text-transparent bg-clip-text">
-                                    {user?.name}
+                                    {user?.username}
                                 </div>
                             </div>
                             <div className=" text-5xl">How Can I Help You?</div>
