@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
 import { useDispatch, useSelector } from "react-redux";
-import ChatHook, { useEditChat, useGetResponse } from "../hooks/chatHook";
+import  { useDeleteChat, useDeleteMessage, useEditChat, useGetChats, useGetMessage, useGetResponse } from "../hooks/chatHook";
 
 
 vi.mock("react-redux", () => ({
@@ -51,50 +51,50 @@ describe("ChatHook", () => {
     expect(mockDispatch).toHaveBeenCalled();
   });
 
-  // it("useGetChats returns correct values and dispatches thunk", () => {
-  //   (useSelector as unknown as Mock).mockImplementation((cb:any) =>
-  //     cb({ chat: { chats: ["chat"], isGettingChat: true } })
-  //   );
-  //   const hook = new ChatHook();
-  //   const { chats, getChats, isGettingChat } = hook.useGetChats();
-  //   expect(chats).toEqual(["chat"]);
-  //   expect(isGettingChat).toBe(true);
-  //   getChats();
-  //   expect(mockDispatch).toHaveBeenCalled();
-  // });
-  // it("useGetMessage returns correct values and dispatches thunk", () => {
-  //   (useSelector as unknown as Mock).mockImplementation((cb:any) =>
-  //     cb({ chat: { messages: ["chat"], isGettingMessage: true } })
-  //   );
-  //   const hook = new ChatHook();
-  //   const {messages, getMessages, isGettingMessage } = hook.useGetMessage();
-  //   expect(messages).toEqual(["chat"]);
-  //   expect(isGettingMessage).toBe(true);
-  //   getMessages("123");
-  //   expect(mockDispatch).toHaveBeenCalled();
-  // });
-  // it("useDeleteMessage returns correct values and dispatches thunk", () => {
-  //   (useSelector as unknown as Mock).mockImplementation((cb:any) =>
-  //     cb({ chat: { messages: ["msg"], isDelettingMessage: true } })
-  //   );
-  //   const hook = new ChatHook();
-  //   const { messages, deleteMessage, isDelettingMessage } = hook.useDeleteMessage();
-  //   expect(messages).toEqual(["msg"]);
-  //   expect(isDelettingMessage).toBe(true);
-  //   deleteMessage("msgId");
-  //   expect(mockDispatch).toHaveBeenCalled();
-  // });
-  // it("useDeleteChat returns correct values and dispatches thunk", () => {
-  //   (useSelector as unknown as Mock).mockImplementation((cb:any) =>
-  //     cb({ chat: { chats: ["chat"], isDelettingMessage: true } })
-  //   );
-  //   const hook = new ChatHook();
-  //   const { chats, deleteChat, isDelettingMessage } = hook.useDeleteChat();
-  //   expect(chats).toEqual(["chat"]);
-  //   expect(isDelettingMessage).toBe(true);
-  //   deleteChat("msgId");
-  //   expect(mockDispatch).toHaveBeenCalled();
-  // });
+  it("useGetChats returns correct values and dispatches thunk", () => {
+    (useSelector as unknown as Mock).mockImplementation((cb:any) =>
+      cb({ chat: { chats: ["chat"], isGettingChat: true } })
+    );
+    
+    const { chats, getChats, isGettingChat } =useGetChats();
+    expect(chats).toEqual(["chat"]);
+    expect(isGettingChat).toBe(true);
+    getChats();
+    expect(mockDispatch).toHaveBeenCalled();
+  });
+  it("useGetMessage returns correct values and dispatches thunk", () => {
+    (useSelector as unknown as Mock).mockImplementation((cb:any) =>
+      cb({ chat: { messages: ["chat"], isGettingMessage: true } })
+    );
+    
+    const {messages, getMessages, isGettingMessage } =useGetMessage();
+    expect(messages).toEqual(["chat"]);
+    expect(isGettingMessage).toBe(true);
+    getMessages("123");
+    expect(mockDispatch).toHaveBeenCalled();
+  });
+  it("useDeleteMessage returns correct values and dispatches thunk", () => {
+    (useSelector as unknown as Mock).mockImplementation((cb:any) =>
+      cb({ chat: { messages: ["msg"], isDelettingMessage: true } })
+    );
+    
+    const { messages, deleteMessage, isDelettingMessage } =useDeleteMessage();
+    expect(messages).toEqual(["msg"]);
+    expect(isDelettingMessage).toBe(true);
+    deleteMessage("msgId");
+    expect(mockDispatch).toHaveBeenCalled();
+  });
+  it("useDeleteChat returns correct values and dispatches thunk", () => {
+    (useSelector as unknown as Mock).mockImplementation((cb:any) =>
+      cb({ chat: { chats: ["chat"], isDelettingMessage: true } })
+    );
+    
+    const { chats, deleteChat, isDelettingMessage } =useDeleteChat();
+    expect(chats).toEqual(["chat"]);
+    expect(isDelettingMessage).toBe(true);
+    deleteChat("msgId");
+    expect(mockDispatch).toHaveBeenCalled();
+  });
  
   
 });
