@@ -8,16 +8,16 @@
  */
 
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogTrigger,
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogHeader,
+    DialogTrigger,
 } from "@/components/ui/dialog";
 import { FaArrowRight, FaCaretDown } from "react-icons/fa";
 import messageIcon from "../assets/svg/message.svg";
 import { useNavigate } from "react-router";
-import ChatHook from "../hooks/chatHook";
+import { useGetChats } from "../hooks/chatHook";
 import ChatLoading from "./ChatLoading";
 import { useEffect } from "react";
 
@@ -30,55 +30,58 @@ import { useEffect } from "react";
  * @returns {JSX.Element} The rendered PopupRecent component.
  */
 export function PopupRecent() {
-  const navigate = useNavigate();
-  const chatHook = new ChatHook();
-  const { chats, isGettingChat, getChats } = chatHook.useGetChats();
+    const navigate = useNavigate();
+    const { chats, isGettingChat, getChats } = useGetChats();
 
-  useEffect(() => {
-    getChats();
-  }, []);
+    useEffect(() => {
+        getChats();
+    }, []);
 
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <span className="flex items-center gap-2 font-light text-[#B9BABB] cursor-pointer">
-          View all <FaArrowRight />
-        </span>
-      </DialogTrigger>
+    return (
+        <Dialog>
+            <DialogTrigger asChild>
+                <span className="flex items-center gap-2 font-light text-[#B9BABB] cursor-pointer">
+                    View all <FaArrowRight />
+                </span>
+            </DialogTrigger>
 
-      <DialogContent className="sm:max-w-md md:max-w-2xl bg-[#140C26] text-white max-h-[75vh] overflow-auto">
-        <DialogHeader>
-          <div className="flex items-center gap-2">
-            <FaCaretDown />
-            <span>Recents</span>
-          </div>
-        </DialogHeader>
+            <DialogContent className="sm:max-w-md md:max-w-2xl bg-[#140C26] text-white max-h-[75vh] overflow-auto">
+                <DialogHeader>
+                    <div className="flex items-center gap-2">
+                        <FaCaretDown />
+                        <span>Recents</span>
+                    </div>
+                </DialogHeader>
 
-        <div className="flex flex-col gap-2 mt-4 w-full">
-          {isGettingChat ? (
-            <ChatLoading />
-          ) : chats?.length === 0 ? (
-            <span>No chats found.</span>
-          ) : (
-            chats &&
-            chats.map((chat) => (
-              <DialogClose asChild key={chat._id}>
-                <div
-                  onClick={() => navigate(`/chats/${chat._id}`)}
-                  className="relative cursor-pointer flex items-center gap-3 h-10 pl-2 py-6 w-full rounded-md hover:bg-[#444C57] hover:border-l-4 border-[#7ABCFF] duration-300"
-                >
-                  <img
-                    src={messageIcon}
-                    alt="chat"
-                    className="w-5 h-5 shrink-0"
-                  />
-                  <span className="truncate text-sm flex-1">{chat.title}</span>
+                <div className="flex flex-col gap-2 mt-4 w-full">
+                    {isGettingChat ? (
+                        <ChatLoading />
+                    ) : chats?.length === 0 ? (
+                        <span>No chats found.</span>
+                    ) : (
+                        chats &&
+                        chats.map((chat) => (
+                            <DialogClose asChild key={chat._id}>
+                                <div
+                                    onClick={() =>
+                                        navigate(`/chats/${chat._id}`)
+                                    }
+                                    className="relative cursor-pointer flex items-center gap-3 h-10 pl-2 py-6 w-full rounded-md hover:bg-[#444C57] hover:border-l-4 border-[#7ABCFF] duration-300"
+                                >
+                                    <img
+                                        src={messageIcon}
+                                        alt="chat"
+                                        className="w-5 h-5 shrink-0"
+                                    />
+                                    <span className="truncate text-sm flex-1">
+                                        {chat.title}
+                                    </span>
+                                </div>
+                            </DialogClose>
+                        ))
+                    )}
                 </div>
-              </DialogClose>
-            ))
-          )}
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
+            </DialogContent>
+        </Dialog>
+    );
 }

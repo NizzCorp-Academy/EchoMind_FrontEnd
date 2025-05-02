@@ -22,6 +22,8 @@ import {
 } from "../constance/apiConstance";
 import AxiosClass from "../utils/axios";
 
+AxiosClass.initializeInterceptors();
+
 /**
  * @interface AxiosResponse
  * @brief Represents a generic API response.

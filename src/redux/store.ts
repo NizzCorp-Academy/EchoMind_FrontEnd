@@ -18,12 +18,12 @@ import { errorMiddleware } from "@/utils/errorMiddleware";
  * Combines chat and user reducers.
  */
 export const store = configureStore({
-  reducer: {
-    chat: chatReducer,
-    user: userReducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(errorMiddleware),
+    reducer: {
+        chat: chatReducer,
+        user: userReducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(errorMiddleware),
 });
 
 /**
@@ -51,8 +51,8 @@ export type AppDispatch = AppStore["dispatch"];
  * @param ThunkReturnType The return type of the thunk action (defaults to void).
  */
 export type AppThunk<ThunkReturnType = void> = ThunkAction<
-  ThunkReturnType,
-  RootState,
-  unknown,
-  Action
+    ThunkReturnType,
+    RootState,
+    unknown,
+    Action
 >;

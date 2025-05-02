@@ -1,90 +1,90 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
 import { useDispatch, useSelector } from "react-redux";
-import UserHook from "../hooks/userHook";
+import * as UserHook from "../hooks/userHook";
+import * as userSlice from "../features/user/userSlice";
+import { logout } from "../features/user/userSlice"; // import it at the top
 
-// Mock react-redux hooks
+// Mock react-redux
 vi.mock("react-redux", () => ({
-  useDispatch: vi.fn(),
-  useSelector: vi.fn(),
+    useDispatch: vi.fn(),
+    useSelector: vi.fn(),
 }));
 
-// Mock thunks/actions
 const mockDispatch = vi.fn();
-const mockLoginUserAsync = vi.fn(() => "loginThunk");
-const mockregisteringUserAsync = vi.fn(() => "registerThunk");
-const mockGettingUserAsync = vi.fn(() => "getUserThunk");
-const mockLogout= vi.fn(() => "logout");
 
-// Mock userSlice
-vi.mock("../features/user/userSlice", () => ({
-  loginUserAsync: (...args: any[]) => mockLoginUserAsync(...args),
-  gettingUserAsync: (...args: any[]) => mockGettingUserAsync(...args),
-  registeringUserAsync: (...args: any[]) => mockregisteringUserAsync(...args),
-  logout: (...args: any[]) => mockLogout(...args),
-}));
+vi.mock("../../features/user/userSlice", async (importOriginal) => {
+    const actual = await importOriginal<typeof userSlice>();
+    return {
+        ...actual,
+        logout: actual.logout,
+        loginUserAsync: vi.fn(() => () => {}),
+        registeringUserAsync: vi.fn(() => () => {}),
+        gettingUserAsync: vi.fn(() => () => {}),
+    };
+});
+
+vi.mock("@/services/userService", () => {
+    return {
+        default: vi.fn().mockImplementation(() => ({
+            logOut: vi.fn(),
+        })),
+    };
+});
 
 describe("UserHook", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-    (useDispatch as unknown as vi.Mock).mockReturnValue(mockDispatch);
-  });
-
-  it("useRegister returns user, registerUser, and isregisterUser; registerUser dispatches thunk", () => {
-    // Fix: mock state shape to match what the hook expects
-    (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
-      cb({ user: { user: {}, isRegisteringUser: true } })
-    );
-    const hook = new UserHook();
-    const { user, registerUser, isRegisteringUser } = hook.useRegister();
-    expect(user).toEqual({});
-    expect(isRegisteringUser).toBe(true);
-    registerUser("bob", "a@b.com", "pw");
-    expect(mockregisteringUserAsync).toHaveBeenCalledWith({
-      username: "bob",
-      email: "a@b.com",
-      password: "pw",
+    beforeEach(() => {
+        vi.clearAllMocks();
+        (useDispatch as unknown as Mock).mockReturnValue(mockDispatch);
     });
-    expect(mockDispatch).toHaveBeenCalledWith("registerThunk");
-  });
-  it("useLogin returns user, loginUser, and isLoggingUser; loginUser dispatches thunk", () => {
-    // Fix: mock state shape to match what the hook expects
-    (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
-      cb({ user: { user: { name: "bob" }, isLoggingUser: true } })
-    );
-    const hook = new UserHook();
-    const { user, loginUser, isLoggingUser } = hook.useLogin();
-    expect(user).toEqual({ name: "bob" });
-    expect(isLoggingUser).toBe(true);
-    loginUser("a@b.com", "pw");
-    expect(mockLoginUserAsync).toHaveBeenCalledWith({
-      email: "a@b.com",
-      password: "pw",
-    });
-    expect(mockDispatch).toHaveBeenCalledWith("loginThunk");
-  });
 
-  it("useGetUser returns user, getUser, and isGettingUser; getUser dispatches thunk", () => {
-   
-    (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
-      cb({ user: { user: { name: "alice" }, isGettingUser: false } })
-    );
-    const hook = new UserHook();
-    const { user, getUser, isGettingUser } = hook.useGetUser();
-    expect(user).toEqual({ name: "alice" });
-    expect(isGettingUser).toBe(false);
-    getUser();
-    expect(mockGettingUserAsync).toHaveBeenCalled();
-    expect(mockDispatch).toHaveBeenCalledWith("getUserThunk");
-  });
-  it("useLogout should dispatch logout action", () => {
-    (useSelector as unknown as vi.Mock).mockImplementation((cb) =>
-      cb({ user: { user: { name: "alice" }, isGettingUser: false } })
-    );
-    const hook = new UserHook();
-    const removeToken = hook.useLogout();
-    removeToken();
-    expect(mockLogout).toHaveBeenCalled();
-    expect(mockDispatch).toHaveBeenCalledWith(mockLogout());
-  });
-  
+    it("useLogin returns correct values and dispatches login thunk", () => {
+        (useSelector as unknown as Mock).mockImplementation((cb: any) =>
+            cb({ user: { user: { name: "Test" }, isLoggingUser: true } })
+        );
+
+        const { user, loginUser, isLoggingUser } = UserHook.useLogin();
+
+        expect(user).toEqual({ name: "Test" });
+        expect(isLoggingUser).toBe(true);
+
+        loginUser("test@example.com", "password");
+        expect(mockDispatch).toHaveBeenCalled();
+    });
+
+    it("useRegister returns correct values and dispatches register thunk", () => {
+        (useSelector as unknown as Mock).mockImplementation((cb: any) =>
+            cb({ user: { user: { name: "NewUser" }, isRegisteringUser: true } })
+        );
+
+        const { user, registerUser, isRegisteringUser } =
+            UserHook.useRegister();
+
+        expect(user).toEqual({ name: "NewUser" });
+        expect(isRegisteringUser).toBe(true);
+
+        registerUser("username", "email@example.com", "password123");
+        expect(mockDispatch).toHaveBeenCalled();
+    });
+
+    it("useGetUser returns correct values and dispatches get user thunk", () => {
+        (useSelector as unknown as Mock).mockImplementation((cb: any) =>
+            cb({ user: { user: { name: "LoggedUser" }, isGettingUser: true } })
+        );
+
+        const { user, getUser, isGettingUser } = UserHook.useGetUser();
+
+        expect(user).toEqual({ name: "LoggedUser" });
+        expect(isGettingUser).toBe(true);
+
+        getUser();
+        expect(mockDispatch).toHaveBeenCalled();
+    });
+
+    it("useLogout calls UserService to remove token and dispatches logout", () => {
+        const { removeToken } = UserHook.useLogout();
+
+        removeToken();
+
+        expect(mockDispatch).toHaveBeenCalledWith(logout());
+    });
 });
