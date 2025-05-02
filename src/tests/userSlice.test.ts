@@ -115,7 +115,7 @@ describe("userSlice async thunks", () => {
     it("should handle gettingUserAsync.rejected", () => {
         const state = reducer(initialState, {
             type: gettingUserAsync.rejected.type,
-            payload: "fetching user failed",
+            payload: "Fetching user failed",
         });
         expect(state.isGettingUser).toBe(false);
         expect(state.error).toBe("Fetching user failed");
