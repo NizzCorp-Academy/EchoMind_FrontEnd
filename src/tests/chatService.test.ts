@@ -9,10 +9,10 @@ vi.mock("../utils/axios", () => {
             post: vi.fn(),
             put: vi.fn(),
             delete: vi.fn(),
+            initializeInterceptors: vi.fn(),
         },
     };
 });
-
 describe("ChatService", () => {
     let chatService: ChatService;
 

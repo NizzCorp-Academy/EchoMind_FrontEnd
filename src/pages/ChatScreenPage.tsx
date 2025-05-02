@@ -21,10 +21,11 @@ export const ChatScreenPage = () => {
          bg-yellow-500
           transform transition-transform duration-300 `}
       /> */}
-            <div hidden={!isOpen}>
+            <div data-testid="side-bar-div-test-id" hidden={!isOpen}>
                 <Sidebar isOpen={isOpen} toggleSideBar={toggleSideBar} />
             </div>
             <div
+                data-testid="chat-screen-div-test-id"
                 className={`${isOpen ? "w-[80%] flex mx-auto" : "w-[100%]"} 
                 ${!isOpen ? "" : "mr-6"}
                  transition duration-300  h-full flex justify-center items-center`}

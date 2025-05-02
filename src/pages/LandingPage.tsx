@@ -51,6 +51,7 @@ export const LandingPage = () => {
         </div>
         <div
           id="home"
+           data-testid="home"
           className=" flex items-center justify-between px-[100px]"
         >
           <motion.div
@@ -71,7 +72,7 @@ export const LandingPage = () => {
             </div>
             <div className="space-y-[18px]">
               <div className="bg-gradient-to-r from-[#8A4CEF] to-[#2A0070] h-[50px] flex items-center w-[150px] justify-center rounded-[16px] p-[1.5px]">
-                <div
+                <div data-testid="get-start"
                   className="bg-gradient-to-r from-[#6E27E0] to-[#460F9E] h-full flex items-center w-full justify-center rounded-[16px] cursor-pointer"
                   onClick={() => navigate("/register")}
                 >
@@ -96,6 +97,7 @@ export const LandingPage = () => {
       {/* FEATURE START */}
       <section
         id="features"
+         data-testid="features"
         className="w-full h-full flex flex-col items-start px-12 py-9 bg-radial-top-left  bg-[#0B0C0F] gap-2 "
       >
         <h3 className="font-semibold">Features</h3>
@@ -128,7 +130,7 @@ export const LandingPage = () => {
       {/* FEATURE eND */}
       {/* Footer Section */}
       <div className="w-full h-full flex flex-col items-start px-12 py-8 bg-radial-top-left  bg-[#0B0C0F] gap-2 ">
-        <div className="font-semibold" id="about">
+        <div className="font-semibold" id="about"  data-testid="about">
           ABOUT US
         </div>
         <h1 className="text-4xl font-semibold">
@@ -144,7 +146,7 @@ export const LandingPage = () => {
           latest project harnesses the capabilities of cutting large language
         </div>
       </div>
-      <div className="w-full h-full flex flex-col items-start pt-4 px-12 pb-8 bg-radial-top-left  bg-[#0B0C0F]">
+      <div  data-testid="footer" className="w-full h-full flex flex-col items-start pt-4 px-12 pb-8 bg-radial-top-left  bg-[#0B0C0F]">
         <img src="./logo.png" className="w-44" />
         <div className="flex gap-[107px] items-center py-8 px-2">
           <div className="space-y-3.5">
