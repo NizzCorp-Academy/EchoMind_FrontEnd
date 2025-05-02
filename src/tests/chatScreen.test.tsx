@@ -1,145 +1,171 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import "@testing-library/jest-dom";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
-import { ChatScreen } from "../components/ChatScreen";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from "@testing-library/react";
+import { ChatScreen } from "../components/ChatScreen"; 
+import { describe, it, vi, beforeEach, expect } from "vitest";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import * as chatHook from "../hooks/chatHook";
+import * as userHook from "../hooks/userHook";
+
 import { Provider } from "react-redux";
-import { store } from "../redux/store";
-import ChatHook from "../hooks/chatHook";
-import userEvent from "@testing-library/user-event";
+import { store } from "@/redux/store";
 
-vi.mock("../hooks/chatHook", () => {
-    return {
-        default: class {
-            useGetMessage = () => ({
-                isGettingMessage: false,
-                messages: mockMessages,
-                getMessages: vi.fn(),
-                unSetMessages: vi.fn(),
-            });
-            useDeleteMessage = vi.fn().mockReturnValue({
-                deleteMessage: vi.fn(),
-                isDelettingMessage: false,
-                messages: mockMessages,
-            });
-            useGetResponse = vi.fn().mockReturnValue({
-                getResponse: vi.fn(),
-                isGettingResponse: false,
-                messages: mockMessages,
-            });
-            useGetChats = vi.fn().mockReturnValue({
-                chats: [],
-                isGettingChat: false,
-                getChats: vi.fn(),
-            });
-        },
-    };
-});
-
-// Mock UserHook
-vi.mock("../hooks/userHook", () => {
-    return {
-        default: class {
-            useGetUser = vi.fn().mockReturnValue({
-                user: { username: "Test User" },
-            });
-        },
-    };
-});
-
-// Mock next-themes
 vi.mock("next-themes", () => ({
-    useTheme: () => ({ theme: "light" }),
+  useTheme: () => ({ theme: "light" }),
 }));
 
-describe("ChatScreen Component", () => {
-    const mockProps = {
-        isOpen: false,
-        toggleSideBar: vi.fn(),
-    };
+describe("ChatScreen", () => {
+  const toggleSideBar = vi.fn();
 
-    beforeEach(() => {
-        vi.clearAllMocks();
+  beforeEach(() => {
+    vi.resetAllMocks();
+  });
+
+  it("calls getResponse on prompt submit", async () => {
+    const getResponse = vi.fn();
+
+    vi.spyOn(chatHook, "useGetMessage").mockReturnValue({
+      messages: [],
+      isGettingMessage: false,
+      getMessages: vi.fn(),
+      unSetMessages: vi.fn(),
     });
 
-    const setup = () =>
-        render(
-            <Provider store={store}>
-                <MemoryRouter>
-                    <ChatScreen {...mockProps} />
-                </MemoryRouter>
-            </Provider>
-        );
-
-    it("renders basic chat interface", () => {
-        setup();
-        expect(
-            screen.getByPlaceholderText("Say Something")
-        ).toBeInTheDocument();
-        expect(
-            screen.getByTestId("prompt-screen-send-button")
-        ).toBeInTheDocument();
+    vi.spyOn(chatHook, "useGetResponse").mockReturnValue({
+      getResponse,
+      isGettingResponse: false,
+      messages: [],
     });
 
-    it("displays existing messages", () => {
-        setup();
-        expect(screen.getByText("Hello")).toBeInTheDocument();
-        expect(screen.getByText("Hi there")).toBeInTheDocument();
+    vi.spyOn(chatHook, "useDeleteMessage").mockReturnValue({
+      messages: [],
+      deleteMessage: vi.fn(),
+      isDelettingMessage: false,
     });
 
-    it("shows welcome screen for empty messages", () => {
-        // Create an instance of ChatHook before rendering
-        const { useGetMessage } = new ChatHook();
-
-        // Mock the useGetMessage method to return empty messages
-        const mockGetMessage = vi.fn().mockReturnValue({
-            isGettingMessage: false,
-            messages: undefined,
-            getMessages: vi.fn(),
-            unSetMessages: vi.fn(),
-        });
-
-        // Apply the spy to the instance
-        // vi.spyOn(chatHook, "useGetMessage").mockImplementation(mockGetMessage);
-
-        // Mock the ChatHook constructor to return our instance
-        // vi.spyOn(ChatHook.prototype, "useGetMessage").mockImplementation(
-        //     mockGetMessage
-        // );
-        useGetMessage: vi.fn().mockImplementation(mockGetMessage);
-        setup();
-        const chatscreen = screen.getByTestId("prompt-screen-with-nothing");
-        expect(chatscreen).toHaveTextContent("hello");
+    vi.spyOn(userHook, "useGetUser").mockReturnValue({
+      user: { email: "test@gmail.com", username: "TestUser" },
+      getUser: vi.fn(),
+      isGettingUser: false,
     });
 
-    it("handles message submission", () => {
-        console.log(Object.getOwnPropertyNames(ChatHook.prototype));
+    render(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={["/chats/123"]}>
+          <Routes>
+            <Route
+              path="/chats/:chatId"
+              element={<ChatScreen isOpen={true} toggleSideBar={vi.fn()} />}
+            />
+          </Routes>
+        </MemoryRouter>
+      </Provider>
+    );
 
-        const mockGetResponse = vi.fn();
-        let { useGetResponse } = new ChatHook();
-
-        // Mock the useGetResponse method
-        const mockUseGetResponse = vi.fn().mockReturnValue({
-            getResponse: mockGetResponse,
-            isGettingResponse: false,
-        });
-
-        // Apply the spy to both the instance and prototype
-        useGetResponse = vi.fn().mockReturnValue({
-            getResponse: mockUseGetResponse,
-            messages: undefined,
-            isGettingResponse: false,
-        });
-        // vi.spyOn(ChatHook.prototype, 'useGetResponse').mockImplementation(mockUseGetResponse);
-
-        setup();
-
-        const input = screen.getByPlaceholderText("Say Something");
-        const sendButton = screen.getByTestId("prompt-screen-send-button");
-
-        fireEvent.change(input, { target: { value: "test message" } });
-        fireEvent.click(sendButton);
-
-        expect(mockGetResponse).toHaveBeenCalledWith("test message", undefined);
+    const input = screen.getByPlaceholderText("Say Something");
+    const button = screen.getByTestId("prompt-screen-send-button");
+    act(() => {
+      fireEvent.change(input, { target: { value: "What is AI?" } });
+      fireEvent.click(button);
     });
+
+    expect(getResponse).toHaveBeenCalledWith("What is AI?", "123");
+  });
+  it("renders messages when available ,useGetMessage", () => {
+    vi.spyOn(chatHook, "useGetMessage").mockReturnValue({
+      messages: [
+        { _id: "1", message: "Hello", isFromUser: true, chatId: "123" },
+        { _id: "2", message: "Hi there!", isFromUser: false, chatId: "123" },
+      ],
+      isGettingMessage: false,
+      getMessages: vi.fn(),
+      unSetMessages: vi.fn(),
+    });
+  
+    vi.spyOn(chatHook, "useGetResponse").mockReturnValue({
+      getResponse: vi.fn(),
+      isGettingResponse: false,
+      messages: [],
+    });
+  
+    vi.spyOn(chatHook, "useDeleteMessage").mockReturnValue({
+      messages: [],
+      deleteMessage: vi.fn(),
+      isDelettingMessage: false,
+    });
+  
+    vi.spyOn(userHook, "useGetUser").mockReturnValue({
+      user: { email: "test@gmail.com", username: "TestUser" },
+      getUser: vi.fn(),
+      isGettingUser: false,
+    });
+  
+    render(
+      <MemoryRouter initialEntries={["/chats/123"]}>
+        <Routes>
+          <Route
+            path="/chats/:chatId"
+            element={<ChatScreen isOpen={true} toggleSideBar={toggleSideBar} />}
+          />
+        </Routes>
+      </MemoryRouter>
+    );
+  
+    expect(screen.getByText("Hello")).toBeInTheDocument();
+    expect(screen.getByText("Hi there!")).toBeInTheDocument();
+  });
+  it("Delte messages when clcik delete", () => {
+    const deleteMessage=vi.fn() 
+    vi.spyOn(chatHook, "useGetMessage").mockReturnValue({
+      messages: [
+        { _id: "1", message: "Hello", isFromUser: true, chatId: "123" },
+        { _id: "2", message: "Hi there!", isFromUser: false, chatId: "123" },
+      ],
+      isGettingMessage: false,
+      getMessages: vi.fn(),
+      unSetMessages: vi.fn(),
+    });
+  
+    vi.spyOn(chatHook, "useGetResponse").mockReturnValue({
+      getResponse: vi.fn(),
+      isGettingResponse: false,
+      messages: [],
+    });
+  
+    vi.spyOn(chatHook, "useDeleteMessage").mockReturnValue({
+      messages: [],
+      deleteMessage ,
+      isDelettingMessage: false,
+    });
+  
+    vi.spyOn(userHook, "useGetUser").mockReturnValue({
+      user: { email: "test@gmail.com", username: "TestUser" },
+      getUser: vi.fn(),
+      isGettingUser: false,
+    });
+  
+    render(
+      <MemoryRouter initialEntries={["/chats/1"]}>
+        <Routes>
+          <Route
+            path="/chats/:chatId"
+            element={<ChatScreen isOpen={true} toggleSideBar={toggleSideBar} />}
+          />
+        </Routes>
+      </MemoryRouter>
+    );
+    const deleteButtons = screen.getAllByTestId("message-delete-button");
+    act(() => {
+      fireEvent.click(deleteButtons[0]); // Click the first delete button
+    });
+    expect(deleteMessage).toHaveBeenCalledWith("1"); // The _id of the first message
+    
+  });
+ 
+  
 });
+
