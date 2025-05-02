@@ -48,7 +48,7 @@ export const ChatScreen: React.FC<{
     const { deleteMessage, isDelettingMessage } = useDeleteMessage();
     const { user } = useGetUser();
     const { theme } = useTheme();
-    const isDark = theme === "dark" ? false : true;
+    const isDark = theme === "dark" ? true : false;
 
     const bg = isDark
         ? "bg-gradient-to-r from-[#460F9E4D] to-[#460F9E00]"
@@ -118,13 +118,13 @@ export const ChatScreen: React.FC<{
 
     return (
         <div
-            className={` w-full h-[97%] flex flex-col items-center justify-between relative ${
+            className={` w-full h-full md:h-[97%] flex flex-col items-center justify-between relative ${
                 isDark ? " text-white " : "  text-black"
             }`}
         >
             <div
                 className={`${
-                    !isOpen ? "w-[80%] flex mx-auto" : "w-full "
+                    !isOpen ? " w-[95%] md:w-[80%] flex mx-auto" : "w-full "
                 } absolute top-3.5`}
             >
                 <ChatScreeNavBar
@@ -136,7 +136,9 @@ export const ChatScreen: React.FC<{
             <div
                 data-testid="chat-screen-message-screen-1"
                 className={` ${isDark ? "bg-[#29193C] " : "bg-[#F5F5F5]"} ${
-                    !isOpen ? "w-[80%] flex flex-col mx-auto" : "w-full"
+                    !isOpen
+                        ? "w-[95%] md:w-[80%] flex flex-col mx-auto"
+                        : "w-full"
                 }  h-full overflow-y-auto mt-12 mb-17 mx-auto ${bg}  py-6 `}
             >
                 {messages && !isGettingMessage ? (
@@ -190,9 +192,10 @@ export const ChatScreen: React.FC<{
                 ) : (
                     <div className="flex w-full h-full items-center justify-center">
                         <div className="flex flex-col gap-3 items-center justify-center">
-                            <div className="text-2xl flex gap-3">
+                            <div className="text-2xl font-semibold flex gap-3">
                                 Hai
                                 <div className="bg-gradient-to-r from-[#6E27E0] to-[#460F9E] inline-block text-transparent bg-clip-text">
+                                    Jaseem
                                     {user?.username}
                                 </div>
                             </div>
@@ -208,7 +211,9 @@ export const ChatScreen: React.FC<{
             </div>
             {/* Prompt  */}
             <div
-                className={` ${!isOpen ? "w-[80%] flex mx-auto" : "w-full"}
+                className={` drop-shadow-lg ${
+                    !isOpen ? "w-[95%] md:w-[80%] flex mx-auto" : "w-full"
+                }
                       ${
                           isDark ? "bg-[#472c66] " : "bg-[#FEFEFE]"
                       }  min-h-[80px] flex rounded-[25px] items-center justify-between px-[16px] absolute bottom-3 `}
@@ -237,6 +242,10 @@ export const ChatScreen: React.FC<{
                     <ArrowUp />
                 </button>
             </div>
+            {/* <div
+                hidden={!isOpen}
+                className="sm:absolute sm:blur-xl sm:h-full sm:w-full sm:bg-black/50 md:hidden "
+            /> */}
         </div>
     );
 };

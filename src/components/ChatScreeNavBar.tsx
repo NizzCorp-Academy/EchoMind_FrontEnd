@@ -6,11 +6,12 @@ import {
     Plus,
     Sun,
 } from "lucide-react";
-import { FaRegShareSquare } from "react-icons/fa";
+import { FaRegEdit, FaRegShareSquare } from "react-icons/fa";
 import { MdBookmarkAdd } from "react-icons/md";
 import AxiosClass from "../utils/axios";
 import { useTheme } from "next-themes";
 import { useNavigate } from "react-router";
+import { HiMenuAlt2 } from "react-icons/hi";
 
 const ChatScreeNavBar = ({
     isOpen,
@@ -21,8 +22,11 @@ const ChatScreeNavBar = ({
 }) => {
     const { setTheme, theme } = useTheme();
     const naviagete = useNavigate();
-    const isDark = theme === "dark" ? false : true;
+    const isDark = theme === "dark" ? true : false;
     const bg = isDark ? "bg-[#29193C] " : "bg-[#FEFEFE]";
+    const logo = isDark
+        ? "../src/assets/logo.png"
+        : "../src/assets/logo-black.png";
     const addToken = async () => {
         await AxiosClass.post("http://localhost:5000/api/user/set", {
             token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODAzM2I4ZjY4YjVjNmU4YmFkZjc5NTUiLCJpYXQiOjE3NDUwNDM0MjQsImV4cCI6MTc0NjMzOTQyNH0.61MyV5D_B_XP_NrsPs8fzKyu5KsVjT8_1NEcUBPNYAg",
@@ -31,20 +35,39 @@ const ChatScreeNavBar = ({
 
     return (
         <div
-            className={`${
+            className={` ${
                 isDark
                     ? "text-white border-[1px] border-[#E8ECEF] "
                     : "text-black"
-            } w-full h-[70px] rounded-[25px] px-6 ${bg} flex items-center justify-between `}
+            } w-full h-[70px] rounded-[25px] px-6 ${bg} flex items-center drop-shadow-lg justify-between `}
         >
-            <div className="flex space-x-[22px]">
+            {/* new chat button small screen */}
+            <div className="sm:hidden" onClick={toggleSideBar}>
+                <HiMenuAlt2 size={30} />
+            </div>
+
+            <div className=" block sm:hidden">
+                <img src={logo} width={120} />
+            </div>
+
+            <div
+                className="sm:hidden"
+                onClick={
+                    () => naviagete("/")
+                    // isDark ? setTheme("light") : setTheme("dark")
+                }
+            >
+                <FaRegEdit size={30} />
+            </div>
+
+            <div className="hidden md:flex space-x-[22px]">
                 <div
-                    // hidden={isOpen}
+                    hidden={isOpen}
                     className={`${
                         isDark
                             ? "bg-gradient-to-r from-[#3A3A3A] to-[#3A3A3A]"
                             : "bg-[#E6E6E6]"
-                    } w-[30px] h-[30px] rounded-[6px] flex items-center justify-center  p-[1px] pl-[1.5px] pr-[1px]
+                    } w-[30px] h-[30px] flex rounded-[6px] items-center justify-center  p-[1px] pl-[1.5px] pr-[1px]
           `}
                 >
                     <div
@@ -84,7 +107,7 @@ const ChatScreeNavBar = ({
                         isDark
                             ? "bg-gradient-to-r from-[#2B2929] to-[#3A3A3A]"
                             : "bg-[#E6E6E6]"
-                    } rounded-[30px] w-[30px] h-[30px] py-[1px] pr-[0.5px] flex items-center justify-center`}
+                    } rounded-[30px] w-[30px] flex h-[30px] py-[1px] pr-[0.5px] items-center justify-center`}
                 >
                     <div
                         className={`${bg} w-full h-full rounded-[30px] flex items-center cursor-pointer justify-center m-[1px]`}
@@ -94,7 +117,7 @@ const ChatScreeNavBar = ({
                 </div>
             </div>
             {/* seciton  group */}
-            <div className="flex space-x-[50px] pr-[170px] w-full justify-end">
+            <div className="hidden sm:flex space-x-[50px] lg:pr-[170px] w-full justify-end">
                 {/* Dark Mode Switching Start  */}
                 <div className=" flex items-center space-x-[8px]">
                     {isDark ? <Moon /> : <Sun />}
@@ -105,7 +128,7 @@ const ChatScreeNavBar = ({
                 `}
                         // onClick={() => toggleRef.current?.click()}
                         onClick={() => {
-                            isDark ? setTheme("dark") : setTheme("light");
+                            isDark ? setTheme("light") : setTheme("dark");
                             // console.log(theme);
                         }}
                     >
