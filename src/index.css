@@ -263,3 +263,6 @@
   border-radius: 10px;
 }
 
+.section-title{
+  @apply text-3xl md:text-4xl lg:text-5xl font-bold
+}
