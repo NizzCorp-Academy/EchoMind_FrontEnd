@@ -1,3 +1,12 @@
+/**
+ * @file ChatScreen.tsx
+ * @brief Renders the main chat interface where users interact with their messages and AI responses.
+ *
+ * This component handles the display of chat messages, message submission, dynamic routing based on chat ID,
+ * theme-based styling, and scroll behavior. It interacts with custom chat and user hooks to manage state.
+ *
+ * @author Jaseem
+ */
 import ChatScreeNavBar from "../components/ChatScreeNavBar";
 import { ArrowUp, CirclePlus } from "lucide-react";
 import {
@@ -11,12 +20,23 @@ import { useNavigate, useParams } from "react-router";
 import { MdDeleteOutline } from "react-icons/md";
 import { useTheme } from "next-themes";
 
+/**
+ * @brief Main chat screen component.
+ *
+ * This component is responsible for fetching and displaying chat messages, handling prompt submission,
+ * deleting messages, and auto-scrolling to the most recent message. It also respects user theme preferences.
+ *
+ * @param {boolean} isOpen - Whether the sidebar is open.
+ * @param {() => void} toggleSideBar - Function to toggle the sidebar.
+ * @returns {JSX.Element} Rendered ChatScreen component.
+ */
+
 export const ChatScreen: React.FC<{
   isOpen: boolean;
   toggleSideBar: () => void;
 }> = ({ isOpen, toggleSideBar }) => {
   const { chatId } = useParams();
-  // console.log(chatId);
+
   const [prompt, setPrompt] = useState("");
   const promptInputRef = useRef<HTMLInputElement>(null);
   const promptEnterButtonRef = useRef<HTMLButtonElement>(null);
@@ -29,11 +49,16 @@ export const ChatScreen: React.FC<{
   const { user } = useGetUser();
   const { theme } = useTheme();
   const isDark = theme === "dark" ? false : true;
-  //   console.log(prompt);
 
   const bg = isDark
     ? "bg-gradient-to-r from-[#460F9E4D] to-[#460F9E00]"
     : "bg-[#F5F5F5]";
+
+  /**
+   * @brief Handles submission of a prompt.
+   *
+   * If the input is not empty, it triggers the AI response fetch and clears the input.
+   */
 
   const handleSubmition = async () => {
     prompt !== "" && (await getResponse(prompt, chatId));
@@ -42,6 +67,9 @@ export const ChatScreen: React.FC<{
 
   const navigate = useNavigate();
 
+  /**
+   * @brief Fetches messages when chatId changes or resets messages if no chatId is present.
+   */
   useEffect(() => {
     const call = async () => {
       await getMessages(chatId);
@@ -49,6 +77,10 @@ export const ChatScreen: React.FC<{
     chatId && call();
     !chatId && unSetMessages();
   }, [chatId]);
+
+  /**
+   * @brief Listens for 'Enter' key press on the prompt input to trigger submission.
+   */
 
   useEffect(() => {
     const eventFuntion = async (event: KeyboardEvent) => {
@@ -66,13 +98,17 @@ export const ChatScreen: React.FC<{
       eventFuntion(event)
     );
   }, []);
-
+  /**
+   * @brief If no chatId is present but messages exist, navigate to the first chat's route.
+   */
   useEffect(() => {
-      if (!chatId && messages) {
-          navigate(`/chats/${messages[0].chatId}`);
-      }
+    if (!chatId && messages) {
+      navigate(`/chats/${messages[0].chatId}`);
+    }
   }, [messages]);
-
+  /**
+   * @brief Scrolls to the bottom of the chat when new messages arrive.
+   */
   useEffect(() => {
     bottomMessageRef.current &&
       bottomMessageRef.current?.scroll({ behavior: "smooth" });

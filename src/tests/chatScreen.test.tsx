@@ -1,11 +1,5 @@
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  act,
-} from "@testing-library/react";
-import { ChatScreen } from "../components/ChatScreen"; 
+import { render, screen, fireEvent, act } from "@testing-library/react";
+import { ChatScreen } from "../components/ChatScreen";
 import { describe, it, vi, beforeEach, expect } from "vitest";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import * as chatHook from "../hooks/chatHook";
@@ -85,25 +79,25 @@ describe("ChatScreen", () => {
       getMessages: vi.fn(),
       unSetMessages: vi.fn(),
     });
-  
+
     vi.spyOn(chatHook, "useGetResponse").mockReturnValue({
       getResponse: vi.fn(),
       isGettingResponse: false,
       messages: [],
     });
-  
+
     vi.spyOn(chatHook, "useDeleteMessage").mockReturnValue({
       messages: [],
       deleteMessage: vi.fn(),
       isDelettingMessage: false,
     });
-  
+
     vi.spyOn(userHook, "useGetUser").mockReturnValue({
       user: { email: "test@gmail.com", username: "TestUser" },
       getUser: vi.fn(),
       isGettingUser: false,
     });
-  
+
     render(
       <MemoryRouter initialEntries={["/chats/123"]}>
         <Routes>
@@ -114,12 +108,12 @@ describe("ChatScreen", () => {
         </Routes>
       </MemoryRouter>
     );
-  
+
     expect(screen.getByText("Hello")).toBeInTheDocument();
     expect(screen.getByText("Hi there!")).toBeInTheDocument();
   });
   it("Delte messages when clcik delete", () => {
-    const deleteMessage=vi.fn() 
+    const deleteMessage = vi.fn();
     vi.spyOn(chatHook, "useGetMessage").mockReturnValue({
       messages: [
         { _id: "1", message: "Hello", isFromUser: true, chatId: "123" },
@@ -129,25 +123,25 @@ describe("ChatScreen", () => {
       getMessages: vi.fn(),
       unSetMessages: vi.fn(),
     });
-  
+
     vi.spyOn(chatHook, "useGetResponse").mockReturnValue({
       getResponse: vi.fn(),
       isGettingResponse: false,
       messages: [],
     });
-  
+
     vi.spyOn(chatHook, "useDeleteMessage").mockReturnValue({
       messages: [],
-      deleteMessage ,
+      deleteMessage,
       isDelettingMessage: false,
     });
-  
+
     vi.spyOn(userHook, "useGetUser").mockReturnValue({
       user: { email: "test@gmail.com", username: "TestUser" },
       getUser: vi.fn(),
       isGettingUser: false,
     });
-  
+
     render(
       <MemoryRouter initialEntries={["/chats/1"]}>
         <Routes>
@@ -163,9 +157,5 @@ describe("ChatScreen", () => {
       fireEvent.click(deleteButtons[0]); // Click the first delete button
     });
     expect(deleteMessage).toHaveBeenCalledWith("1"); // The _id of the first message
-    
   });
- 
-  
 });
-
