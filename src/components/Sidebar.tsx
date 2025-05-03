@@ -52,9 +52,8 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
     const { removeToken } = useLogout();
 
     const { chatId: urlId } = useParams();
-    const { theme } = useTheme();
-    const isDark = theme === "dark" ? false : true;
-
+    const { theme, setTheme } = useTheme();
+    const isDark = theme === "dark" ? true : false;
     /**
      * @brief Handles deleting a chat by ID.
      *
@@ -111,7 +110,7 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
 
     if (isDelettingMessage === true) {
         return (
-            <div className="w-screen h-screen flex justify-center items-center">
+            <div className="w-[100vw] h-[100dvh] flex justify-center items-center">
                 <div className="border-2 rounded-md border-white p-10">
                     <p>Deleting Chat...</p>
                 </div>
@@ -121,7 +120,7 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
 
     if (isUpdattingChat === true) {
         return (
-            <div className="w-screen h-screen flex justify-center items-center">
+            <div className="w-[100vw] h-[100dvh] flex justify-center items-center">
                 <div className="border-2 rounded-md border-white p-10">
                     <p>Updating Chat Title...</p>
                 </div>
@@ -141,35 +140,62 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
                     visualDuration: 0.5,
                     bounce: 0.25,
                 }}
-                className={`sm:max-w-3/4 md:max-w-md  min-h-screen px-10 text-white relative flex flex-col justify-between ${
+                className={`w-[100vw] sm:w-[40vw] lg:w-md select-none h-full px-10 text-white relative flex flex-col justify-between ${
                     isDark
                         ? "bg-[#1F1C1C]"
                         : "bg-gradient-to-r from-[#460F9E4D] to-[#19053800]"
                 }`}
             >
                 {/* Sidebar Top Section */}
-                <div>
+                <div className="space-y-4 sm:space-y-0">
                     {/* Toggle Sidebar and Logo */}
-                    <div className="flex justify-between pt-10">
+                    <div className="flex justify-between pt-6 sm:pt-10">
                         <img
                             src={slideLogo}
                             alt="sidebar toggle button"
                             className="cursor-pointer"
                             onClick={() => toggleSideBar()}
                         />
-                        <img src={logo} alt="Echomind logo" />
+                        <img
+                            src={logo}
+                            className="w-[8rem] sm:w-fit object-contain "
+                            // width={120}
+                            alt="Echomind logo"
+                        />
                     </div>
 
                     {/* New Chat Button */}
                     <button
                         onClick={() => navigate(`/`)}
-                        className="bg-linear-to-r from-[#6E27E0] to-[#460F9E] w-full font-bold text-2xl mt-10 py-5 rounded-2xl cursor-pointer"
+                        className="bg-linear-to-r from-[#6E27E0] to-[#460F9E] w-full font-bold text-2xl sm:mt-10 py-2 sm:py-5 rounded-2xl cursor-pointer"
                     >
-                        New Chat
+                        {"New Chat"}
                     </button>
 
+                    {/* Dark Mode Switching Start  */}
+                    <div
+                        className=" cursor-pointer bg-white/5 px-3 rounded-xl py-2.5 flex text-lg font-semibold items-center justify-between sm:hidden"
+                        onClick={() => {
+                            isDark ? setTheme("light") : setTheme("dark");
+                        }}
+                    >
+                        <span> Change Them</span>
+                        <div
+                            className={`w-[3.5rem] h-[1.8rem] rounded-[6rem] cursor-pointer border-2 border-[#E8ECEF] flex items-center px-[2px]
+                ${isDark ? "" : "justify-end bg-[#D9D9D9]"}
+                `}
+                        >
+                            <div
+                                className={`w-[1.5rem] h-[1.5rem] transition-all  duration-100 bg-[#888888] rounded-full
+                ${isDark ? "" : " bg-[#FEFEFE]"}
+              `}
+                            ></div>
+                        </div>
+                    </div>
+                    {/* Dark Mode Switching Ending  */}
+
                     {/* Recent Chats Header */}
-                    <div className="flex justify-between mt-10 font-bold mb-10">
+                    <div className="flex justify-between sm:mt-10 font-bold sm:mb-10">
                         <div className="flex justify-between items-center gap-2">
                             <FaCaretDown />
                             <span>Recents</span>
@@ -179,11 +205,7 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
 
                     {/* Chat List Section */}
                     <div
-                        className={`w-full max-h-96 overflow-y-auto ${
-                            isDark
-                                ? "scroll-recent-Dark"
-                                : "scroll-recent-light"
-                        }`}
+                        className={`w-full h-96 lg:max-h-52 md:max-h-96 overflow-y-auto "scroll-recent-Dark"`}
                     >
                         {isGettingChat ? (
                             <ChatLoading />
@@ -289,7 +311,7 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
 
                 {/* Sidebar Bottom Section */}
                 <div
-                    className="py-3 mb-3 flex justify-between items-center text-2xl text-white"
+                    className="py-3 font-semibold sm:font-normal mb-4 sm:mb-3 flex justify-between items-center text-2xl text-white"
                     onClick={() => removeToken()}
                 >
                     <span>Logout</span>

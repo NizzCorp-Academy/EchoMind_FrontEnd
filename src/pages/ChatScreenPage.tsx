@@ -6,7 +6,8 @@ import { useTheme } from "next-themes";
 export const ChatScreenPage = () => {
     const { theme } = useTheme();
     const isDark = theme === "dark" ? true : false;
-    const [isOpen, setIsOpen] = useState(true);
+    const SCREENWIDTH = window.innerWidth;
+    const [isOpen, setIsOpen] = useState(SCREENWIDTH < 600 ? false : true);
     const toggleSideBar = () => {
         setIsOpen((prev) => !prev);
     };
@@ -26,7 +27,9 @@ export const ChatScreenPage = () => {
             </div>
             <div
                 data-testid="chat-screen-div-test-id"
-                className={`${isOpen ? "w-[80%] flex mx-auto" : "w-[100%]"} 
+                className={`${
+                    isOpen ? "hidden sm:flex w-[80%] mx-auto" : "w-[100%]"
+                } 
                 ${!isOpen ? "" : "sm:mr-6"}
                  transition duration-300  h-full flex justify-center items-center`}
             >
