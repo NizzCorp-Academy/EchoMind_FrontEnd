@@ -51,7 +51,7 @@ export const ChatScreen: React.FC<{
     const isDark = theme === "dark" ? true : false;
 
     const bg = isDark
-        ? "bg-gradient-to-r from-[#460F9E4D] to-[#460F9E00]"
+        ? "bg-gradient-to-r from-transparent-purple-black to-[#460F9E00]"
         : "bg-[#F5F5F5]";
 
     /**
@@ -135,7 +135,7 @@ export const ChatScreen: React.FC<{
             {/* Messages */}
             <div
                 data-testid="chat-screen-message-screen-1"
-                className={` ${isDark ? "bg-[#29193C] " : "bg-[#F5F5F5]"} ${
+                className={` ${isDark ? "bg-dark-plum " : "bg-[#F5F5F5]"} ${
                     !isOpen
                         ? "w-[95%] md:w-[80%] flex flex-col mx-auto"
                         : "w-full"
@@ -194,8 +194,8 @@ export const ChatScreen: React.FC<{
                         <div className="flex flex-col gap-3 items-center justify-center">
                             <div className="text-2xl font-semibold flex gap-3">
                                 Hai
-                                <div className="bg-gradient-to-r from-[#6E27E0] to-[#460F9E] inline-block text-transparent bg-clip-text">
-                                    Jaseem
+                                <div className={` ${!isDark ? "bg-gradient-to-r from-vibrant-violet to-rich-purple inline-block text-transparent bg-clip-text":"text-sky-blue"}`}>
+                           
                                     {user?.username}
                                 </div>
                             </div>
@@ -215,7 +215,7 @@ export const ChatScreen: React.FC<{
                     !isOpen ? "w-[95%] md:w-[80%] flex mx-auto" : "w-full"
                 }
                       ${
-                          isDark ? "bg-[#472c66] " : "bg-[#FEFEFE]"
+                          isDark ? "bg-[#472c66] " : "bg-near-white"
                       }  min-h-[80px] flex rounded-[25px] items-center justify-between px-[16px] absolute bottom-3 `}
             >
                 <div className="flex items-center w-full ">

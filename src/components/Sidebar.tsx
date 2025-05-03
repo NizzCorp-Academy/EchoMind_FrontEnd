@@ -143,7 +143,7 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
                 className={`w-[100vw] sm:w-[40vw] lg:w-md select-none h-full px-10 text-white relative flex flex-col justify-between ${
                     isDark
                         ? "bg-[#1F1C1C]"
-                        : "bg-gradient-to-r from-[#460F9E4D] to-[#19053800]"
+                        : "bg-gradient-to-r from-transparent-purple-black to-[#19053800]"
                 }`}
             >
                 {/* Sidebar Top Section */}
@@ -167,7 +167,7 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
                     {/* New Chat Button */}
                     <button
                         onClick={() => navigate(`/`)}
-                        className="bg-linear-to-r from-[#6E27E0] to-[#460F9E] w-full font-bold text-2xl sm:mt-10 py-2 sm:py-5 rounded-2xl cursor-pointer"
+                        className="bg-linear-to-r from-vibrant-violet to-rich-purple w-full font-bold text-2xl sm:mt-10 py-2 sm:py-5 rounded-2xl cursor-pointer"
                     >
                         {"New Chat"}
                     </button>
@@ -187,7 +187,7 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
                         >
                             <div
                                 className={`w-[1.5rem] h-[1.5rem] transition-all  duration-100 bg-[#888888] rounded-full
-                ${isDark ? "" : " bg-[#FEFEFE]"}
+                ${isDark ? "" : " bg-near-white"}
               `}
                             ></div>
                         </div>
@@ -225,7 +225,7 @@ const Sidebar = ({ toggleSideBar, isOpen }: SidebarProps) => {
                                     }}
                                     className={`relative cursor-pointer flex items-center gap-3 h-10 pl-2 py-6 w-full max-w-md history-div rounded-md hover:bg-slate-50/10 duration-300 ${
                                         String(chat._id) === String(urlId)
-                                            ? "bg-[#444C57] border-l-4 border-[#7ABCFF]"
+                                            ? "bg-[#444C57] border-l-4 border-sky-blue"
                                             : ""
                                     }`}
                                 >

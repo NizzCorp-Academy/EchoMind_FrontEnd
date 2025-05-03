@@ -8,7 +8,6 @@ import {
 } from "lucide-react";
 import { FaRegEdit, FaRegShareSquare } from "react-icons/fa";
 import { MdBookmarkAdd } from "react-icons/md";
-import AxiosClass from "../utils/axios";
 import { useTheme } from "next-themes";
 import { useNavigate } from "react-router";
 import { HiMenuAlt2 } from "react-icons/hi";
@@ -23,15 +22,11 @@ const ChatScreeNavBar = ({
     const { setTheme, theme } = useTheme();
     const naviagete = useNavigate();
     const isDark = theme === "dark" ? true : false;
-    const bg = isDark ? "bg-[#29193C] " : "bg-[#FEFEFE]";
+    const bg = isDark ? "bg-dark-plum " : "bg-near-white";
     const logo = isDark
         ? "../src/assets/logo.png"
         : "../src/assets/logo-black.png";
-    const addToken = async () => {
-        await AxiosClass.post("http://localhost:5000/api/user/set", {
-            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODAzM2I4ZjY4YjVjNmU4YmFkZjc5NTUiLCJpYXQiOjE3NDUwNDM0MjQsImV4cCI6MTc0NjMzOTQyNH0.61MyV5D_B_XP_NrsPs8fzKyu5KsVjT8_1NEcUBPNYAg",
-        });
-    };
+
 
     return (
         <div
@@ -65,8 +60,8 @@ const ChatScreeNavBar = ({
                     hidden={isOpen}
                     className={`${
                         isDark
-                            ? "bg-gradient-to-r from-[#3A3A3A] to-[#3A3A3A]"
-                            : "bg-[#E6E6E6]"
+                            ? "bg-granite-gray"
+                            : "bg-platinum"
                     } w-[30px] h-[30px] flex rounded-[6px] items-center justify-center  p-[1px] pl-[1.5px] pr-[1px]
           `}
                 >
@@ -84,8 +79,8 @@ const ChatScreeNavBar = ({
                     onClick={() => naviagete("/")}
                     className={`${
                         isDark
-                            ? "bg-gradient-to-r from-[#3A3A3A] to-[#3A3A3A]"
-                            : "bg-[#E6E6E6]"
+                            ? "bg-granite-gray"
+                            : "bg-platinum"
                     } w-[130px] h-[30px] rounded-[16px]  p-[1px] pl-[1.5px] pr-[1px]
           `}
                 >
@@ -105,8 +100,8 @@ const ChatScreeNavBar = ({
                 <div
                     className={`${
                         isDark
-                            ? "bg-gradient-to-r from-[#2B2929] to-[#3A3A3A]"
-                            : "bg-[#E6E6E6]"
+                            ? "bg-gradient-to-r from-harcoal-gray to-granite-gray"
+                            : "bg-platinum"
                     } rounded-[30px] w-[30px] flex h-[30px] py-[1px] pr-[0.5px] items-center justify-center`}
                 >
                     <div
@@ -134,7 +129,7 @@ const ChatScreeNavBar = ({
                     >
                         <div
                             className={`w-[28px] h-[22px] transition-all  duration-100 bg-[#888888] rounded-[50px]
-                ${isDark ? "" : " bg-[#FEFEFE]"}
+                ${isDark ? "" : " bg-near-white"}
               `}
                         ></div>
                     </div>
@@ -145,13 +140,13 @@ const ChatScreeNavBar = ({
                     <div
                         className={` rounded-[5px] w-[30px] h-[30px] p-[1px] pr-[1.5px] ${
                             isDark
-                                ? "bg-gradient-to-r from-[#2B2929] to-[#3A3A3A]"
-                                : "bg-[#E6E6E6]"
+                                ? "bg-gradient-to-r from-harcoal-gray to-granite-gray"
+                                : "bg-platinum"
                         } `}
                     >
                         <div
                             className={`${bg} w-full h-full rounded-[4px] flex items-center justify-center cursor-pointer `}
-                            onClick={() => addToken()}
+                           
                         >
                             <MdBookmarkAdd size={20} />
                         </div>
@@ -159,8 +154,8 @@ const ChatScreeNavBar = ({
                     <div
                         className={` rounded-[5px] w-[30px] h-[30px] p-[1px] pr-[1.5px] ${
                             isDark
-                                ? "bg-gradient-to-r from-[#2B2929] to-[#3A3A3A]"
-                                : "bg-[#E6E6E6]"
+                                ? "bg-gradient-to-r from-harcoal-gray to-granite-gray"
+                                : "bg-platinum"
                         } `}
                     >
                         <div
@@ -172,8 +167,8 @@ const ChatScreeNavBar = ({
                     <div
                         className={` rounded-[5px] w-[30px] h-[30px] p-[1px] ${
                             isDark
-                                ? "bg-gradient-to-r from-[#2B2929] to-[#3A3A3A]"
-                                : "bg-[#E6E6E6]"
+                                ? "bg-gradient-to-r from-harcoal-gray to-granite-gray"
+                                : "bg-platinum"
                         } `}
                     >
                         <div

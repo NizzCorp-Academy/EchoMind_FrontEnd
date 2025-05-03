@@ -13,7 +13,7 @@ const ErrorFile = () => {
       </p>
       <button
         onClick={() => navigate("/home")}
-        className="cursor-pointer bg-linear-to-r from-[#6E27E0] to-[#460F9E]  text-white font-bold py-2 px-4 rounded"
+        className="cursor-pointer bg-linear-to-r from-vibrant-violet to-rich-purple  text-white font-bold py-2 px-4 rounded"
       >
         Go to Home
       </button>

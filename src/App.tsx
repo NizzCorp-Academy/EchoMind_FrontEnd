@@ -35,7 +35,6 @@ const App = () => {
         <Routes>
             <Route path="*" element={<ErrorFile />} />
             <Route path="/home" element={<LandingPage />} />
-            <Route path="/test" element={<ChatScreenPage />} />
 
             <Route
                 path="/login"

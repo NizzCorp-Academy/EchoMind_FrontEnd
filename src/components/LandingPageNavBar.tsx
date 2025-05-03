@@ -27,9 +27,9 @@ export const LandingPageNavBar = () => {
       <div
         ref={navRef}
         onClick={() => setNavbarShow((prev) => !prev)}
-        className="inline absolute right-6 top-6 lg:hidden w-10 h-10 rounded-sm p-[2px] bg-gradient-to-t from-[#000000] to-[#666666] z-50"
+        className="inline absolute right-6 top-6 lg:hidden w-10 h-10 rounded-sm p-[2px] bg-gradient-to-t from-black to-medium-gray z-50"
       >
-        <div className="w-full h-full rounded-sm bg-[#0B0C0F] flex justify-center items-center relative">
+        <div className="w-full h-full rounded-sm bg-deep-black flex justify-center items-center relative">
           <div
             className={`absolute w-5 h-0.5 bg-white transition-all duration-300 ${
               navbarShow ? "rotate-45" : "-translate-y-1.5"
@@ -69,11 +69,11 @@ export const LandingPageNavBar = () => {
               <a href="/home/#features">Features</a>
               <a href="/home/#about">About</a>
               <a href="/register"  className="
-        bg-[#1F1C1C]  py-1 border-2 border-[#3A3A3A]
+        bg-[#1F1C1C]  py-1 border-2 border-granite-gray
         cursor-pointer">Register</a>
               <a href="/login"  className="
-        bg-gradient-to-r from-[#6E27E0] to-[#460F9E]
-        py-1 border-2 border-[#8A4CEF]
+        bg-gradient-to-r from-vibrant-violet to-rich-purple
+        py-1 border-2 border-soft-violet
         cursor-pointer">Login</a>
 
           
@@ -84,8 +84,8 @@ export const LandingPageNavBar = () => {
       </AnimatePresence>
 
       {/* Hight VIEW */}
-      <div className="hidden lg:block  w-[70%] h-[80px] rounded-[20px] p-[2px] bg-gradient-to-t from-[#000000] to-[#666666]">
-        <div className="w-full h-full rounded-[20px] bg-[#0B0C0F] flex justify-between px-6 ">
+      <div className="hidden lg:block  w-[70%] h-[80px] rounded-[20px] p-[2px] bg-gradient-to-t from-black to-medium-gray">
+        <div className="w-full h-full rounded-[20px] bg-deep-black flex justify-between px-6 ">
           <div className="  md:flex items-center ">
             <img src={logo} width={200} />
           </div>
@@ -99,7 +99,7 @@ export const LandingPageNavBar = () => {
           <div className="flex gap-2 md:gap-5 items-center">
             <div
               className="
-        bg-[#1F1C1C] px-7 pt-[3px] pb-[5px]  rounded-[18px] border-2 border-[#3A3A3A]
+        bg-[#1F1C1C] px-7 pt-[3px] pb-[5px]  rounded-[18px] border-2 border-granite-gray
         cursor-pointer
         "
               onClick={() => navigate("/register")}
@@ -108,8 +108,8 @@ export const LandingPageNavBar = () => {
             </div>
             <div
               className="
-        bg-gradient-to-r from-[#6E27E0] to-[#460F9E]
-        rounded-[18px] px-7 pt-[3px] pb-[5px] border-2 border-[#8A4CEF]
+        bg-gradient-to-r from-vibrant-violet to-rich-purple
+        rounded-[18px] px-7 pt-[3px] pb-[5px] border-2 border-soft-violet
         cursor-pointer
         "
               onClick={() => navigate("/login")}

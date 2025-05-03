@@ -66,10 +66,11 @@ const Login = () => {
     };
 
     return (
-        <div className="h-[100dvh] w-full flex flex-col justify-center items-center gap-10 bg-radial-top-left text-white py-8">
-            {/* <LandingPageNavBar /> */}
+        <div className="h-[100dvh] w-full flex flex-col  items-center gap-10 bg-radial-top-left text-white py-8">
+            <LandingPageNavBar />
 
-            <h2 className="text-3xl font-bold ">Login to your account</h2>
+          <div className="flex flex-col w-full h-full gap-6 justify-center items-center">
+          <h2 className="text-3xl font-bold ">Login to your account</h2>
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="max-w-3xl p-6 sm:border sm:border-white w-full md:w-1/2 flex flex-col gap-6 rounded-md "
@@ -98,7 +99,7 @@ const Login = () => {
                 </div>
                 {isLoggingUser === false ? (
                     <button
-                        className="mx-auto w-full rounded-md text-2xl font-medium py-2 bg-linear-to-r from-[#6E27E0] to-[#460F9E]"
+                        className="mx-auto w-full rounded-md text-2xl font-medium py-2 bg-linear-to-r from-vibrant-violet to-rich-purple"
                         type="submit"
                     >
                         Login
@@ -118,6 +119,7 @@ const Login = () => {
                     </span>{" "}
                 </span>
             </form>
+          </div>
         </div>
     );
 };

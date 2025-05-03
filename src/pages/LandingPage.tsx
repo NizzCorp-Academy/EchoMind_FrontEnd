@@ -43,12 +43,12 @@ export const LandingPage = () => {
     },
   ];
   return (
-    <div className="font-[Montserrat] text-white bg-[#0B0C0F]">
+    <div className="font-[Montserrat] text-white bg-deep-black">
       {/* Header Section */}
       <div className="relative overflow-hidden ">
         <div className="absolute bg-[#460F9E4D] blur-[100px] w-[600px] h-[400px] rounded-full bottom-0 right-[150px]"></div>
         <div className="absolute bg-[#460F9E4D] blur-[100px] w-[2500px] h-[900px] rounded-full -bottom-[750px] -left-[200px] "></div>
-        <div className="w-full flex items-center justify-center pt-6 pb-2">
+         <div className="w-full flex items-center justify-center pt-6 pb-2">
           <LandingPageNavBar />
         </div>
         <div
@@ -73,10 +73,10 @@ export const LandingPage = () => {
               </div>
             </div>
             <div className="space-y-[18px]">
-              <div className="bg-gradient-to-r from-[#8A4CEF] to-[#2A0070] h-[50px] flex items-center w-[150px] justify-center rounded-[16px] p-[1.5px]">
+              <div className="bg-gradient-to-r from-soft-violet to-[#2A0070] h-[50px] flex items-center w-[150px] justify-center rounded-[16px] p-[1.5px]">
                 <div
                   data-testid="get-start"
-                  className="bg-gradient-to-r from-[#6E27E0] to-[#460F9E] h-full flex items-center w-full justify-center rounded-[16px] cursor-pointer"
+                  className="bg-gradient-to-r from-vibrant-violet to-rich-purple h-full flex items-center w-full justify-center rounded-[16px] cursor-pointer"
                   onClick={() => navigate("/register")}
                 >
                   Get Started
@@ -101,7 +101,7 @@ export const LandingPage = () => {
       <section
         id="features"
         data-testid="features"
-        className="w-full h-full flex flex-col items-start px-12 py-9 bg-radial-top-left  bg-[#0B0C0F] gap-2 "
+        className="w-full h-full flex flex-col items-start px-12 py-9 bg-radial-top-left  bg-deep-black gap-2 "
       >
         <h3 className="font-semibold">Features</h3>
         <h2 className="section-title">Say Hello to Smarter Support</h2>
@@ -131,7 +131,7 @@ export const LandingPage = () => {
       </section>
       {/* FEATURE eND */}
       {/* Footer Section */}
-      <div className="w-full h-full flex flex-col items-start px-12 py-9 bg-radial-top-left  bg-[#0B0C0F] gap-2 ">
+      <div className="w-full h-full flex flex-col items-start px-12 py-9 bg-radial-top-left  bg-deep-black gap-2 ">
         <div className="font-semibold" id="about" data-testid="about">
           ABOUT US
         </div>
@@ -148,7 +148,7 @@ export const LandingPage = () => {
       </div>
       <div
         data-testid="footer"
-        className="w-full h-full flex flex-col items-start pt-4 px-12 pb-8 bg-radial-top-left  bg-[#0B0C0F]"
+        className="w-full h-full flex flex-col items-start pt-4 px-12 pb-8 bg-radial-top-left  bg-deep-black"
       >
         <img src={logo} className="w-44" />
         {/* bottom */}
@@ -188,7 +188,7 @@ export const LandingPage = () => {
             <div className="font-semibold">Subscribe To Newsletter</div>
             <div className=" flex flex-col sm:flex-row gap-3 items-start justify-center  text-sm ">
               <input
-                className="bg-gradient-to-r from-[#2B2929] to-[#3A3A3A]  outline-none border-2 border-[#1F1C1C] p-3  rounded-full w-full lg:min-w-3xs"
+                className="bg-gradient-to-r from-harcoal-gray to-granite-gray  outline-none border-2 border-[#1F1C1C] p-3  rounded-full w-full lg:min-w-3xs"
                 placeholder="Enter Email Address"
               />
               <button className="bg-[#571ABC] font-semibold rounded-full py-4 px-6 w-full sm:w-1/4 lg:w-full">
