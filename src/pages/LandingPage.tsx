@@ -48,7 +48,7 @@ export const LandingPage = () => {
       <div className="relative overflow-hidden ">
         <div className="absolute bg-[#460F9E4D] blur-[100px] w-[600px] h-[400px] rounded-full bottom-0 right-[150px]"></div>
         <div className="absolute bg-[#460F9E4D] blur-[100px] w-[2500px] h-[900px] rounded-full -bottom-[750px] -left-[200px] "></div>
-         <div className="w-full flex items-center justify-center pt-6 pb-2">
+        <div className="w-full flex items-center justify-center pt-6 pb-2">
           <LandingPageNavBar />
         </div>
         <div
@@ -67,9 +67,10 @@ export const LandingPage = () => {
                 Get ready for the new era of AI
               </div>
               <div className="text-sm">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Praesent et vulputate tortor, in posuere nibh. Praesent sit amet
-                metus porttitor mi consectetur pellentesque in at leo. 
+                Experience the future of AI-driven support — intelligent,
+                responsive, and built to scale with your needs. Whether you're
+                growing a startup or optimizing enterprise operations, our
+                technology adapts to your journey.
               </div>
             </div>
             <div className="space-y-[18px]">
@@ -83,7 +84,8 @@ export const LandingPage = () => {
                 </div>
               </div>
               <div className="text-[#999999] text-sm">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Empowering your support system with cutting-edge AI and seamless
+                user experience.
               </div>
             </div>
           </motion.div>
@@ -108,11 +110,11 @@ export const LandingPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-6">
           <div className="flex flex-col gap-4 my-5 md:my-0">
             {lists.map((list, index) => (
-             <motion.div
-             initial={{ x: -200, opacity: 0 }}
-             whileInView={{ x: 0, opacity: 1 }}
-             viewport={{ once: true }} 
-             transition={{ duration: 0.6, delay: 0.3 }}
+              <motion.div
+                initial={{ x: -200, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
                 key={index}
                 className="flex flex-row items-start gap-4 p-4 rounded-xl shadow-md"
               >
