@@ -74,12 +74,12 @@ const Signup = () => {
     };
 
     return (
-        <div className="h-screen w-screen flex flex-col  items-center gap-10 bg-radial-top-left text-white py-8">
-            <LandingPageNavBar />
+        <div className="h-[100dvh] w-full flex flex-col  items-center justify-center gap-10 bg-radial-top-left text-white py-8">
+            {/* <LandingPageNavBar /> */}
             <h2 className="text-3xl  font-bold">Create an account</h2>
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="max-w-3xl p-6 border border-white w-full md:w-1/2 flex flex-col gap-6 rounded-md"
+                className="max-w-3xl p-6 sm:border sm:border-white w-full md:w-1/2 flex flex-col gap-6 rounded-md"
             >
                 <div className="flex flex-col gap-2">
                     <label className=" text-xl" htmlFor="username">
