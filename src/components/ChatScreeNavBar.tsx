@@ -39,10 +39,10 @@ const ChatScreeNavBar = ({
                 isDark
                     ? "text-white border-[1px] border-[#E8ECEF] "
                     : "text-black"
-            } w-full h-[70px] rounded-[25px] px-6 ${bg} flex items-center drop-shadow-lg justify-between `}
+            } w-full h-[70px] select-none rounded-[25px] px-6 ${bg} flex items-center drop-shadow-lg justify-between `}
         >
             {/* new chat button small screen */}
-            <div className="sm:hidden" onClick={toggleSideBar}>
+            <div className="block md:hidden" onClick={toggleSideBar}>
                 <HiMenuAlt2 size={30} />
             </div>
 
