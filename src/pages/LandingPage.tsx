@@ -1,3 +1,4 @@
+import { LandingPageList } from "@/types/misc.types";
 import { LandingPageNavBar } from "../components/LandingPageNavBar";
 import "../index.css";
 import { useNavigate } from "react-router";
@@ -9,7 +10,6 @@ import robo from "../assets/robo2.jpg";
 import { motion } from "framer-motion";
 import logo from "../assets/logo.png";
 import bottomLogo from "../assets/NizzCorp.png";
-import { LandingPageList } from "@/types/misc.types";
 
 export const LandingPage = () => {
     const navigate = useNavigate();
@@ -63,11 +63,11 @@ export const LandingPage = () => {
                                 Get ready for the new era of AI
                             </div>
                             <div className="text-sm">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Praesent et vulputate tortor,
-                                in posuere nibh. Praesent sit amet metus
-                                porttitor mi consectetur pellentesque in at
-                                leo. 
+                                Experience the future of AI-driven support —
+                                intelligent, responsive, and built to scale with
+                                your needs. Whether you're growing a startup or
+                                optimizing enterprise operations, our technology
+                                adapts to your journey.
                             </div>
                         </div>
                         <div className="space-y-[18px]">
@@ -81,8 +81,8 @@ export const LandingPage = () => {
                                 </div>
                             </div>
                             <div className="text-[#999999] text-sm">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit.
+                                Empowering your support system with cutting-edge
+                                AI and seamless user experience.
                             </div>
                         </div>
                     </motion.div>
