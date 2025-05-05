@@ -5,7 +5,7 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import ChatService from "../../services/chatService";
-import { initialState } from "@/types/chat.types";
+import { ChatState } from "@/types/chat.types";
 
 /**
  * @interface ChatState
@@ -22,8 +22,20 @@ import { initialState } from "@/types/chat.types";
  */
 
 /**
- * @brief Redux slice for chat state.
+ * @var initialState
+ * @brief Initial state for the chat slice.
  */
+const initialState: ChatState = {
+    chats: undefined,
+    error: null,
+    messages: undefined,
+    isDelettingChat: false,
+    isDelettingMessage: false,
+    isGettingChat: false,
+    isGettingResponse: false,
+    isGettingMessage: false,
+    isUpdattingChat: false,
+};
 export const chatSlice = createSlice({
     name: "chat",
     initialState,

@@ -16,37 +16,7 @@
  */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import UserService from "../../services/userService";
-
-/**
- * @interface User
- * @brief Represents a user object.
- */
-export interface User {
-    id?: string;
-    username?: string;
-    email?: string;
-}
-
-/**
- * @interface ServiceResponse
- * @brief Generic service response structure.
- */
-interface ServiceResponse<T> {
-    data?: T;
-    error?: string;
-}
-
-/**
- * @interface InitialState
- * @brief Initial state structure for the user slice.
- */
-export interface InitialState {
-    user: User | null;
-    isLoggingUser: boolean;
-    isRegisteringUser: boolean;
-    isGettingUser: boolean;
-    error: string | null;
-}
+import { InitialState, ServiceResponse, User } from "@/types/user.types";
 
 /**
  * @var initialState

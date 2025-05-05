@@ -5,9 +5,9 @@ import {
     editChatAsyncThunk,
     deleteChatAsyncThunk,
     chatSlice,
-    ChatState,
     deleteMessageAsyncThunk,
 } from "../features/chat/chatSlice";
+import { ChatState } from "@/types/chat.types";
 
 getResponseAsyncThunk;
 
@@ -57,8 +57,6 @@ describe("chatSlice reducer", () => {
         });
         expect(nextState.isGettingChat).toBe(false);
     });
-
- 
 
     it("should handle getResponseAsyncThunk.pending", () => {
         const nextState = chatSlice.reducer(initialState, {

@@ -1,3 +1,6 @@
+/**
+ * @brief Redux slice for chat state.
+ */
 export interface ChatState {
     error: any;
     chats:
@@ -18,19 +21,3 @@ export interface ChatState {
           }[]
         | undefined;
 }
-
-/**
- * @var initialState
- * @brief Initial state for the chat slice.
- */
-export const initialState: ChatState = {
-    chats: undefined,
-    error: null,
-    messages: undefined,
-    isDelettingChat: false,
-    isDelettingMessage: false,
-    isGettingChat: false,
-    isGettingResponse: false,
-    isGettingMessage: false,
-    isUpdattingChat: false,
-};
