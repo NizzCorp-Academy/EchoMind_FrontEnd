@@ -18,50 +18,14 @@
 import AxiosClass from "../utils/axios";
 import { login_User, register_User, get_User } from "../constance/apiConstance";
 import Cookies from "js-cookie";
+import {
+    AxiosErrorResponse,
+    ServiceResponse,
+    ServiceUser,
+} from "@/types/user.types";
+import { AxiosUserResponse } from "@/types/chat.types";
 
 AxiosClass.initializeInterceptors();
-
-/**
- * @interface AxiosErrorResponse
- * @brief Represents the structure of an error response from Axios.
- */
-interface AxiosErrorResponse {
-    status: string;
-    errorCode: string;
-    message: string;
-    error: string;
-}
-
-/**
- * @interface AxiosUserResponse
- * @brief Represents the structure of a successful user response from Axios.
- */
-interface AxiosUserResponse {
-    status: string;
-    user: {
-        username: string;
-        email: string;
-    };
-    token: string;
-}
-
-/**
- * @interface User
- * @brief Represents a user object.
- */
-interface User {
-    username: string;
-    email: string;
-}
-
-/**
- * @interface ServiceResponse
- * @brief Generic service response structure.
- */
-interface ServiceResponse<T> {
-    data?: T;
-    error?: string;
-}
 
 /**
  * @class UserService
@@ -77,7 +41,7 @@ class UserService {
         username: string;
         email: string;
         password: string;
-    }): Promise<ServiceResponse<User>> {
+    }): Promise<ServiceResponse<ServiceUser>> {
         const response = await AxiosClass.post<AxiosUserResponse>(
             register_User,
             data
@@ -88,7 +52,7 @@ class UserService {
                 (response as unknown as AxiosErrorResponse).message
             );
         }
-        Cookies.set('jwt', response.token, { expires: 15 });
+        Cookies.set("jwt", response.token, { expires: 15 });
         return {
             data: {
                 username: response.user.username,
@@ -105,12 +69,12 @@ class UserService {
     async login(data: {
         email: string;
         password: string;
-    }): Promise<ServiceResponse<User>> {
+    }): Promise<ServiceResponse<ServiceUser>> {
         const response = await AxiosClass.post<AxiosUserResponse>(
             login_User,
             data
         );
-        Cookies.set('jwt', response.token, { expires: 15 });
+        Cookies.set("jwt", response.token, { expires: 15 });
         if (response.status === "error") {
             throw new Error(
                 (response as unknown as AxiosErrorResponse).message
@@ -129,7 +93,7 @@ class UserService {
      * @brief Fetches the currently authenticated user's data.
      * @returns A Promise resolving to a ServiceResponse containing a User object or an error message.
      */
-    async getUser(): Promise<ServiceResponse<User>> {
+    async getUser(): Promise<ServiceResponse<ServiceUser>> {
         const response = await AxiosClass.get<AxiosUserResponse>(get_User);
         console.log("From Service", response);
 
