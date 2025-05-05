@@ -21,14 +21,7 @@ import { motion } from "framer-motion";
 import { PopupRecent } from "./PopupRecent";
 import { useLogout } from "../hooks/userHook";
 import { useTheme } from "next-themes";
-
-/**
- * @brief Props for the Sidebar component.
- */
-interface SidebarProps {
-    toggleSideBar: () => void;
-    isOpen: boolean;
-}
+import { SidebarProps } from "@/types/misc.types";
 
 /**
  * @brief Sidebar component for managing chat history and navigation.
