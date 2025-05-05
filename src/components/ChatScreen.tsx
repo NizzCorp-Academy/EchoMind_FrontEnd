@@ -38,7 +38,7 @@ export const ChatScreen: React.FC<{
     const { chatId } = useParams();
 
     const [prompt, setPrompt] = useState("");
-    const promptInputRef = useRef<HTMLInputElement>(null);
+    const promptInputRef = useRef<HTMLTextAreaElement>(null);
     const promptEnterButtonRef = useRef<HTMLButtonElement>(null);
     const bottomMessageRef = useRef<HTMLDivElement>(null);
 
@@ -63,7 +63,19 @@ export const ChatScreen: React.FC<{
     const handleSubmition = async () => {
         prompt !== "" && (await getResponse(prompt, chatId));
         setPrompt("");
+        if (promptInputRef.current) {
+            promptInputRef.current.style.height = "50px";
+        }
     };
+
+    // Initialize textarea height
+    useEffect(() => {
+        if (promptInputRef.current) {
+            promptInputRef.current.style.height = "auto";
+            promptInputRef.current.style.height =
+                Math.min(promptInputRef.current.scrollHeight, 150) + "px";
+        }
+    }, [prompt]);
 
     const navigate = useNavigate();
 
@@ -82,24 +94,24 @@ export const ChatScreen: React.FC<{
      * @brief Listens for 'Enter' key press on the prompt input to trigger submission.
      */
 
-    useEffect(() => {
-        const eventFuntion = async (event: KeyboardEvent) => {
-            if (event.key === "Enter") {
-                promptEnterButtonRef.current &&
-                    promptEnterButtonRef.current.click();
-            }
-        };
+    // useEffect(() => {
+    //     const eventFuntion = async (event: KeyboardEvent) => {
+    //         if (event.key === "Enter") {
+    //             promptEnterButtonRef.current &&
+    //                 promptEnterButtonRef.current.click();
+    //         }
+    //     };
 
-        promptInputRef.current &&
-            promptInputRef.current.addEventListener("keypress", (event) =>
-                eventFuntion(event)
-            );
+    //     promptInputRef.current &&
+    //         promptInputRef.current.addEventListener("keypress", (event) =>
+    //             eventFuntion(event)
+    //         );
 
-        return promptInputRef.current?.removeEventListener(
-            "keypress",
-            (event) => eventFuntion(event)
-        );
-    }, []);
+    //     return promptInputRef.current?.removeEventListener(
+    //         "keypress",
+    //         (event) => eventFuntion(event)
+    //     );
+    // }, []);
     /**
      * @brief If no chatId is present but messages exist, navigate to the first chat's route.
      */
@@ -194,8 +206,13 @@ export const ChatScreen: React.FC<{
                         <div className="flex flex-col gap-3 items-center justify-center">
                             <div className="text-2xl font-semibold flex gap-3">
                                 Hai
-                                <div className={` ${!isDark ? "bg-gradient-to-r from-vibrant-violet to-rich-purple inline-block text-transparent bg-clip-text":"text-sky-blue"}`}>
-                           
+                                <div
+                                    className={` ${
+                                        !isDark
+                                            ? "bg-gradient-to-r from-vibrant-violet to-rich-purple inline-block text-transparent bg-clip-text"
+                                            : "text-sky-blue"
+                                    }`}
+                                >
                                     {user?.username}
                                 </div>
                             </div>
@@ -220,12 +237,36 @@ export const ChatScreen: React.FC<{
             >
                 <div className="flex items-center w-full ">
                     <CirclePlus />
-                    <input
+                    {/* <input
                         ref={promptInputRef}
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
                         className="px-3 bg-transparent outline-none h-[50px] max-h-[250px]  rounded-[10px] w-full"
                         placeholder="Say Something"
+                    /> */}
+                    <textarea
+                        ref={promptInputRef}
+                        value={prompt}
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                            setPrompt(e.target.value)
+                        }
+                        onInput={(e: React.FormEvent<HTMLTextAreaElement>) => {
+                            const target = e.target as HTMLTextAreaElement;
+                            target.style.height = "auto";
+                            target.style.height =
+                                Math.min(target.scrollHeight, 150) + "px";
+                        }}
+                        onKeyDown={(
+                            e: React.KeyboardEvent<HTMLTextAreaElement>
+                        ) => {
+                            if (e.key === "Enter" && !e.shiftKey) {
+                                e.preventDefault();
+                                handleSubmition();
+                            }
+                        }}
+                        className="px-3 my-5 bg-transparent outline-none min-h-[50px] max-h-[150px] rounded-[10px] w-full resize-none overflow-y-auto py-3"
+                        placeholder="Say Something"
+                        rows={1}
                     />
                 </div>
                 <button
