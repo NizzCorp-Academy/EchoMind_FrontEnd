@@ -24,9 +24,8 @@ const ChatScreeNavBar = ({
     const isDark = theme === "dark" ? true : false;
     const bg = isDark ? "bg-dark-plum " : "bg-near-white";
     const logo = isDark
-        ? "../src/assets/logo.png"
+        ? "../src/assets/logo.webp"
         : "../src/assets/logo-black.png";
-
 
     return (
         <div
@@ -59,9 +58,7 @@ const ChatScreeNavBar = ({
                 <div
                     hidden={isOpen}
                     className={`${
-                        isDark
-                            ? "bg-granite-gray"
-                            : "bg-platinum"
+                        isDark ? "bg-granite-gray" : "bg-platinum"
                     } w-[30px] h-[30px] flex rounded-[6px] items-center justify-center  p-[1px] pl-[1.5px] pr-[1px]
           `}
                 >
@@ -78,9 +75,7 @@ const ChatScreeNavBar = ({
                     hidden={isOpen}
                     onClick={() => naviagete("/")}
                     className={`${
-                        isDark
-                            ? "bg-granite-gray"
-                            : "bg-platinum"
+                        isDark ? "bg-granite-gray" : "bg-platinum"
                     } w-[130px] h-[30px] rounded-[16px]  p-[1px] pl-[1.5px] pr-[1px]
           `}
                 >
@@ -146,7 +141,6 @@ const ChatScreeNavBar = ({
                     >
                         <div
                             className={`${bg} w-full h-full rounded-[4px] flex items-center justify-center cursor-pointer `}
-                           
                         >
                             <MdBookmarkAdd size={20} />
                         </div>

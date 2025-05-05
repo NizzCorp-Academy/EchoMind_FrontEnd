@@ -6,10 +6,10 @@ import data from "../assets/svg/data.svg";
 import timeFast from "../assets/svg/time-fast 1.svg";
 import user_speak from "../assets/svg/user-speaking 1.svg";
 import world from "../assets/svg/world.svg";
-import robo from "../assets/robo2.jpg";
+import robo from "../assets/robo2.webp";
 import { motion } from "framer-motion";
-import logo from "../assets/logo.png";
-import bottomLogo from "../assets/NizzCorp.png";
+import logo from "../assets/logo.webp";
+import bottomLogo from "../assets/nizzcorp.webp";
 
 export const LandingPage = () => {
     const navigate = useNavigate();
@@ -91,7 +91,7 @@ export const LandingPage = () => {
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.6 }}
                     >
-                        <img src="../src/assets/robo.png" width={600} />
+                        <img src="../src/assets/robo.webp" width={600} />
                     </motion.div>
                 </div>
             </div>

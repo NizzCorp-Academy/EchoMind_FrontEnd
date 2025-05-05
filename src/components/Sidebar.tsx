@@ -8,7 +8,7 @@
  * Animations are handled via Framer Motion.
  */
 import slideLogo from "../assets/svg/material-symbols-light_door-open-outline.svg";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.webp";
 import { FaCaretDown } from "react-icons/fa";
 import messageIcon from "../assets/svg/message.svg";
 import { BsThreeDotsVertical } from "react-icons/bs";
