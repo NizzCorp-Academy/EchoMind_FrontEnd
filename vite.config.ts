@@ -21,7 +21,7 @@ export default defineConfig({
   },
   server: {
     host: true,
-    allowedHosts: [".direct.labs.play-with-docker.com"]
+    allowedHosts: ["ip172-18-0-83-d0cu720l2o90009e3f20-5173.direct.labs.play-with-docker.com"]
   }
   
 });
