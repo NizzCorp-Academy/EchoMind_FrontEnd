@@ -19,4 +19,9 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./src/setup.ts",
   },
+  server: {
+    host: true,
+    allowedHosts: [".direct.labs.play-with-docker.com"]
+  }
+  
 });
