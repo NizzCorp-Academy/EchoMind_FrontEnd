@@ -1,10 +1,10 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import reducer, {
-    InitialState,
     loginUserAsync,
     registeringUserAsync,
     gettingUserAsync,
 } from "../features/user/userSlice";
+import { InitialState } from "@/types/user.types";
 vi.mock("../services/userService", () => {
     return {
         default: vi.fn().mockImplementation(() => ({

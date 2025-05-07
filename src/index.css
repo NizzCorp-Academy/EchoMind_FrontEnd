@@ -263,3 +263,21 @@
   border-radius: 10px;
 }
 
+.section-title{
+  @apply text-3xl md:text-4xl lg:text-5xl font-bold 
+}
+
+@theme {
+  --color-deep-black: #0B0C0F; 
+  --color-transparent-purple-black:#460F9E4D;
+  --color-vibrant-violet:#6E27E0;
+  --color-soft-violet:#8A4CEF;
+  --color-rich-purple:#460F9E;
+  --color-dark-plum:#29193C;
+  --color-harcoal-gray:#2B2929;
+  --color-granite-gray:#3A3A3A;
+  --color-medium-gray:#666666; 
+  --color-near-white:#FEFEFE;
+  --color-platinum:#E6E6E6;
+  --color-sky-blue:#7ABCFF;
+}

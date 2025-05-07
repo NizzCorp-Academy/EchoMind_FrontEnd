@@ -74,12 +74,13 @@ const Signup = () => {
     };
 
     return (
-        <div className="h-screen w-screen flex flex-col  items-center gap-10 bg-radial-top-left text-white py-8">
+        <div className="h-[100dvh] w-full flex flex-col  items-center gap-10 bg-radial-top-left text-white py-8">
             <LandingPageNavBar />
+            <div className="flex flex-col w-full h-full gap-6 justify-center items-center">
             <h2 className="text-3xl  font-bold">Create an account</h2>
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="max-w-3xl p-6 border border-white w-full md:w-1/2 flex flex-col gap-6 rounded-md"
+                className="max-w-3xl p-6 sm:border sm:border-white w-full md:w-1/2 flex flex-col gap-6 rounded-md"
             >
                 <div className="flex flex-col gap-2">
                     <label className=" text-xl" htmlFor="username">
@@ -116,7 +117,7 @@ const Signup = () => {
                 </div>
                 {isRegisteringUser === false ? (
                     <button
-                        className="mx-auto w-full rounded-md  text-2xl font-medium py-2 bg-linear-to-r from-[#6E27E0] to-[#460F9E]"
+                        className="mx-auto w-full rounded-md  text-2xl font-medium py-2 bg-linear-to-r from-vibrant-violet to-rich-purple"
                         type="submit"
                     >
                         Signup
@@ -136,6 +137,7 @@ const Signup = () => {
                     </span>{" "}
                 </span>
             </form>
+            </div>
         </div>
     );
 };

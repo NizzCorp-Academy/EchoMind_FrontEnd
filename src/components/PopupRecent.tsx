@@ -66,7 +66,7 @@ export function PopupRecent() {
                                     onClick={() =>
                                         navigate(`/chats/${chat._id}`)
                                     }
-                                    className="relative cursor-pointer flex items-center gap-3 h-10 pl-2 py-6 w-full rounded-md hover:bg-[#444C57] hover:border-l-4 border-[#7ABCFF] duration-300"
+                                    className="relative cursor-pointer flex items-center gap-3 h-10 pl-2 py-6 w-full rounded-md hover:bg-[#444C57] hover:border-l-4 border-sky-blue duration-300"
                                 >
                                     <img
                                         src={messageIcon}

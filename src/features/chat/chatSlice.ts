@@ -5,6 +5,7 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import ChatService from "../../services/chatService";
+import { ChatState } from "@/types/chat.types";
 
 /**
  * @interface ChatState
@@ -19,26 +20,6 @@ import ChatService from "../../services/chatService";
  * @property isGettingResponse Indicates if a chat response is being fetched.
  * @property messages List of message objects or undefined.
  */
-export interface ChatState {
-    error: any;
-    chats:
-        | { _id: string; title: string; createdAt: string; updatedAt: string }[]
-        | undefined;
-    isGettingChat: boolean;
-    isUpdattingChat: boolean;
-    isDelettingChat: boolean;
-    isGettingMessage: boolean;
-    isDelettingMessage: boolean;
-    isGettingResponse: boolean;
-    messages:
-        | {
-              isFromUser: boolean;
-              _id: string;
-              chatId: string;
-              message: string;
-          }[]
-        | undefined;
-}
 
 /**
  * @var initialState
@@ -55,10 +36,6 @@ const initialState: ChatState = {
     isGettingMessage: false,
     isUpdattingChat: false,
 };
-
-/**
- * @brief Redux slice for chat state.
- */
 export const chatSlice = createSlice({
     name: "chat",
     initialState,

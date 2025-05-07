@@ -1,0 +1,13 @@
+a{
+    text-decoration: none;
+    color: white;
+
+}
+button{
+    background-color: #6E27E0;
+    padding: .5rem;
+    color: white;
+}
+li{
+    margin-top: 2px;
+}

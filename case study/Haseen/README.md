@@ -1,0 +1,2 @@
+#### 📝 Wireframe Notes
+This **wireframe** serves as a guide for designers, outlining the key elements and sections that should be included in the Chat Screen. It also helps developers understand the structure and components of the page, ensuring that implementation aligns with design expectations. By following this layout, developers can create a well-structured and visually consistent interface.
