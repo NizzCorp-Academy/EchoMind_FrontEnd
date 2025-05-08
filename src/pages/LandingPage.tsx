@@ -6,7 +6,8 @@ import data from "../assets/svg/data.svg";
 import timeFast from "../assets/svg/time-fast 1.svg";
 import user_speak from "../assets/svg/user-speaking 1.svg";
 import world from "../assets/svg/world.svg";
-import robo from "../assets/robo2.webp";
+import robofeature from "../assets/robo2.webp";
+import robo from "../assets/robo.webp";
 import { motion } from "framer-motion";
 import logo from "../assets/logo.webp";
 import bottomLogo from "../assets/nizzcorp.webp";
@@ -92,7 +93,7 @@ export const LandingPage = () => {
                         transition={{ duration: 0.6, delay: 0.6 }}
                         className="z-10"
                     >
-                        <img src="../src/assets/robo.webp" width={600} />
+                        <img src={robo} width={600} loading="lazy" />
                     </motion.div>
                 </div>
             </div>
@@ -133,8 +134,8 @@ export const LandingPage = () => {
                         ))}
                     </div>
                     <img
-                        src={robo}
-                        alt="#"
+                        src={robofeature}
+                        alt="A robote " loading="lazy"
                         className="max-h-[800px]  object-contain"
                     />
                 </div>
