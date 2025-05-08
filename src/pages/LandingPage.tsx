@@ -90,6 +90,7 @@ export const LandingPage = () => {
                         initial={{ x: 200, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.6 }}
+                        className="z-10"
                     >
                         <img src="../src/assets/robo.webp" width={600} />
                     </motion.div>
