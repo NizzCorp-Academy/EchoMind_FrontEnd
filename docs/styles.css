@@ -1,13 +1,97 @@
-a{
-    text-decoration: none;
-    color: white;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+
+body {
+ background-color: #0e0122;
+  background-blend-mode: normal;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  padding: 2rem;
+  height: 100%;
+  font-family: "Montserrat";
+  font-weight: 400;
+margin: 0px;
+box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+section {
+  /* padding-top: 2rem; */
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+button {
+  background-color: #6e27e0;
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 8px;
+margin: 16px 0 0 0;
+}
+h1 {
+  color: #8a4cef;
+  
+}
+h2 {
+  color: #7abcff;margin: 30px 0 10px 0;
+
+  
+}
+h3{
+    margin-top: .5rem;
+    margin-bottom: 0;
+}
+li {
+  margin-top: 2px;
+}
+ul{
+padding: 0;
+}
+ul li {
+  display: flex;
+  align-items: center;
+}
+li img {
+  margin-left: 0.5rem;
 
 }
-button{
-    background-color: #6E27E0;
-    padding: .5rem;
-    color: white;
+ol{
+    padding-left: 18px;
+    margin: 0;
 }
-li{
-    margin-top: 2px;
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: solid 2px #fff;
+  background-color: rgb(0, 0, 20);
+  border-radius: 20px;
+  padding: 1rem 1.5rem;
+}
+nav ul {
+  display: flex;
+  flex-direction: row;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0%;
+}
+nav img{
+      object-fit: contain;
+  height: 30px;
+}
+nav li {
+  color: #8a4cef;
+  font-weight: 600;
+  transition: 0.2s ease-in;
+}
+nav li:hover {
+  color: #6e27e0;
+  cursor: pointer;
+}
+p{
+
 }

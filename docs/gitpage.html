@@ -2,41 +2,104 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="../src/assets/logo.webp" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../src/assets/logo-black-short.png"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#1F1C1C" />
     <title>Echomind</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <button>
-      <a
-        href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/NizzCorp-Academy/EchoMind_FrontEnd/develop/stack.yml"
-        target="_blank"
-      >
-        Run in PWD Playground
-      </a>
-    </button>
-    <h2>How to use It</h2>
-    <ol>
-      <li>Click the <strong>Run in PWD Playground</strong> button above.</li>
-      <li>Wait for the Docker Playground to load.</li>
-      <li>Log in to Docker.</li>
-      <li>Click <strong>Start</strong> to initialize the session.</li>
-      <li>Wait for the image to be pulled.</li>
-      <li>Close the Session Stack Builder tab.</li>
-      <li>
-        Click the <strong>5173</strong> button on the right side
-        <strong>Open Ports</strong>.
-      </li>
-      <li>Wait for the page to load.</li>
-    </ol>
-    <button>
-      <a href="https://echomindaichat-l0rbzngeu-hasinmmpms-projects.vercel.app/" target="_blank"> Try on Vercel </a>
-    </button>
+    <nav>
+      <img src="../src/assets/logo.png" alt="" />
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#docker">Docker</a></li>
+        <li><a href="#vercel">Vercel</a></li>
+        <li><a href="#demo">Demo</a></li>
+      </ul>
+    </nav>
+    <section>
+      <h2>Over view</h2>
+      <p>
+        The frontend of <b>EchoMind</b> is a dynamic and responsive web
+        interface designed to provide users with a seamless, intuitive chat
+        experience. Built with modern web technologies, it connects directly
+        with the AI-powered backend to deliver real-time support conversations.
+        The UI is crafted to mimic human interaction while ensuring
+        accessibility, performance, and ease of use for both customers and
+        support teams.
+      </p>
+    </section>
+    <section>
+      <h2>Tech Stack</h2>
+      <ul>
+        <li>
+          Frontend : React
+         
+        </li>
+        <li>
+          Deployment: Docker
+         
+        </li>
+      </ul>
+    </section>
+    <section class="features">
+      <h2>Features</h2>
+      <ul class="features">
+        <li>Custom Hook Architecture</li>
+        <li>Modern UI with TailwindCSS</li>
+        <li>Theming Support</li>
+        <li>Responsive Across Devices</li>
+      </ul>
+    </section>
+    <section id="docker">
+      <h2>Play With Docker</h2>
+      <button>
+        <a
+          href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/NizzCorp-Academy/EchoMind_FrontEnd/main/stack.yml"
+          target="_blank"
+        >
+          Run in PWD Playground
+        </a>
+      </button>
+      <h3>How to use It</h3>
+      <ol>
+        <li>Click the <b>Run in PWD Playground</b> button above.</li>
+        <li>Wait for the Docker Playground to load.</li>
+        <li>Log in to Docker.</li>
+        <li>Click <b>Start</b> to initialize the session.</li>
+        <li>Wait for the image to be pulled.</li>
+        <li>Close the Session Stack Builder tab.</li>
+        <li>
+          Click the <b>5173</b> button on the right side <b>Open Ports</b>.
+        </li>
+        <li>Wait for the page to load.</li>
+      </ol>
+    </section>
+    <section id="vercel">
+      <h2>Try on Vercel</h2>
+      <button>
+        <a
+          href="https://echomindaichat-l0rbzngeu-hasinmmpms-projects.vercel.app/"
+          target="_blank"
+        >
+          Try on Vercel
+        </a>
+      </button>
+    </section>
+    <section id="demo">
+      <h2>Demo video</h2>
+      <video width="400" controls>
+        <source src="./pre.webm" type="video/webm" />
+        Your browser does not support HTML video.
+      </video>
+    </section>
   </body>
 </html>

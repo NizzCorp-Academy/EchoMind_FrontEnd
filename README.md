@@ -32,7 +32,7 @@ The frontend of **EchoMind** is a dynamic and responsive web interface designed 
 
 - Haseen [HASINMMPM](https://github.com/HASINMMPM)
 - Jaseem [JASEEM-K](https://github.com/JASEEM-K)
-- Fayas [Fayas](https://github.com/fayaspv)]
+- Fayas [Fayas](https://github.com/fayaspv)
 
 # 👨‍🏫 Acknowledgements
 
