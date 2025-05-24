@@ -1,4 +1,5 @@
 # EchoMind
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e6eb93984dda4cf1acd41715537ab8de)](https://app.codacy.com/gh/NizzCorp-Academy/EchoMind_FrontEnd/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 The frontend of **EchoMind** is a dynamic and responsive web interface designed to provide users with a seamless, intuitive chat experience. Built with modern web technologies, it connects directly with the AI-powered backend to deliver real-time support conversations. The UI is crafted to mimic human interaction while ensuring accessibility, performance, and ease of use for both customers and support teams.
 
