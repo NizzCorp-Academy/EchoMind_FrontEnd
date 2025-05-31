@@ -1,4 +1,4 @@
-export const base_Url = "http://localhost:5000/api";
+export const base_Url = "https://echomind-backend-xwzr.onrender.com";
 
 export const register_User = `/auth/register`;
 export const get_User = `/user/me`;
