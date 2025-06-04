@@ -19,7 +19,7 @@ import { LandingPageNavBar } from "./LandingPageNavBar";
 const schema = yup
     .object({
         email: yup.string().email().required(),
-        password: yup.string().required(),
+        password: yup.string().required().min(6, "Password must be at least 6 characters long").max(30, "Password must be at most 30 characters long"),
     })
     .required();
 
@@ -92,6 +92,7 @@ const Login = () => {
                     </label>
                     <input
                         id="password"
+                        type="password"
                         className="bg-[#1F1C1C] p-2 rounded-md"
                         {...register("password")}
                     />
